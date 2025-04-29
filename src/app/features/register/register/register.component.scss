@@ -1,0 +1,28 @@
+.register-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+.step-sidebar {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  div {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #eaeaea;
+    cursor: default;
+
+    &.active {
+      background: #4caf50;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+.step-content {
+  flex: 1;
+}

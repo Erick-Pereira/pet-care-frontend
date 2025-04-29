@@ -1,0 +1,91 @@
+$primary-gap: 16px;
+$margin-bottom: 16px;
+$label-font-size: 15px;
+$input-padding: 12px;
+$input-font-size: 17px;
+$error-color: #e74c3c;
+$border-radius: 8px;
+$background-color: #f5f6fa; // Fundo da página
+
+.pet-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: $background-color;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 50px 40px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  background-color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 28px;
+    color: #333;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: $margin-bottom;
+
+    label {
+      font-size: $label-font-size;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      padding: $input-padding;
+      font-size: $input-font-size;
+      border: 1px solid #ccc;
+      border-radius: $border-radius;
+      transition: border-color 0.3s ease;
+      background-color: #fff;
+
+      &:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+
+      &.ng-touched.ng-invalid {
+        border-color: $error-color;
+      }
+    }
+
+    .error-message {
+      color: $error-color;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  }
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 95%;
+    padding: 30px 20px;
+  }
+
+  button {
+    width: 100%;
+    }
+  }
+}

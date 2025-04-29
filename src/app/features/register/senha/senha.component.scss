@@ -1,0 +1,127 @@
+.senha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #fff; /* Fundo branco */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #333;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .form-field {
+    width: 100%;
+    margin-bottom: 16px;
+    position: relative;
+
+    label {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      input {
+        flex: 1;
+        width: 100%;
+        padding: 12px 40px 12px 12px; /* Espaço para o ícone */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background: #f9f9f9; /* Fundo do input mais suave */
+
+        &:focus {
+          border-color: #007bff; /* Cor azul no foco */
+          outline: none;
+          box-shadow: 0 0 6px rgba(0, 123, 255, 0.5); /* Sombra azul clara */
+        }
+
+        &.ng-touched.ng-invalid {
+          border-color: #ff4c4c;
+        }
+      }
+
+      .toggle-password-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: #999;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #007bff;
+        }
+
+        &:focus {
+          outline: none;
+          color: #007bff;
+        }
+      }
+    }
+
+    .error-message {
+      color: #ff4c4c;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+
+  button {
+    padding: 12px;
+    width: 100%;
+    background-color: #007bff; /* Cor de fundo do botão */
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra no botão */
+
+    &:hover {
+      background-color: #0056b3; /* Cor mais escura quando passar o mouse */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .senha-container {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+}
