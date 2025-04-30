@@ -36,6 +36,10 @@ export class DadosPessoaisComponent implements OnInit {
     return null;
   }
 
+  onCancel(): void {
+    this.form.reset();
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       console.log('Dados:', this.form.value);

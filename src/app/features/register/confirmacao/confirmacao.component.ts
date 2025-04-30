@@ -4,11 +4,16 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-confirmacao',
   templateUrl: './confirmacao.component.html',
+  styleUrls: ['./confirmacao.component.scss']
 })
 export class ConfirmacaoComponent {
   @Input() dadosPessoaisForm!: FormGroup;
   @Input() dadosPetForm!: FormGroup;
   @Input() senhaForm!: FormGroup;
+
+  
+  @Input() voltar!: () => void;
+  @Input() concluir!: () => void;
 
   confirmarRegistro(): void {
     const dadosCompletos = {
@@ -17,6 +22,5 @@ export class ConfirmacaoComponent {
       senha: this.senhaForm.value.senha,
     };
     console.log('📦 Dados enviados:', dadosCompletos);
-    // Aqui você pode enviar os dados para o backend via service
   }
 }

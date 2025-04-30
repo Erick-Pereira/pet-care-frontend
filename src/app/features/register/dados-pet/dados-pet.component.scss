@@ -5,7 +5,7 @@ $input-padding: 12px;
 $input-font-size: 17px;
 $error-color: #e74c3c;
 $border-radius: 8px;
-$background-color: #f5f6fa; // Fundo da página
+$background-color: #f5f6fa; 
 
 .pet-container {
   display: flex;
@@ -61,7 +61,7 @@ $background-color: #f5f6fa; // Fundo da página
       background-color: #fff;
 
       &:focus {
-        border-color: #3498db;
+        border-color: #4caf50;
         outline: none;
       }
 

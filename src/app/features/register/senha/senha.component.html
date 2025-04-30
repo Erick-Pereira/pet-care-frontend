@@ -1,4 +1,6 @@
-<div class="senha-container">
+<form [formGroup]="senhaForm" (ngSubmit)="onSubmit()" class="senha-container">
+
+  <!-- Senha -->
   <div class="form-field">
     <label for="senha">Senha</label>
     <div class="input-wrapper">
@@ -24,6 +26,7 @@
     </div>
   </div>
 
+  <!-- Confirmar Senha -->
   <div class="form-field">
     <label for="confirmarSenha">Confirmar Senha</label>
     <div class="input-wrapper">
@@ -48,4 +51,10 @@
       Confirmação inválida.
     </div>
   </div>
-</div>
+
+  <!-- Botão Próximo -->
+  <div class="form-buttons">
+    <button type="submit" class="btn-submit">Próximo</button>
+  </div>
+  
+</form>
