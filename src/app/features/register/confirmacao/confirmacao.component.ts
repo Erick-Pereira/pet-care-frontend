@@ -5,16 +5,11 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-confirmacao',
   templateUrl: './confirmacao.component.html',
   styleUrls: ['./confirmacao.component.scss']
-  styleUrls: ['./confirmacao.component.scss']
 })
 export class ConfirmacaoComponent {
   @Input() dadosPessoaisForm!: FormGroup;
   @Input() dadosPetForm!: FormGroup;
   @Input() senhaForm!: FormGroup;
-
-  
-  @Input() voltar!: () => void;
-  @Input() concluir!: () => void;
 
   @Output() concluir: EventEmitter<void> = new EventEmitter<void>();
   @Output() voltarEtapa: EventEmitter<void> = new EventEmitter<void>();
