@@ -1,37 +1,30 @@
-import { Component } from '@angular/core';
-import { RegisterData } from './register-data.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
-  etapaAtual = 1;
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  etapaAtual = 1;  
 
-  formData: RegisterData = {
-    nome: '',
-    email: '',
-    cpf: '',
-    telefone: '',
-    celular: '',
-    cep: '',
-    endereco: '',
-    numero: '',
-    complemento: '',
-    bairro: '',
-    uf: '',
-    cidade: '',
-
-    nomePet: '',
-    especie: '',
-    raca: '',
-    idade: 0,
-
-    senha: '',
-    confirmarSenha: ''
-  };
-
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.registerForm = this.fb.group({
+      nome: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      petNome: ['', [Validators.required]],
+      petTipo: ['', [Validators.required]],
+      senha: ['', [Validators.required]],
+      confirmarSenha: ['', [Validators.required]]
+    });
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  
   irParaProximaEtapa(): void {
     if (this.etapaAtual < 4) {
       this.etapaAtual++;
@@ -44,8 +37,9 @@ export class RegisterComponent {
     }
   }
 
-  concluirCadastro(): void {
-    console.log('Dados do formulário:', this.formData);
-    alert('Cadastro concluído!');
+  onSubmit(): void {
+    if (this.registerForm.valid) {
+      console.log('Formulário submetido', this.registerForm.value);
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dados-pessoais',
@@ -8,37 +8,34 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 })
 export class DadosPessoaisComponent implements OnInit {
   form!: FormGroup;
+  etapaAtual = 1;
+
+  @Output() next: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       nome: ['', Validators.required],
-      cpf: ['', [Validators.required, this.cpfValidator]],
+      cpf: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', [Validators.pattern(/^(\(\d{2}\))? \d{4}-\d{4}$/)]],
-      celular: ['', [Validators.required, Validators.pattern(/^(\(\d{2}\))? \d{9}$/)]],
-      cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
+      telefone: [''],
+      celular: ['', Validators.required],
+      cep: [''],
       endereco: ['', Validators.required],
       numero: ['', Validators.required],
       complemento: [''],
       bairro: ['', Validators.required],
       uf: ['', Validators.required],
-      cidade: ['', Validators.required]
+      cidade: ['']
     });
-  }
-
-  cpfValidator(control: AbstractControl): ValidationErrors | null {
-    const cpfPattern = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-    if (control.value && !cpfPattern.test(control.value)) {
-      return { 'cpfInvalid': true };
-    }
-    return null;
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      console.log('Dados:', this.form.value);
+      console.log('Dados pessoais válidos:', this.form.value);
+      this.etapaAtual = 2;
+      this.next.emit();  
     } else {
       this.form.markAllAsTouched();
     }

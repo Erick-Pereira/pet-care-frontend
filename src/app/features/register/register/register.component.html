@@ -1,29 +1,25 @@
-<div class="register-container container py-5">
-  
-  <form class="w-75 mx-auto">
-    <!-- Etapa 1: Dados Pessoais -->
+<div class="register-container">
+  <form class="register-form">
+
     <app-dados-pessoais *ngIf="etapaAtual === 1"></app-dados-pessoais>
 
-    <!-- Etapa 2: Dados do Pet -->
+   
     <app-dados-pet *ngIf="etapaAtual === 2"></app-dados-pet>
 
-    <!-- Etapa 3: Senha -->
     <app-senha *ngIf="etapaAtual === 3"></app-senha>
 
-    <!-- Etapa 4: Confirmação -->
     <app-confirmacao *ngIf="etapaAtual === 4"></app-confirmacao>
 
-    <!-- Botões de navegação -->
-    <div class="d-flex justify-content-between mt-4">
-      <button type="button" class="btn btn-secondary" (click)="voltarEtapa()" [disabled]="etapaAtual === 1">
+    <div class="buttons">
+      <button type="button" class="btn-prev" (click)="voltarEtapa()" [disabled]="etapaAtual === 1">
         Voltar
       </button>
 
-      <button type="button" class="btn btn-success" *ngIf="etapaAtual < 4" (click)="irParaProximaEtapa()">
+      <button type="button" class="btn-next" *ngIf="etapaAtual < 4" (click)="irParaProximaEtapa()">
         Próximo
       </button>
 
-      <button type="submit" class="btn btn-primary w-100" *ngIf="etapaAtual === 4">
+      <button type="submit" class="btn-submit" *ngIf="etapaAtual === 4">
         Concluir
       </button>
     </div>

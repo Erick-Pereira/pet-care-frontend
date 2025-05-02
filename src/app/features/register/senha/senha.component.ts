@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-senha',
@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./senha.component.scss']
 })
 export class SenhaComponent {
+  @Output() prev = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
+
   senhaForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
@@ -18,24 +21,35 @@ export class SenhaComponent {
     }, { validators: this.passwordsMatchValidator });
   }
 
+  /** Alterna visibilidade do campo "senha" */
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 
+  /** Alterna visibilidade do campo "confirmarSenha" */
   toggleConfirmPasswordVisibility(): void {
     this.hideConfirmPassword = !this.hideConfirmPassword;
   }
 
-  passwordsMatchValidator(form: FormGroup) {
-    const senha = form.get('senha')?.value;
-    const confirmarSenha = form.get('confirmarSenha')?.value;
-    return senha === confirmarSenha ? null : { mustMatch: true };
+  /** Validação cross-field: senha e confirmação devem ser iguais */
+  private passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const senha = group.get('senha')?.value;
+    const confirmar = group.get('confirmarSenha')?.value;
+    return senha && confirmar && senha !== confirmar
+      ? { mustMatch: true }
+      : null;
   }
 
+  /** Navega para a etapa anterior */
+  voltar(): void {
+    this.prev.emit();
+  }
+
+  /** Quando o formulário for válido, avança para a próxima etapa */
   onSubmit(): void {
     if (this.senhaForm.valid) {
       console.log('Senha salva:', this.senhaForm.value);
-      // Aqui você pode enviar o formulário para o backend, etc.
+      this.next.emit();
     } else {
       this.senhaForm.markAllAsTouched();
     }

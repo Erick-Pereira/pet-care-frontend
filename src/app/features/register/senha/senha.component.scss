@@ -1,127 +1,172 @@
+// Variáveis (idem aos outros passos)
+$input-padding: 12px;
+$input-font-size: 17px;
+$error-color: #e74c3c;
+$border-radius: 12px;
+$background-color: #f5f6fa;
+$button-color: #4caf50;
+$button-hover: #43a047;
+$button-active: #388e3c;
+$text-dark: #2c3e50;
+$text-medium: #555;
+
+// Container principal — mesmo de dados-pessoais/dados-pet
 .senha-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 800px;
-  padding: 20px;
+  background-color: $background-color;
   box-sizing: border-box;
-  background: #fff; /* Fundo branco */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  min-height: 100vh;
+  padding: 20px;
 
-  h2 {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 24px;
-    color: #333;
-  }
-
-  form {
+  // Wrapping do formulário — idêntico ao .form-container das outras etapas
+  .form-container {
     width: 100%;
-  }
-
-  .form-field {
-    width: 100%;
-    margin-bottom: 16px;
-    position: relative;
-
-    label {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .input-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      input {
-        flex: 1;
-        width: 100%;
-        padding: 12px 40px 12px 12px; /* Espaço para o ícone */
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        background: #f9f9f9; /* Fundo do input mais suave */
-
-        &:focus {
-          border-color: #007bff; /* Cor azul no foco */
-          outline: none;
-          box-shadow: 0 0 6px rgba(0, 123, 255, 0.5); /* Sombra azul clara */
-        }
-
-        &.ng-touched.ng-invalid {
-          border-color: #ff4c4c;
-        }
-      }
-
-      .toggle-password-btn {
-        position: absolute;
-        right: 12px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        color: #999;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: #007bff;
-        }
-
-        &:focus {
-          outline: none;
-          color: #007bff;
-        }
-      }
-    }
-
-    .error-message {
-      color: #ff4c4c;
-      font-size: 12px;
-      margin-top: 4px;
-    }
-  }
-
-  button {
-    padding: 12px;
-    width: 100%;
-    background-color: #007bff; /* Cor de fundo do botão */
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra no botão */
+    max-width: 800px;
+    padding: 50px 40px;
+    border-radius: $border-radius;
+    background-color: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
 
     &:hover {
-      background-color: #0056b3; /* Cor mais escura quando passar o mouse */
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      transform: translateY(-8px);
     }
 
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-      box-shadow: none;
+    h2 {
+      text-align: center;
+      margin-bottom: 32px;
+      font-size: 30px;
+      color: $text-dark;
+      font-weight: 600;
+    }
+
+    // Cada campo
+    .form-field {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: $text-dark;
+        font-weight: 500;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 100%;
+          padding: $input-padding;
+          padding-right: 44px;
+          font-size: $input-font-size;
+          border: 1px solid #ccc;
+          border-radius: $border-radius;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          background-color: #fff;
+          color: $text-dark;
+
+          &:focus {
+            border-color: $error-color;
+            box-shadow: 0 0 6px rgba(231, 76, 60, 0.4);
+            outline: none;
+          }
+
+          &.ng-touched.ng-invalid {
+            border-color: $error-color;
+          }
+        }
+
+        i {
+          position: absolute;
+          right: 12px;
+          cursor: pointer;
+          font-size: 18px;
+          color: $text-medium;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: $error-color;
+          }
+        }
+      }
+
+      .error-message {
+        color: $error-color;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+    }
+
+    // Botões de navegação idênticos às outras etapas
+    .botoes {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      &:has(button:only-child) {
+        justify-content: center;
+      }
+
+      button {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: $border-radius;
+        background-color: $button-color;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+          background-color: $button-hover;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+          background-color: $button-active;
+          transform: translateY(0);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+      }
     }
   }
 }
 
-/* Responsividade */
+// Responsividade (idem)
 @media (max-width: 768px) {
   .senha-container {
     padding: 10px;
-    width: 100%;
   }
 
-  .form-field {
+  .form-container {
+    max-width: 95%;
+    padding: 30px 20px;
+  }
+
+  .form-field label {
+    font-size: 14px;
+  }
+
+  .form-field input {
+    font-size: 14px;
+    padding: 10px 36px 10px 10px;
+  }
+
+  .form-field i {
+    font-size: 16px;
+  }
+
+  .botoes button {
     width: 100%;
   }
 }

@@ -1,107 +1,121 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
-  <h2 class="centralizado">Insira os Dados Pessoais</h2>
+<!-- Etapa 1: Formulário de Dados Pessoais -->
+<div *ngIf="etapaAtual === 1">
+  <div class="dados-pessoais-container">
+    <div class="form-container" [formGroup]="form">
+      <h2>Insira os Dados Pessoais</h2>
 
-  <div class="row">
-    <div class="form-group col-md-6">
-      <label for="nome">Nome</label>
-      <input id="nome" type="text" formControlName="nome" class="form-control" />
-    <div *ngIf="form.get('nome')?.touched && form.get('nome')?.invalid" class="error-message">
-      <small *ngIf="form.get('nome')?.hasError('required')">Nome é obrigatório.</small>
-    </div>
-  </div>
+      <!-- Nome e CPF -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" formControlName="nome" class="form-control" />
+          <div *ngIf="form.get('nome')?.touched && form.get('nome')?.invalid" class="error-message">
+            <small *ngIf="form.get('nome')?.hasError('required')">Nome é obrigatório.</small>
+          </div>
+        </div>
 
-  <div class="form-group col-md-6">
-    <label for="cpf">CPF</label>
-    <input id="cpf" type="text" formControlName="cpf" class="form-control" />
-  <div *ngIf="form.get('cpf')?.touched && form.get('cpf')?.invalid" class="error-message">
-    <small *ngIf="form.get('cpf')?.hasError('required')">CPF é obrigatório.</small>
-    </div>
-  </div>
-</div>
+        <div class="form-group col-md-6">
+          <label for="cpf">CPF</label>
+          <input id="cpf" type="text" formControlName="cpf" class="form-control" />
+          <div *ngIf="form.get('cpf')?.touched && form.get('cpf')?.invalid" class="error-message">
+            <small *ngIf="form.get('cpf')?.hasError('required')">CPF é obrigatório.</small>
+          </div>
+        </div>
+      </div>
 
-<!-- Email e Telefone -->
-<div class="row">
-  <div class="form-group col-md-6">
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email" class="form-control" />
-  <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error-message">
-    <small *ngIf="form.get('email')?.hasError('required')">Email é obrigatório.</small>
-    <small *ngIf="form.get('email')?.hasError('email')">Formato de email inválido.</small>
-  </div>
-</div>
+      <!-- Email e Telefone -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" class="form-control" />
+          <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error-message">
+            <small *ngIf="form.get('email')?.hasError('required')">Email é obrigatório.</small>
+            <small *ngIf="form.get('email')?.hasError('email')">Formato de email inválido.</small>
+          </div>
+        </div>
 
-  <div class="form-group col-md-6">
-    <label for="telefone">Telefone</label>
-    <input id="telefone" formControlName="telefone" type="text" class="form-control" />
-  </div>
-</div>
+        <div class="form-group col-md-6">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" formControlName="telefone" type="text" class="form-control" />
+        </div>
+      </div>
 
-<!-- Celular e CEP -->
-<div class="row">
-  <div class="form-group col-md-6">
-    <label for="celular">Celular</label>
-    <input id="celular" formControlName="celular" type="text" class="form-control" />
-  <div *ngIf="form.get('celular')?.touched && form.get('celular')?.invalid" class="error-message">
-    <small *ngIf="form.get('celular')?.hasError('required')">Celular é obrigatório.</small>
-  </div>
-</div>
+      <!-- Celular e CEP -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="celular">Celular</label>
+          <input id="celular" formControlName="celular" type="text" class="form-control" />
+          <div *ngIf="form.get('celular')?.touched && form.get('celular')?.invalid" class="error-message">
+            <small *ngIf="form.get('celular')?.hasError('required')">Celular é obrigatório.</small>
+          </div>
+        </div>
 
-  <div class="form-group col-md-6">
-    <label for="cep">CEP</label>
-    <input id="cep" formControlName="cep" type="text" class="form-control" />
-  </div>
-</div>
+        <div class="form-group col-md-6">
+          <label for="cep">CEP</label>
+          <input id="cep" formControlName="cep" type="text" class="form-control" />
+        </div>
+      </div>
 
-<!-- Endereço e Número -->
-<div class="row">
-  <div class="form-group col-md-6">
-    <label for="endereco">Endereço</label>
-    <input id="endereco" formControlName="endereco" type="text" class="form-control" />
-  <div *ngIf="form.get('endereco')?.touched && form.get('endereco')?.invalid" class="error-message">
-    <small *ngIf="form.get('endereco')?.hasError('required')">Endereço é obrigatório.</small>
-  </div>
-</div>
+      <!-- Endereço e Número -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="endereco">Endereço</label>
+          <input id="endereco" formControlName="endereco" type="text" class="form-control" />
+          <div *ngIf="form.get('endereco')?.touched && form.get('endereco')?.invalid" class="error-message">
+            <small *ngIf="form.get('endereco')?.hasError('required')">Endereço é obrigatório.</small>
+          </div>
+        </div>
 
-  <div class="form-group col-md-6">
-    <label for="numero">Número</label>
-    <input id="numero" formControlName="numero" type="text" class="form-control" />
-  <div *ngIf="form.get('numero')?.touched && form.get('numero')?.invalid" class="error-message">
-    <small *ngIf="form.get('numero')?.hasError('required')">Número é obrigatório.</small>
-    </div>
-  </div>
-</div>
+        <div class="form-group col-md-6">
+          <label for="numero">Número</label>
+          <input id="numero" formControlName="numero" type="text" class="form-control" />
+          <div *ngIf="form.get('numero')?.touched && form.get('numero')?.invalid" class="error-message">
+            <small *ngIf="form.get('numero')?.hasError('required')">Número é obrigatório.</small>
+          </div>
+        </div>
+      </div>
 
-<!-- Complemento e Bairro -->
-<div class="row">
-  <div class="form-group col-md-6">
-    <label for="complemento">Complemento</label>
-    <input id="complemento" formControlName="complemento" type="text" class="form-control" />
-  </div>
+      <!-- Complemento e Bairro -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="complemento">Complemento</label>
+          <input id="complemento" formControlName="complemento" type="text" class="form-control" />
+        </div>
 
-  <div class="form-group col-md-6">
-    <label for="bairro">Bairro</label>
-    <input id="bairro" formControlName="bairro" type="text" class="form-control" />
-  <div *ngIf="form.get('bairro')?.touched && form.get('bairro')?.invalid" class="error-message">
-    <small *ngIf="form.get('bairro')?.hasError('required')">Bairro é obrigatório.</small>
+        <div class="form-group col-md-6">
+          <label for="bairro">Bairro</label>
+          <input id="bairro" formControlName="bairro" type="text" class="form-control" />
+          <div *ngIf="form.get('bairro')?.touched && form.get('bairro')?.invalid" class="error-message">
+            <small *ngIf="form.get('bairro')?.hasError('required')">Bairro é obrigatório.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- UF e Cidade -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="uf">UF</label>
+          <input id="uf" formControlName="uf" type="text" class="form-control" />
+          <div *ngIf="form.get('uf')?.touched && form.get('uf')?.invalid" class="error-message">
+            <small *ngIf="form.get('uf')?.hasError('required')">UF é obrigatório.</small>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="cidade">Cidade</label>
+          <input id="cidade" formControlName="cidade" type="text" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Botão -->
+      <div class="botoes">
+        <button type="button" (click)="onSubmit()">Próximo</button>
       </div>
     </div>
   </div>
-
-<!-- UF e Cidade -->
-<div class="row">
-  <div class="form-group col-md-6">
-    <label for="uf">UF</label>
-    <input id="uf" formControlName="uf" type="text" class="form-control" />
-  <div *ngIf="form.get('uf')?.touched && form.get('uf')?.invalid" class="error-message">
-    <small *ngIf="form.get('uf')?.hasError('required')">UF é obrigatório.</small>
-  </div>
 </div>
 
-  <div class="form-group col-md-6">
-    <label for="cidade">Cidade</label>
-    <input id="cidade" formControlName="cidade" type="text" class="form-control" />
-  <div *ngIf="form.get('cidade')?.touched && form.get('cidade')?.invalid" class="error-message">
-    <small *ngIf="form.get('cidade')?.hasError('required')">Cidade é obrigatória.</small>
-    </div>
-  </div>
+<!-- Etapa 2: Próxima etapa -->
+<div *ngIf="etapaAtual === 2" class="etapa-dois">
 </div>
+

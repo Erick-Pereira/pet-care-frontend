@@ -51,7 +51,7 @@ describe('DadosPessoaisComponent', () => {
     fixture.detectChanges();
 
     const cpfInput = fixture.debugElement.query(By.css('#cpf')).nativeElement;
-    cpfInput.value = '12345678900';
+    cpfInput.value = '123.456.789-00';
     cpfInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -61,12 +61,12 @@ describe('DadosPessoaisComponent', () => {
     fixture.detectChanges();
 
     const celularInput = fixture.debugElement.query(By.css('#celular')).nativeElement;
-    celularInput.value = '999999999';
+    celularInput.value = '(99) 99999-9999';
     celularInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
     const cepInput = fixture.debugElement.query(By.css('#cep')).nativeElement;
-    cepInput.value = '12345678';
+    cepInput.value = '12345-678';
     cepInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -96,7 +96,6 @@ describe('DadosPessoaisComponent', () => {
     fixture.detectChanges();
 
     // Agora, o formulário está preenchido com valores simulados pelo usuário
-
     const form = fixture.debugElement.query(By.css('form'));
     form.triggerEventHandler('ngSubmit', null);
 
@@ -119,10 +118,28 @@ describe('DadosPessoaisComponent', () => {
     expect(submitButton.disabled).toBeTrue();
 
     component.form.get('nome')?.setValue('John Doe');
-    component.form.get('cpf')?.setValue('12345678900');
+    component.form.get('cpf')?.setValue('123.456.789-00');
     component.form.get('email')?.setValue('john.doe@example.com');
     fixture.detectChanges();
 
     expect(submitButton.disabled).toBeFalse();
+  });
+
+  it('should emit next event when form is valid and "Próximo" button is clicked', () => {
+    const nomeInput = fixture.debugElement.query(By.css('#nome')).nativeElement;
+    nomeInput.value = 'John Doe';
+    nomeInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    const cpfInput = fixture.debugElement.query(By.css('#cpf')).nativeElement;
+    cpfInput.value = '123.456.789-00';
+    cpfInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
+    spyOn(component.next, 'emit');  
+    submitButton.click();
+
+    expect(component.next.emit).toHaveBeenCalled();
   });
 });

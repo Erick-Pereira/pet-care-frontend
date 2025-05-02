@@ -1,28 +1,64 @@
-.register-wrapper {
-  display: flex;
-  gap: 2rem;
+/* ZERA completamente a aparência de container */
+.register-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.step-sidebar {
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  div {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: #eaeaea;
-    cursor: default;
-
-    &.active {
-      background: #4caf50;
-      color: white;
-      font-weight: bold;
-    }
-  }
+/* Estilização base do formulário */
+.register-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
 }
 
-.step-content {
+/* Botões e layout */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+button {
   flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Botão Voltar */
+.btn-prev {
+  background-color: #28a745;
+  color: white;
+}
+.btn-prev:hover {
+  background-color: #218838;
+}
+
+/* Botão Próximo */
+.btn-next {
+  background-color: #28a745;
+  color: white;
+}
+.btn-next:hover {
+  background-color: #218838;
+}
+
+/* Botão Concluir */
+.btn-submit {
+  background-color: #218838;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+}
+.btn-submit:hover {
+  background-color: #1e7e34;
 }

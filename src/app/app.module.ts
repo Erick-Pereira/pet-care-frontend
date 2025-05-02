@@ -8,7 +8,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
-import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +21,6 @@ import { ConfirmacaoComponent } from './features/register/confirmacao/confirmaca
     AppComponent,
     AboutComponent,
     HomeComponent,
-    ServicesComponent,
     LoginComponent,
     RegisterComponent,
     DadosPessoaisComponent,
@@ -38,6 +36,7 @@ import { ConfirmacaoComponent } from './features/register/confirmacao/confirmaca
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],
