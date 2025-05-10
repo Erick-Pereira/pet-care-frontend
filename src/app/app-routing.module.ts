@@ -10,6 +10,7 @@ import { DadosPetComponent } from './features/register/dados-pet/dados-pet.compo
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/perfil-list/perfil-list.component';
 import { PerfilCardComponent } from './features/perfil-card/perfil-card.component';
+import { PerfilCreateComponent} from './features/perfil-create/perfil-create.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'DadosPet', component: DadosPetComponent },
   { path: 'Perfil', component: PerfilComponent},
   { path: 'PerfilList', component: PerfilListComponent },
-  { path: 'PerfilCard', component: PerfilCardComponent }
+  { path: 'PerfilCard', component: PerfilCardComponent },
+  { path: 'PerfilCreate', component: PerfilCreateComponent }
 
 ];
 @NgModule({
