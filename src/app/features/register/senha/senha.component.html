@@ -3,7 +3,7 @@
     <h2>Senha</h2>
 
     <form [formGroup]="senhaForm" (ngSubmit)="onSubmit()" novalidate>
-      <!-- Campo Senha -->
+
       <div class="form-field">
         <label for="senha">Senha</label>
         <div class="input-wrapper">
@@ -34,7 +34,6 @@
         </div>
       </div>
 
-      <!-- Campo Confirmar Senha -->
       <div class="form-field">
         <label for="confirmarSenha">Confirmar Senha</label>
         <div class="input-wrapper">
@@ -65,16 +64,10 @@
         </div>
       </div>
 
-      <!-- Botões de Navegação -->
       <div class="botoes">
         <button type="button" (click)="voltar()">Voltar</button>
         <button type="submit" [disabled]="senhaForm.invalid">Próximo</button>
       </div>
     </form>
-  </div>
-
-  <!-- Botão Próximo -->
-  <div class="form-buttons">
-    <button type="submit" class="btn-submit">Próximo</button>
   </div>
 </div>

@@ -29,4 +29,5 @@ export interface RegisterModel {
   dadosPessoais: DadosPessoais;
   dadosPet: DadosPet;
   senha: Senha;
+  FormGroup:string;
 }

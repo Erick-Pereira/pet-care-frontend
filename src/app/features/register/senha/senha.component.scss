@@ -1,35 +1,19 @@
-// Variáveis (idem aos outros passos)
-$input-padding: 12px;
-$input-font-size: 17px;
-$error-color: #e74c3c;
-$border-radius: 12px;
-$background-color: #f5f6fa;
-$button-color: #4caf50;
-$button-hover: #43a047;
-$button-active: #388e3c;
-$text-dark: #2c3e50;
-$text-medium: #555;
-
-// Container principal — mesmo de dados-pessoais/dados-pet
 .senha-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $background-color;
-  box-sizing: border-box;
+  background-color: #f4f7fb;
   min-height: 100vh;
   padding: 20px;
 
-  // Wrapping do formulário — idêntico ao .form-container das outras etapas
   .form-container {
     width: 100%;
     max-width: 800px;
-    padding: 50px 40px;
-    border-radius: $border-radius;
+    padding: 40px 30px;
     background-color: #fff;
+    border-radius: 8px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    box-sizing: border-box;
 
     &:hover {
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
@@ -38,13 +22,12 @@ $text-medium: #555;
 
     h2 {
       text-align: center;
-      margin-bottom: 32px;
-      font-size: 30px;
-      color: $text-dark;
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #333;
       font-weight: 600;
     }
 
-    // Cada campo
     .form-field {
       margin-bottom: 20px;
 
@@ -52,7 +35,7 @@ $text-medium: #555;
         display: block;
         margin-bottom: 8px;
         font-size: 16px;
-        color: $text-dark;
+        color: #555;
         font-weight: 500;
       }
 
@@ -63,23 +46,20 @@ $text-medium: #555;
 
         input {
           width: 100%;
-          padding: $input-padding;
-          padding-right: 44px;
-          font-size: $input-font-size;
+          padding: 12px 15px;
+          font-size: 16px;
           border: 1px solid #ccc;
-          border-radius: $border-radius;
+          border-radius: 8px;
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
-          background-color: #fff;
-          color: $text-dark;
 
           &:focus {
-            border-color: $error-color;
-            box-shadow: 0 0 6px rgba(231, 76, 60, 0.4);
+            border-color: #43a047;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
             outline: none;
           }
 
           &.ng-touched.ng-invalid {
-            border-color: $error-color;
+            border-color: #e74c3c;
           }
         }
 
@@ -88,52 +68,46 @@ $text-medium: #555;
           right: 12px;
           cursor: pointer;
           font-size: 18px;
-          color: $text-medium;
+          color: #888;
           transition: color 0.2s ease;
 
           &:hover {
-            color: $error-color;
+            color: #43a047;
           }
         }
       }
 
       .error-message {
-        color: $error-color;
-        font-size: 13px;
-        margin-top: 6px;
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 5px;
       }
     }
 
-    // Botões de navegação idênticos às outras etapas
     .botoes {
-      margin-top: 32px;
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 16px;
-
-      &:has(button:only-child) {
-        justify-content: center;
-      }
 
       button {
         padding: 12px 24px;
         font-size: 16px;
-        border-radius: $border-radius;
-        background-color: $button-color;
+        border-radius: 8px;
+        background-color: #43a047;
         color: white;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
 
         &:hover {
-          background-color: $button-hover;
+          background-color: #43a047;
           transform: translateY(-2px);
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         &:active {
-          background-color: $button-active;
+          background-color: #1f5f7a;
           transform: translateY(0);
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         }
@@ -142,7 +116,6 @@ $text-medium: #555;
   }
 }
 
-// Responsividade (idem)
 @media (max-width: 768px) {
   .senha-container {
     padding: 10px;
@@ -159,7 +132,6 @@ $text-medium: #555;
 
   .form-field input {
     font-size: 14px;
-    padding: 10px 36px 10px 10px;
   }
 
   .form-field i {

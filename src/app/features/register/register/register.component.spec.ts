@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { RegisterComponent } from './register.component';
+import { Router } from '@angular/router';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -10,25 +11,16 @@ describe('RegisterComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
       imports: [ ReactiveFormsModule ],
-      providers: [ FormBuilder ]
-    })
-    .compileComponents();
+      providers: [
+        FormBuilder,
+        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } }
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-
-    if (!component.registerForm) {
-      const fb = TestBed.inject(FormBuilder);
-      component.registerForm = fb.group({
-        nome: [''],
-        email: [''],
-        senha: [''],
-        confirmarSenha: ['']
-      });
-    }
-
     fixture.detectChanges();
   });
 
@@ -37,39 +29,74 @@ describe('RegisterComponent', () => {
   });
 
   it('deve ter um formulário inválido inicialmente', () => {
-    expect(component.registerForm.valid).toBeFalse();
+    expect(component.FormGroup.valid).toBeFalse();
   });
 
   it('deve tornar o formulário válido quando os dados forem preenchidos corretamente', () => {
-    component.registerForm.setValue({
-      nome: 'João',
-      email: 'joao@example.com',
-      senha: '123456',
-      confirmarSenha: '123456'
+    component.FormGroup.setValue({
+      dadosPessoais: {
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        celular: '',
+        cep: '',
+        endereco: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        uf: '',
+        cidade: ''
+      },
+      dadosPet: {
+        petNome: '',
+        petTipo: ''
+      },
+      senha: {
+        senha: '',
+        confirmarSenha: ''
+      }
     });
-    expect(component.registerForm.valid).toBeTrue();
+
+    expect(component.FormGroup.valid).toBeTrue();
   });
 
-  it('deve mostrar mensagem de erro quando os campos obrigatórios não forem preenchidos', () => {
-    component.registerForm.setValue({
-      nome: '',
-      email: '',
-      senha: '',
-      confirmarSenha: ''
-    });
-    expect(component.registerForm.invalid).toBeTrue();
+  it('deve marcar todos os campos como tocados quando o formulário for inválido', () => {
+    spyOn(component.FormGroup, 'markAllAsTouched');
+    component.onSubmit();
+    expect(component.FormGroup.markAllAsTouched).toHaveBeenCalled();
   });
 
-  it('deve chamar onSubmit quando o formulário for válido', () => {
-    spyOn(component, 'onSubmit');
-    component.registerForm.setValue({
-      nome: 'João',
-      email: 'joao@example.com',
-      senha: '123456',
-      confirmarSenha: '123456'
+  it('deve redirecionar para /login após o envio do formulário válido', () => {
+    const router = TestBed.inject(Router);
+
+    component.FormGroup.setValue({
+      dadosPessoais: {
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        celular: '',
+        cep: '',
+        endereco: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        uf: '',
+        cidade: ''
+      },
+      dadosPet: {
+        petNome: '',
+        petTipo: ''
+      },
+      senha: {
+        senha: '',
+        confirmarSenha: ''
+      }
     });
 
-    fixture.nativeElement.querySelector('form')?.dispatchEvent(new Event('submit'));
-    expect(component.onSubmit).toHaveBeenCalled();
+    component.onSubmit();
+
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 });

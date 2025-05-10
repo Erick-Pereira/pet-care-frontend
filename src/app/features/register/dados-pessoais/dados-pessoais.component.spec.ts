@@ -10,13 +10,13 @@ describe('DadosPessoaisComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ DadosPessoaisComponent ],
-      imports: [ReactiveFormsModule]
+      imports: [ReactiveFormsModule] // Importando ReactiveFormsModule para utilizar o FormGroup
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(DadosPessoaisComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.detectChanges(); 
   });
 
   it('should create the component', () => {
@@ -24,122 +24,87 @@ describe('DadosPessoaisComponent', () => {
   });
 
   it('should create a form with 12 controls', () => {
-    expect(component.form.contains('nome')).toBeTrue();
-    expect(component.form.contains('cpf')).toBeTrue();
-    expect(component.form.contains('email')).toBeTrue();
-    expect(component.form.contains('telefone')).toBeTrue();
-    expect(component.form.contains('celular')).toBeTrue();
-    expect(component.form.contains('cep')).toBeTrue();
-    expect(component.form.contains('endereco')).toBeTrue();
-    expect(component.form.contains('numero')).toBeTrue();
-    expect(component.form.contains('complemento')).toBeTrue();
-    expect(component.form.contains('bairro')).toBeTrue();
-    expect(component.form.contains('uf')).toBeTrue();
-    expect(component.form.contains('cidade')).toBeTrue();
+    const formGroup = component.dadosPessoais;
+    const expectedControls = [
+      'nome', 'cpf', 'email', 'telefone', 'celular', 'cep', 'endereco',
+      'numero', 'complemento', 'bairro', 'uf', 'cidade'
+    ];
+
+    expectedControls.forEach(control => {
+      expect(formGroup.contains(control)).toBeTrue();
+    });
   });
 
-  it('should mark the "nome" field as invalid if it is empty', () => {
-    const nomeControl = component.form.get('nome');
-    nomeControl?.setValue('');
-    expect(nomeControl?.valid).toBeFalse();
+  it('should navigate to next step when nextStep is called and form is valid', () => {
+ 
+    component.dadosPessoais.setValue({
+      nome: 'John Doe',
+      cpf: '123.456.789-00',
+      email: 'john.doe@example.com',
+      telefone: '(99) 9999-9999',
+      celular: '(99) 99999-9999',
+      cep: '12345-678',
+      endereco: 'Street 123',
+      numero: '456',
+      complemento: 'Apto 101',
+      bairro: 'Bairro X',
+      uf: 'SP',
+      cidade: 'Cidade Y'
+    });
+
+    spyOn(component.proximaEtapa, 'emit'); 
+
+    component.nextStep(); 
+    expect(component.currentStep).toBe(2)
+    expect(component.proximaEtapa.emit).toHaveBeenCalled();
   });
 
-  it('should submit the form with valid values entered by the user', () => {
-    const nomeInput = fixture.debugElement.query(By.css('#nome')).nativeElement;
-    nomeInput.value = 'John Doe';
-    nomeInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
+  it('should not navigate to next step if form is invalid', () => {
+    component.dadosPessoais.setValue({
+      nome: '',
+      cpf: '123.456.789-00',
+      email: 'john.doe@example.com',
+      telefone: '(99) 9999-9999',
+      celular: '(99) 99999-9999',
+      cep: '12345-678',
+      endereco: 'Street 123',
+      numero: '456',
+      complemento: 'Apto 101',
+      bairro: 'Bairro X',
+      uf: 'SP',
+      cidade: 'Cidade Y'
+    });
 
-    const cpfInput = fixture.debugElement.query(By.css('#cpf')).nativeElement;
-    cpfInput.value = '123.456.789-00';
-    cpfInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
+    spyOn(component.proximaEtapa, 'emit'); 
 
-    const emailInput = fixture.debugElement.query(By.css('#email')).nativeElement;
-    emailInput.value = 'john.doe@example.com';
-    emailInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const celularInput = fixture.debugElement.query(By.css('#celular')).nativeElement;
-    celularInput.value = '(99) 99999-9999';
-    celularInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const cepInput = fixture.debugElement.query(By.css('#cep')).nativeElement;
-    cepInput.value = '12345-678';
-    cepInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const enderecoInput = fixture.debugElement.query(By.css('#endereco')).nativeElement;
-    enderecoInput.value = 'Street 123';
-    enderecoInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const numeroInput = fixture.debugElement.query(By.css('#numero')).nativeElement;
-    numeroInput.value = '456';
-    numeroInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const bairroInput = fixture.debugElement.query(By.css('#bairro')).nativeElement;
-    bairroInput.value = 'Bairro X';
-    bairroInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const ufInput = fixture.debugElement.query(By.css('#uf')).nativeElement;
-    ufInput.value = 'SP';
-    ufInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const cidadeInput = fixture.debugElement.query(By.css('#cidade')).nativeElement;
-    cidadeInput.value = 'Cidade Y';
-    cidadeInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    // Agora, o formulário está preenchido com valores simulados pelo usuário
-    const form = fixture.debugElement.query(By.css('form'));
-    form.triggerEventHandler('ngSubmit', null);
-
-    const spy = spyOn(component, 'onSubmit').and.callThrough();
-    expect(spy).toHaveBeenCalled();
+    component.nextStep(); 
+    expect(component.currentStep).toBe(1); 
+    expect(component.proximaEtapa.emit).not.toHaveBeenCalled(); 
   });
 
-  it('should display error message for required fields when form is touched and invalid', () => {
-    const nomeInput = fixture.debugElement.query(By.css('#nome')).nativeElement;
-    nomeInput.value = '';
-    nomeInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
+  it('should display the correct form values in the DOM', () => {
+    
+    component.dadosPessoais.setValue({
+      nome: 'John Doe',
+      cpf: '123.456.789-00',
+      email: 'john.doe@example.com',
+      telefone: '(99) 9999-9999',
+      celular: '(99) 99999-9999',
+      cep: '12345-678',
+      endereco: 'Street 123',
+      numero: '456',
+      complemento: 'Apto 101',
+      bairro: 'Bairro X',
+      uf: 'SP',
+      cidade: 'Cidade Y'
+    });
 
-    const errorMessage = fixture.debugElement.query(By.css('.error'));
-    expect(errorMessage).toBeTruthy();
-  });
+    fixture.detectChanges(); 
 
-  it('should disable the submit button if the form is invalid', () => {
-    const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
-    expect(submitButton.disabled).toBeTrue();
+    const nomeElement = fixture.debugElement.query(By.css('input[name="nome"]')).nativeElement;
+    expect(nomeElement.value).toBe('John Doe');
 
-    component.form.get('nome')?.setValue('John Doe');
-    component.form.get('cpf')?.setValue('123.456.789-00');
-    component.form.get('email')?.setValue('john.doe@example.com');
-    fixture.detectChanges();
-
-    expect(submitButton.disabled).toBeFalse();
-  });
-
-  it('should emit next event when form is valid and "Próximo" button is clicked', () => {
-    const nomeInput = fixture.debugElement.query(By.css('#nome')).nativeElement;
-    nomeInput.value = 'John Doe';
-    nomeInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const cpfInput = fixture.debugElement.query(By.css('#cpf')).nativeElement;
-    cpfInput.value = '123.456.789-00';
-    cpfInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
-    spyOn(component.next, 'emit');  
-    submitButton.click();
-
-    expect(component.next.emit).toHaveBeenCalled();
+    const emailElement = fixture.debugElement.query(By.css('input[name="email"]')).nativeElement;
+    expect(emailElement.value).toBe('john.doe@example.com');
   });
 });

@@ -1,4 +1,4 @@
-// Variáveis (mesmas já definidas)
+
 $input-padding: 12px;
 $input-font-size: 17px;
 $error-color: #e74c3c;
@@ -10,7 +10,6 @@ $button-active: #388e3c;
 $text-dark: #2c3e50;
 $text-medium: #555;
 
-// Container externo idêntico às outras etapas
 .resumo-container {
   display: flex;
   align-items: center;
@@ -20,7 +19,6 @@ $text-medium: #555;
   min-height: 100vh;
   padding: 20px;
 
-  // Wrapper interno igual ao .form-container
   .form-container {
     width: 100%;
     max-width: 800px;
@@ -36,7 +34,6 @@ $text-medium: #555;
       transform: translateY(-8px);
     }
 
-    // Título principal
     h2 {
       font-size: 30px;
       color: $text-dark;
@@ -45,7 +42,6 @@ $text-medium: #555;
       font-weight: 600;
     }
 
-    // Cada seção do resumo
     section {
       margin-bottom: 24px;
 
@@ -68,7 +64,6 @@ $text-medium: #555;
       }
     }
 
-    // Se houver botões de ação no resumo
     .botoes {
       margin-top: 32px;
       display: flex;
@@ -104,32 +99,33 @@ $text-medium: #555;
       }
     }
   }
-}
 
-// Responsividade igual às outras etapas
-@media (max-width: 768px) {
-  .resumo-container {
+  @media (max-width: 768px) {
     padding: 10px;
-  }
 
-  .form-container {
-    padding: 30px 20px;
-    max-width: 95%;
-  }
+    .form-container {
+      padding: 30px 20px;
+      max-width: 95%;
 
-  h2 {
-    font-size: 24px;
-  }
+      h2 {
+        font-size: 24px;
+      }
 
-  section h3 {
-    font-size: 16px;
-  }
+      section {
+        h3 {
+          font-size: 16px;
+        }
 
-  section p {
-    font-size: 14px;
-  }
+        p {
+          font-size: 14px;
+        }
+      }
 
-  .botoes button {
-    width: 100%;
+      .botoes {
+        button {
+          width: 100%;
+        }
+      }
+    }
   }
 }

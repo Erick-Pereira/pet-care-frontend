@@ -1,0 +1,39 @@
+button {
+  flex: 1;
+  padding: 12px 20px; // Adiciona padding extra para melhorar a área clicável
+  font-size: 16px;
+  font-weight: 600; // Torna a fonte mais forte para uma leitura mais clara
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease; // Adiciona transição de transformação
+
+  // Estilo padrão do botão
+  background-color: #4caf50; // Cor primária
+  color: white; // Texto branco para contraste
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra suave para dar destaque
+
+  // Efeito hover - escurecendo a cor de fundo e leve transformação
+  &:hover {
+    background-color: darken(#4caf50, 10%);
+    transform: translateY(-2px); // Leve elevação no hover para uma sensação de interação
+  }
+
+  // Efeito de foco para acessibilidade
+  &:focus {
+    outline: none; // Remove o contorno padrão
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.4); 
+  }
+
+  &:disabled {
+    background-color: #bdbdbd; 
+    cursor: not-allowed;
+    box-shadow: none; 
+  }
+
+  // Responsividade
+  @media (max-width: 576px) {
+    font-size: 14px;
+    padding: 10px 16px; 
+  }
+}

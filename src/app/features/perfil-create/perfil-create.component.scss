@@ -1,0 +1,27 @@
+.card.add {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #aaa;
+  border-radius: 8px;
+  color: #aaa;
+  cursor: pointer;
+  transition: border 0.3s, color 0.3s;
+
+  .plus {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: #fff;
+    border-color: #e50914;
+  }
+}

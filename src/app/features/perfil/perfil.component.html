@@ -1,0 +1,55 @@
+<div class="perfil-container">
+  <div class="card">
+    <div class="imagem-container">
+      <img [src]="imagemPerfilUrl || 'assets/avatar-default.png'" alt="Imagem de perfil">
+    </div>
+
+    <div class="info-principal">
+      <h2>{{ nomeUsuario }}</h2>
+      <p>{{ email }}</p>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-item">
+      <label for="telefone-input">Telefone:</label>
+      <input id="telefone-input" type="text" [value]="telefone" readonly>
+    </div>
+    <div class="info-item">
+      <label for="celular-input">Celular:</label>
+      <input id="celular-input" type="text" [value]="celular" readonly>
+    </div>
+    <div class="info-item">
+      <label for="cpf-input">CPF:</label>
+      <input id="cpf-input" type="text" [value]="cpf" readonly>
+    </div>
+    <div class="info-item">
+      <label for="cep-input">CEP:</label>
+      <input id="cep-input" type="text" [value]="cep" readonly>
+    </div>
+    <div class="info-item">
+      <label for="endereco-input">Endereço:</label>
+      <input id="endereco-input" type="text" [value]="endereco" readonly>
+    </div>
+    <div class="info-item">
+      <label for="numero-input">Número:</label>
+      <input id="numero-input" type="text" [value]="numero" readonly>
+    </div>
+    <div class="info-item">
+      <label for="complemento-input">Complemento:</label>
+      <input id="complemento-input" type="text" [value]="complemento" readonly>
+    </div>
+    <div class="info-item">
+      <label for="bairro-input">Bairro:</label>
+      <input id="bairro-input" type="text" [value]="bairro" readonly>
+    </div>
+    <div class="info-item">
+      <label for="cidade-input">Cidade:</label>
+      <input id="cidade-input" type="text" [value]="cidade" readonly>
+    </div>
+    <div class="info-item">
+      <label for="uf-input">UF:</label>
+      <input id="uf-input" type="text" [value]="uf" readonly>
+    </div>
+  </div>
+</div>
