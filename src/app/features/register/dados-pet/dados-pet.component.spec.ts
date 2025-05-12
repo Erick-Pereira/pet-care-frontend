@@ -28,18 +28,18 @@ describe('DadosPetComponent', () => {
     ];
 
     expectedControls.forEach(control => {
-      expect(component.formGroup.contains(control)).toBeTrue();
+      expect(component.formGroup?.contains(control)).toBeTrue();
     });
   });
 
   it('should mark "nomePet" as invalid when empty', () => {
-    const nomePetControl = component.formGroup.get('nomePet');
+    const nomePetControl = component.formGroup?.get('nomePet');
     nomePetControl?.setValue('');
     expect(nomePetControl?.valid).toBeFalse();
   });
 
   it('should mark "idadePet" as invalid when empty or negative', () => {
-    const idadePetControl = component.formGroup.get('idadePet');
+    const idadePetControl = component.formGroup?.get('idadePet');
     idadePetControl?.setValue('');
     expect(idadePetControl?.valid).toBeFalse();
 
@@ -48,7 +48,7 @@ describe('DadosPetComponent', () => {
   });
 
   it('should submit the form with valid pet data', () => {
-    component.formGroup.setValue({
+    component.formGroup?.setValue({
       nomePet: 'Rex',
       idadePet: 3,
       racaPet: 'Labrador',
@@ -65,7 +65,7 @@ describe('DadosPetComponent', () => {
   });
 
   it('should show error message if "nomePet" is touched and invalid', () => {
-    const nomePetControl = component.formGroup.get('nomePet');
+    const nomePetControl = component.formGroup?.get('nomePet');
     nomePetControl?.setValue('');
     nomePetControl?.markAsTouched();
     fixture.detectChanges();
@@ -78,19 +78,19 @@ describe('DadosPetComponent', () => {
     const button = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
     expect(button.disabled).toBeTrue();
 
-    component.formGroup.get('nomePet')?.setValue('Rex');
-    component.formGroup.get('idadePet')?.setValue(3);
-    component.formGroup.get('racaPet')?.setValue('Labrador');
-    component.formGroup.get('especiePet')?.setValue('Cão');
-    component.formGroup.get('sexoPet')?.setValue('Macho');
-    component.formGroup.get('pesoPet')?.setValue(20);
+    component.formGroup?.get('nomePet')?.setValue('Rex');
+    component.formGroup?.get('idadePet')?.setValue(3);
+    component.formGroup?.get('racaPet')?.setValue('Labrador');
+    component.formGroup?.get('especiePet')?.setValue('Cão');
+    component.formGroup?.get('sexoPet')?.setValue('Macho');
+    component.formGroup?.get('pesoPet')?.setValue(20);
     fixture.detectChanges();
 
     expect(button.disabled).toBeFalse();
   });
 
   it('should emit proximaEtapa when valid form is submitted', () => {
-    component.formGroup.setValue({
+    component.formGroup?.setValue({
       nomePet: 'Rex',
       idadePet: 3,
       racaPet: 'Labrador',
@@ -107,7 +107,7 @@ describe('DadosPetComponent', () => {
   });
 
   it('should change to step 3 when form is valid and nextStep is called', () => {
-    component.formGroup.setValue({
+    component.formGroup?.setValue({
       nomePet: 'Rex',
       idadePet: 3,
       racaPet: 'Labrador',
@@ -121,7 +121,7 @@ describe('DadosPetComponent', () => {
   });
 
   it('should not change step if form is invalid', () => {
-    component.formGroup.setValue({
+    component.formGroup?.setValue({
       nomePet: '',
       idadePet: 3,
       racaPet: 'Labrador',
@@ -134,3 +134,4 @@ describe('DadosPetComponent', () => {
     expect(component.currentStep).toBe(2);
   });
 });
+

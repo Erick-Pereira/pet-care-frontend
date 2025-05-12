@@ -1,0 +1,21 @@
+<div class="animal-history-container" *ngIf="hasHistorico; else semHistorico">
+  <h2>Histórico do Pet</h2>
+
+  <div class="historico-item" *ngFor="let item of historico; trackBy: trackById">
+    <div class="data">{{ item.data | date: 'dd/MM/yyyy' }}</div>
+    <div class="descricao">
+      <strong>{{ item.tipo }}:</strong> {{ item.descricao }}
+      <span *ngIf="item.veterinario"> | <strong>Vet.:</strong> {{ item.veterinario }}</span>
+    </div>
+  </div>
+
+  <div class="link-compartilhavel">
+    <p><strong>Compartilhar Histórico:</strong></p>
+    <input type="text" [value]="sharedLink" readonly class="shared-link-input" />
+    <button (click)="copyLink()">Copiar Link</button>
+  </div>
+</div>
+
+<ng-template #semHistorico>
+  <p class="sem-historico">Não há histórico disponível.</p>
+</ng-template>

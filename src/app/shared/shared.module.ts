@@ -24,7 +24,8 @@ export class LocalButtonComponent {}
     FooterComponent,
     ResourceCardComponent,
     HighlightCardComponent,
-    ExternalButtonComponent
+    ExternalButtonComponent,
+
   ],
   imports: [
     CommonModule,

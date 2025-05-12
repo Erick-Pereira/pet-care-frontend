@@ -1,16 +1,12 @@
 <div class="perfil-container">
   <h2>Escolha seu Perfil</h2>
   <div class="perfil-grid">
-    <!-- Certifique-se de que 'perfil' está sendo passado corretamente -->
-    <app-perfil-card 
-      *ngFor="let perfil of perfis" 
-      [perfil]="perfil">
+    <app-perfil-card
+      *ngFor="let perfil of perfis" [perfil]="perfil">
     </app-perfil-card>
 
-    <!-- Certifique-se de que o evento 'criar' está configurado corretamente -->
-    <app-perfil-create 
+    <app-perfil-create
       (criar)="adicionarPerfil()">
     </app-perfil-create>
   </div>
 </div>
-

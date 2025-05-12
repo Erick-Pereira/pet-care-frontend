@@ -1,0 +1,88 @@
+.vet-history-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .btn-add {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+
+  .entry-card {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .field {
+    flex: 1 1 45%;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: #444;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+  }
+
+  .btn-remove {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background: #c82333;
+    }
+  }
+
+  .btn-save {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    margin: 1rem auto 0;
+
+    &:hover {
+      background: #218838;
+    }
+  }
+}

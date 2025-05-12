@@ -1,0 +1,48 @@
+<div class="activity-log">
+  <h2>Registro de Atividades Diárias</h2>
+
+  <form [formGroup]="activityForm" (ngSubmit)="addActivity()" class="activity-form">
+    <div class="form-group">
+      <label for="date">Data:</label>
+      <input type="date" id="date" formControlName="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="type">Tipo:</label>
+      <select id="type" formControlName="type" required>
+        <option value="Alimentação">Alimentação</option>
+        <option value="Passeio">Passeio</option>
+        <option value="Sintoma">Sintoma</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrição:</label>
+      <input type="text" id="description" formControlName="description" required />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="activityForm.invalid">
+        {{ editingIndex !== null ? 'Salvar Edição' : 'Adicionar' }}
+      </button>
+      <button type="button" *ngIf="editingIndex !== null" (click)="cancelEdit()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="activity-list" *ngIf="activities.length > 0; else noActivities">
+    <div class="activity-item" *ngFor="let activity of activities; let i = index">
+      <div class="activity-header">
+        <strong>{{ activity.date }} - {{ activity.type }}</strong>
+        <div class="activity-actions">
+          <button (click)="editActivity(i)">Editar</button>
+          <button (click)="removeActivity(activity.id)">Remover</button>
+        </div>
+      </div>
+      <p class="activity-description">{{ activity.description }}</p>
+    </div>
+  </div>
+
+  <ng-template #noActivities>
+    <p>Nenhuma atividade registrada ainda.</p>
+  </ng-template>
+</div>

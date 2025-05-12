@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from "../../../shared/shared.module"; // Importação correta
+import { SharedModule } from "../../../shared/shared.module";
 
 @Component({
   standalone: true,
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
-  imports: [SharedModule], // Importação do módulo compartilhado aqui
+  imports: [SharedModule],
+
 })
 export class ServicesComponent implements OnInit {
   title = 'Nossos Serviços';

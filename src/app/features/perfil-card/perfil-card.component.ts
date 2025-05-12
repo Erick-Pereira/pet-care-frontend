@@ -6,11 +6,31 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./perfil-card.component.scss']
 })
 export class PerfilCardComponent implements OnInit {
-
-  @Input()
-  perfil!: { nome: string; imagem: string | null; };
+  @Input() perfil!: {
+    
+    imagem: string; 
+    nome: string;   
+    nomeUsuario: string;
+    email: string;
+    telefone: string;
+    celular: string;
+    cpf: string;
+    cep: string;
+    endereco: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    imagemPerfilUrl: string;
+    pets: { nome: string; especie: string; raca: string }[];
+  };
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    console.log('PerfilCardComponent initialized with perfil:', this.perfil);
+  }
+
+  editarPerfil(): void {
+    alert('Funcionalidade de edição em breve!');
   }
 }

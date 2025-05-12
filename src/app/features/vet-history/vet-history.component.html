@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Histórico Veterinário</h2>
+
+  <form [formGroup]="formGroup" (ngSubmit)="salvar()">
+    <div formArrayName="historico">
+      <div *ngFor="let item of historico.controls; let i = index" [formGroupName]="i" class="card">
+        <h3>Registro {{ i + 1 }}</h3>
+
+        <label>
+          Tipo:
+          <select formControlName="tipo" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="vacina">Vacina</option>
+            <option value="diagnostico">Diagnóstico</option>
+            <option value="exame">Exame</option>
+            <option value="medicamento">Medicamento</option>
+            <option value="cirurgia">Cirurgia</option>
+            <option value="outro">Outro</option>
+          </select>
+        </label>
+
+        <label>
+          Data:
+          <input type="date" formControlName="data" required>
+        </label>
+
+        <label>
+          Descrição:
+          <input type="text" formControlName="descricao" required>
+        </label>
+
+        <label>
+          Profissional:
+          <input type="text" formControlName="profissional">
+        </label>
+
+        <label>
+          Contato do Profissional:
+          <input type="text" formControlName="contatoProfissional">
+        </label>
+
+        <label>
+          Observações:
+          <textarea formControlName="observacoes"></textarea>
+        </label>
+
+        <button type="button" (click)="removeEntry(i)" class="btn-remove">Remover</button>
+        <hr>
+      </div>
+    </div>
+
+    <button type="button" (click)="addEntry()" class="btn-add">Adicionar Registro</button>
+    <button type="submit" class="btn-save">Salvar Histórico</button>
+  </form>
+</div>
