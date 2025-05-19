@@ -38,7 +38,6 @@ export class Etapa1PessoaisComponent implements OnInit {
     this.formGroup.get(campo)?.setValue(formatado);
   }
 
-
   // Função para limpar caracteres especiais (quando o campo perde o foco)
   limparCaracteresEspeciais(event: any, campo: string): void {
     const valor = this.formGroup.get(campo)?.value;

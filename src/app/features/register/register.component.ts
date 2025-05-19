@@ -19,34 +19,34 @@ export class RegisterComponent implements OnInit {
   ) {
     this.registerForm = this.fb.group({
       dadosPessoais: this.fb.group({
-        nome: [''],
-        email: [''],
-        cpf: [''],
-        telefone: [''],
-        cep: [''],
-        numero: [''],
+        nome: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]], 
+        cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],  
+        telefone: ['', [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)]], 
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+        numero: ['', Validators.required],
         complemento: [''],
-        bairro: [''],
-        uf: [''],
-        cidade: [''],
-        logradouro: ['']
+        bairro: [{ value: '', disabled: true }, Validators.required],
+        uf: [{ value: '', disabled: true }, Validators.required],
+        cidade: [{ value: '', disabled: true }, Validators.required],
+        logradouro: [{ value: '', disabled: true }, Validators.required]
       }),
       dadosPet: this.fb.group({
-        nomePet: [''],
-        especie: [''],
-        raca: [''],
-        sexo: [''],
-        dataNascimento: [''],
-        peso: [''],
-        cor: [''],
-        aquisicao: [''],
-        castrado: [false],
-        chipado: [false],
+        nomePet: ['', Validators.required],
+        especie: ['', Validators.required],
+        raca: ['', Validators.required],
+        sexo: ['', Validators.required],
+        dataNascimento: ['', Validators.required],
+        peso: ['', Validators.required],
+        cor: ['', Validators.required],
+        aquisicao: ['', Validators.required],
+        castrado: [false, Validators.required],
+        chipado: [false, Validators.required],
         numeroChip: ['']
       }),
       senha: this.fb.group({
-        senha: [''],
-        confirmarSenha: ['']
+        senha: ['', Validators.required],
+        confirmarSenha: ['', Validators.required]
       })
     });
   }
