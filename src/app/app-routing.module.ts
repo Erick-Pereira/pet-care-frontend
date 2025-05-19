@@ -4,12 +4,15 @@ import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
+import { RegisterComponent } from './features/register/register.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
