@@ -26,5 +26,11 @@ export class AuthService {
       })
     );
   }
+
+  isAuthenticated(): boolean {
+    const token = this.cookieService.get('auth_token');
+    return !!token;
+  }
+
 }
 
