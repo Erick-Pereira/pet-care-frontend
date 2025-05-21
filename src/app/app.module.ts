@@ -11,6 +11,7 @@ import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
+import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 
 
@@ -25,6 +26,7 @@ import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule,
     ToastrModule.forRoot(),
     SharedModule,
