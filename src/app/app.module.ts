@@ -12,7 +12,8 @@ import { HomeComponent } from './features/home/home.component';
 import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
-
+import { PetPerfilComponent } from './pages/pet-perfil/pet-perfil.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-
     ServicesComponent,
     LoginComponent,
     PetDocumentComponent,
+    PetPerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

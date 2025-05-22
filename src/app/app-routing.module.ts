@@ -5,6 +5,7 @@ import { HomeComponent } from './features/home/home.component';
 import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { PetPerfilComponent } from './pages/pet-perfil/pet-perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'pet-documents', component: PetDocumentComponent },
+  { path: 'pet-perfil', component: PetPerfilComponent },
 ];
 
 @NgModule({
