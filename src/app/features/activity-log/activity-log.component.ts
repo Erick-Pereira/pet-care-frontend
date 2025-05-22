@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';  // Para gerar UUIDs únicos.
+
 
 interface DailyActivity {
   id: string;
@@ -38,7 +38,7 @@ export class ActivityLogComponent implements OnInit {
       const formValue = this.activityForm.value;
 
       const activity: DailyActivity = {
-        id: this.editingIndex !== null ? this.activities[this.editingIndex].id : uuidv4(),
+        id: this.editingIndex !== null ? this.activities[this.editingIndex].id : Date.now().toString(),
         date: formValue.date,
         type: formValue.type,
         description: formValue.description

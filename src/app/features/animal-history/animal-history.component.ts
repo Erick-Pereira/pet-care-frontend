@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-animal-history',
@@ -14,7 +13,6 @@ export class AnimalHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.loadPetHistory();
-    this.sharedLink = this.generateShareableLink();
   }
 
   loadPetHistory() {
@@ -27,11 +25,6 @@ export class AnimalHistoryComponent implements OnInit {
     ];
 
     this.hasHistorico = this.historico.length > 0;
-  }
-
-  generateShareableLink(): string {
-    const token = uuidv4();
-    return `${window.location.origin}/historico/${this.petId}/${token}`;
   }
 
   copyLink() {

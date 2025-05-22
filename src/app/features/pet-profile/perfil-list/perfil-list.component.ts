@@ -20,8 +20,25 @@ export class PerfilListComponent {
     const novoId = (this.perfis.length + 1).toString();
     const novoPerfil: Perfil = {
       id: novoId,
-      nome: `Perfil ${novoId}`,
-      imagemUrl: './assets/pet profile pic.png'
+      name: `Perfil ${novoId}`,
+      imagemUrl: './assets/pet profile pic.png',
+      acquisition: '',
+      approximateBirthDate: '',
+      gender: '',
+      specie: '',
+      observacoes: '',
+      idade: 0,
+      raca: '',
+      owner: '',
+      chipNumber: '',
+      isChipped: false,
+      isCastrated: false,
+      color: '',
+      breed: '',
+      sexo: undefined,
+      especie: undefined,
+      tipo: undefined,
+      nome: ''
     };
 
     this.perfis.push(novoPerfil);
@@ -53,7 +70,7 @@ export class PerfilListComponent {
     const index = this.perfis.findIndex(p => p.id === this.modalSelecionado!.id);
     if (index !== -1) {
       this.perfis[index] = { ...this.modalSelecionado };
-      this.selecionar.emit(this.modalSelecionado.id); // se quiser emitir ao salvar
+      this.selecionar.emit(this.modalSelecionado.id);
     }
 
     this.fecharModal();
