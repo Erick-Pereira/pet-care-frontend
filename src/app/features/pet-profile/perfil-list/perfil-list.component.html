@@ -13,101 +13,110 @@
       <p>{{ perfil.nome }}</p>
     </div>
 
+    <!-- Botão de Adicionar Perfil -->
     <div
-  class="card add"
-  (click)="adicionar()"
-  (keydown.enter)="adicionar()"
-  tabindex="0"
->
-  <div class="plus">+</div>
-  <p>Adicionar Perfil</p>
-</div>
+      class="card add"
+      (click)="abrirModalNovoPerfil()"
+      (keydown.enter)="abrirModalNovoPerfil()"
+      tabindex="0"
+    >
+      <div class="plus">+</div>
+      <p>Adicionar Perfil</p>
+    </div>
+  </div>
 
-
+  <!-- Modal -->
   <div class="modal-overlay" *ngIf="modalSelecionado">
     <div class="modal d-flex justify-content-center align-items-center" style="min-height: 100vh;">
       <div class="bg-white rounded shadow p-4 w-100" style="max-width: 720px;">
         <h4 class="mb-4 text-center">Registro do Pet</h4>
 
-      <form>
-        <div class="row g-3">
+        <form #petForm="ngForm" (ngSubmit)="salvarPerfil()">
+          <div class="row g-3">
 
-          <!-- Nome / Espécie -->
-          <div class="col-md-6">
-            <label for="pet-name" class="form-label">Nome</label>
-            <input id="pet-name" type="text" class="form-control" [(ngModel)]="modalSelecionado.name" name="name">
-          </div>
+            <!-- Campos do formulário como você já tinha -->
+            <!-- Nome -->
+            <div class="col-md-6">
+              <label for="pet-name" class="form-label">Nome</label>
+              <input id="pet-name" type="text" class="form-control" required [(ngModel)]="modalSelecionado.name" name="name" #name="ngModel">
+              <div *ngIf="name.invalid && name.touched" class="text-danger">Nome obrigatório</div>
+            </div>
 
-          <div class="col-md-6">
-            <label for="pet-specie" class="form-label">Espécie</label>
-            <input id="pet-specie" type="text" class="form-control" [(ngModel)]="modalSelecionado.specie.nome" name="specie">
-          </div>
+            <!-- Espécie -->
+            <div class="col-md-6">
+              <label for="pet-specie" class="form-label">Espécie</label>
+              <input id="pet-specie" type="text" class="form-control" [(ngModel)]="modalSelecionado.specie.nome" name="specie">
+            </div>
 
-          <!-- Raça / Gênero -->
-          <div class="col-md-6">
-            <label for="pet-breed" class="form-label">Raça</label>
-            <input id="pet-breed" type="text" class="form-control" [(ngModel)]="modalSelecionado.breed.nome" name="breed">
-          </div>
+            <!-- Raça -->
+            <div class="col-md-6">
+              <label for="pet-breed" class="form-label">Raça</label>
+              <input id="pet-breed" type="text" class="form-control" [(ngModel)]="modalSelecionado.breed.nome" name="breed">
+            </div>
 
-          <div class="col-md-6">
-            <label for="pet-gender" class="form-label">Gênero</label>
-            <select id="pet-gender" class="form-select" [(ngModel)]="modalSelecionado.gender" name="gender">
-              <option value="">Selecione</option>
-              <option value="Male">Macho</option>
-              <option value="Female">Fêmea</option>
-            </select>
-          </div>
+            <!-- Gênero -->
+            <div class="col-md-6">
+              <label for="pet-gender" class="form-label">Gênero</label>
+              <select id="pet-gender" class="form-select" [(ngModel)]="modalSelecionado.gender" name="gender">
+                <option value="">Selecione</option>
+                <option value="Male">Macho</option>
+                <option value="Female">Fêmea</option>
+              </select>
+            </div>
 
-          <!-- Nascimento / Cor -->
-          <div class="col-md-6">
-            <label for="birth-date" class="form-label">Nascimento Aproximado</label>
-            <input id="birth-date" type="date" class="form-control" [(ngModel)]="modalSelecionado.approximateBirthDate" name="approximateBirthDate">
-          </div>
+            <!-- Nascimento -->
+            <div class="col-md-6">
+              <label for="birth-date" class="form-label">Nascimento Aproximado</label>
+              <input id="birth-date" type="date" class="form-control" [(ngModel)]="modalSelecionado.approximateBirthDate" name="approximateBirthDate">
+            </div>
 
-          <div class="col-md-6">
-            <label for="pet-color" class="form-label">Cor</label>
-            <input id="pet-color" type="text" class="form-control" [(ngModel)]="modalSelecionado.color" name="color">
-          </div>
+            <!-- Cor -->
+            <div class="col-md-6">
+              <label for="pet-color" class="form-label">Cor</label>
+              <input id="pet-color" type="text" class="form-control" [(ngModel)]="modalSelecionado.color" name="color">
+            </div>
 
-          <!-- Aquisição / Chip -->
-          <div class="col-md-6">
-            <label for="pet-acquisition" class="form-label">Aquisição</label>
-            <input id="pet-acquisition" type="text" class="form-control" [(ngModel)]="modalSelecionado.acquisition" name="acquisition">
-          </div>
+            <!-- Aquisição -->
+            <div class="col-md-6">
+              <label for="pet-acquisition" class="form-label">Aquisição</label>
+              <input id="pet-acquisition" type="text" class="form-control" [(ngModel)]="modalSelecionado.acquisition" name="acquisition">
+            </div>
 
-          <div class="col-md-6">
-            <label for="chip-number" class="form-label">Número do Chip</label>
-            <input id="chip-number" type="text" class="form-control" [(ngModel)]="modalSelecionado.chipNumber" name="chipNumber">
-          </div>
+            <!-- Chip -->
+            <div class="col-md-6">
+              <label for="chip-number" class="form-label">Número do Chip</label>
+              <input id="chip-number" type="text" class="form-control" [(ngModel)]="modalSelecionado.chipNumber" name="chipNumber">
+            </div>
 
-          <!-- Checkboxes -->
-          <div class="col-12">
-            <div class="d-flex gap-4 align-items-center ps-1 pt-2">
-              <div class="form-check">
-                <input id="castrado" type="checkbox" class="form-check-input" [(ngModel)]="modalSelecionado.isCastrated" name="isCastrated">
-                <label for="castrado" class="form-check-label">Castrado</label>
-              </div>
+            <!-- Checkboxes -->
+            <div class="col-12">
+              <div class="d-flex gap-4 align-items-center ps-1 pt-2">
+                <div class="form-check">
+                  <input id="castrado" type="checkbox" class="form-check-input" [(ngModel)]="modalSelecionado.isCastrated" name="isCastrated">
+                  <label for="castrado" class="form-check-label">Castrado</label>
+                </div>
 
-              <div class="form-check">
-                <input id="chipped" type="checkbox" class="form-check-input" [(ngModel)]="modalSelecionado.isChipped" name="isChipped">
-                <label for="chipped" class="form-check-label">Microchipado</label>
+                <div class="form-check">
+                  <input id="chipped" type="checkbox" class="form-check-input" [(ngModel)]="modalSelecionado.isChipped" name="isChipped">
+                  <label for="chipped" class="form-check-label">Microchipado</label>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Responsável -->
-          <div class="col-12">
-            <label for="pet-owner" class="form-label">Responsável (Dono)</label>
-            <input id="pet-owner" type="text" class="form-control" [(ngModel)]="modalSelecionado.owner.nome" name="owner">
-          </div>
+            <!-- Responsável -->
+            <div class="col-12">
+              <label for="pet-owner" class="form-label">Responsável (Dono)</label>
+              <input id="pet-owner" type="text" class="form-control" [(ngModel)]="modalSelecionado.owner.nome" name="owner">
+            </div>
 
-          <!-- Botões -->
-          <div class="col-12 d-flex justify-content-end gap-2 mt-3">
-            <button type="button" class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
-            <button type="button" class="btn btn-primary" (click)="salvarPerfil()">Salvar</button>
+            <!-- Botões -->
+            <div class="col-12 d-flex justify-content-end gap-2 mt-3">
+              <button type="button" class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+              <button type="submit" class="btn btn-primary" [disabled]="petForm.invalid">Salvar</button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
