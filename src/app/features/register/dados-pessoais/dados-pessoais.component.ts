@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,13 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dados-pessoais.component.scss']
 })
 export class DadosPessoaisComponent implements OnInit {
+  @Input () label = 'próximo';
 
-  currentStep() {
-    throw new Error('Method not implemented.');
-  }
-  nextStep() {
-    throw new Error('Method not implemented.');
-  }
   @Output() proximaEtapa = new EventEmitter<void>();
   dadosPessoais!: FormGroup;
   progress = 0;
@@ -25,15 +20,15 @@ export class DadosPessoaisComponent implements OnInit {
         nome: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         cpf: ['', [Validators.required, this.cpfValidator]],
-        telefone: [''],
-        celular: ['', Validators.required],
-        cep: [''],
-        endereco: [''],
-        numero: [''],
-        complemento: [''],
-        bairro: [''],
-        uf: [''],
-        cidade: ['']
+        telefone: ['', [Validators.required]],
+        celular: ['', [Validators.required]],
+        cep: ['', [Validators.required]],
+        endereco: ['', [Validators.required]],
+        numero: ['', [Validators.required]],
+        complemento: ['', [Validators.required]],
+        bairro: ['', [Validators.required]], 
+        uf: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
       });
 
     this.dadosPessoais.valueChanges.subscribe(() => {
@@ -43,6 +38,13 @@ export class DadosPessoaisComponent implements OnInit {
 
   irParaDadosPet(): void {
     this.router.navigate(['/DadosPet']);
+  }
+
+    currentStep() {
+    throw new Error('Method not implemented.');
+  }
+  nextStep() {
+    throw new Error('Method not implemented.');
   }
 
   get nome() { return this.dadosPessoais.get('nome'); }

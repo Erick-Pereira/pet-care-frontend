@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +8,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-onSubmit() { throw new Error('Method not implemented.');
-}
+  @Input() label = 'Entrar';
+  @Input() label2 = 'Esqueci minha senha';
+  @Input() label3 = 'Não tem uma conta?';
+  @Input() rota = '/dashboard'; 
 
   loginForm!: FormGroup;
   public registrar = 'Registrar';
@@ -18,9 +20,20 @@ onSubmit() { throw new Error('Method not implemented.');
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: [''],
-      password: [''],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
+  }
+
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+  }
+
+  navegar(): void {
+    this.router.navigate([this.rota]);
   }
 
   irParaDadosPessoais(): void {

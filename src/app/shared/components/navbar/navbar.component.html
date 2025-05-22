@@ -1,5 +1,9 @@
 <nav class="navbar" [class.scrolled]="isMenuOpen">
-  <div class="logo">PetDocs</div> <button
+  <a [routerLink]="'/home'">
+    <h1>PetDocs</h1>
+  </a>
+
+  <button
     class="menu-toggle"
     (click)="toggleMenu()"
     aria-label="Toggle navigation menu"

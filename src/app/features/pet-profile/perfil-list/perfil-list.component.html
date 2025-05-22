@@ -1,0 +1,46 @@
+<div class="perfil-container">
+  <h2>Escolha seu Perfil</h2>
+
+  <div class="perfil-grid">
+    <div
+      *ngFor="let perfil of perfis"
+      class="profile-card"
+      tabindex="0"
+      (click)="openModal(perfil.id)"
+      (keyup.enter)="onSelecionar(perfil.id)"
+    >
+      <img [src]="perfil.imagemUrl" width="100px" alt="Imagem do perfil" />
+      <p>{{ perfil.nome }}</p>
+    </div>
+
+    <div
+  class="card add"
+  (click)="adicionar()"
+  (keydown.enter)="adicionar()"
+  tabindex="0"
+>
+  <div class="plus">+</div>
+  <p>Adicionar Perfil</p>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal-overlay" *ngIf="modalSelecionado">
+    <div class="modal">
+      <h3>Registro do Pet</h3>
+
+      <label for="perfil-nome">Nome do Pet</label>
+      <input
+        id="perfil-nome"
+        type="text"
+        [(ngModel)]="modalSelecionado.nome"
+        class="form-control mb-2"
+      />
+
+      <div class="d-flex justify-content-end">
+        <button (click)="fecharModal()">Cancelar</button>
+        <button (click)="salvarPerfil()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

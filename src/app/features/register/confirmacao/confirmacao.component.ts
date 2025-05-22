@@ -13,12 +13,13 @@
       @Input() dadosPessoaisForm!: FormGroup;
       @Input() dadosPetForm!: FormGroup;
       @Input() senhaForm!: FormGroup;
-
+      @Input() label = 'concluir';
+      
       @Output() concluir = new EventEmitter<void>();
       @Output() voltarEtapa = new EventEmitter<void>();
 
       progress = 0;
-      currentStep = 4;  
+      currentStep = 4;
 
     private subscriptions: Subscription[] = [];
 

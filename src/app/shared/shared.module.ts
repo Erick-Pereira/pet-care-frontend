@@ -9,7 +9,6 @@ import { HighlightCardComponent } from './components/highlight-card/highlight-ca
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ResourceCardComponent } from './components/resource-card/resource-card.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
-import { ButtonComponent, ButtonComponent as ExternalButtonComponent } from './components/button/button-register.component';
 
 @Component({
   selector: 'app-button-register',
@@ -24,7 +23,6 @@ export class LocalButtonComponent {}
     FooterComponent,
     ResourceCardComponent,
     HighlightCardComponent,
-    ExternalButtonComponent,
 
   ],
   imports: [
@@ -38,7 +36,6 @@ export class LocalButtonComponent {}
     FooterComponent,
     ResourceCardComponent,
     HighlightCardComponent,
-    ButtonComponent,
     RouterModule
   ]
 })

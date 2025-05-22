@@ -8,10 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class NavbarComponent {
   @Input() menuItems: { label: string; path: string }[] = [];
-
   isMenuOpen = false;
 
-  // Toggle the mobile menu
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }

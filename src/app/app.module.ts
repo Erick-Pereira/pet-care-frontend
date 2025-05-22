@@ -6,8 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './shared/shared.module';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode'; 
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
@@ -17,13 +16,14 @@ import { DadosPetComponent } from './features/register/dados-pet/dados-pet.compo
 import { SenhaComponent } from './features/register/senha/senha.component';
 import { ConfirmacaoComponent } from './features/register/confirmacao/confirmacao.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
-import { PerfilListComponent } from './features/perfil-list/perfil-list.component';
-import { PerfilCardComponent } from './features/perfil-card/perfil-card.component';
-import { PerfilCreateComponent } from './features/perfil-create/perfil-create.component';
+import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
 import { AnimalPublicComponent } from './features/animal-public/animal-public.component';
 import { VetHistoryComponent } from './features/vet-history/vet-history.component';
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
+import { SharedModule } from "./shared/shared.module";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,12 +38,10 @@ import { ActivityLogComponent } from './features/activity-log/activity-log.compo
     ConfirmacaoComponent,
     PerfilComponent,
     PerfilListComponent,
-    PerfilCardComponent,
-    PerfilCreateComponent,
     AnimalPublicComponent,
     VetHistoryComponent,
     AnimalHistoryComponent,
-    ActivityLogComponent, 
+    ActivityLogComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,11 +49,13 @@ import { ActivityLogComponent } from './features/activity-log/activity-log.compo
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    SharedModule, 
-    NgxQRCodeModule, 
+    NgxQRCodeModule,
     ToastrModule.forRoot(),
-  ],
-  providers: [], 
-  bootstrap: [AppComponent], 
+    SharedModule,
+    CommonModule,
+    FormsModule
+],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

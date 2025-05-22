@@ -1,7 +1,7 @@
 <div class="login-container container py-5">
   <h1 class="text-center text-success mb-4">Login</h1>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-50 mx-auto">
 
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-50 mx-auto">
     <div class="mb-4">
       <label for="email" class="form-label">E-mail:</label>
       <input
@@ -33,4 +33,9 @@
       </div>
     </div>
 
-    <app-button [rota]="'/DadosPessoais'" [label]="'Registrar'"></app-button>
+    <button type="submit" class="btn btn-success w-100">{{ label }}</button>
+    <div class="text-center mt-3">
+      <small>Não tem uma conta? <a routerLink="/register">Registrar</a></small>
+    </div>
+  </form>
+</div>

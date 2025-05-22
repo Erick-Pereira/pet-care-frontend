@@ -10,12 +10,9 @@
           Tipo:
           <select formControlName="tipo" required>
             <option value="" disabled selected>Selecione</option>
-            <option value="vacina">Vacina</option>
-            <option value="diagnostico">Diagnóstico</option>
-            <option value="exame">Exame</option>
-            <option value="medicamento">Medicamento</option>
-            <option value="cirurgia">Cirurgia</option>
-            <option value="outro">Outro</option>
+            <option *ngFor="let tipo of tipoOptions" [value]="tipo">
+              {{ tipo | titlecase }}
+            </option>
           </select>
         </label>
 
@@ -45,7 +42,7 @@
         </label>
 
         <button type="button" (click)="removeEntry(i)" class="btn-remove">Remover</button>
-        <hr>
+        <hr />
       </div>
     </div>
 

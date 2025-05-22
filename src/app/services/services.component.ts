@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from "../../../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
+
 
 @Component({
   standalone: true,
@@ -7,7 +8,6 @@ import { SharedModule } from "../../../shared/shared.module";
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
   imports: [SharedModule],
-
 })
 export class ServicesComponent implements OnInit {
   title = 'Nossos Serviços';

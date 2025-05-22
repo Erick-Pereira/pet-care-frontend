@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+   itens = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+
   dadosPessoais!: FormGroup;
   imagemPerfilUrl: string | null = null;
   nomeUsuario: string | null = null;
@@ -22,6 +24,7 @@ export class PerfilComponent implements OnInit {
   bairro: string | null = null;
   cidade: string | null = null;
   uf: string | null = null;
+nome: any;
 
 
   constructor(private router: Router, private fb: FormBuilder) {}
@@ -38,8 +41,9 @@ export class PerfilComponent implements OnInit {
       numero: [''],
       complemento: [''],
       bairro: [''],
+      cidade: [''],
       uf: [''],
-      cidade: ['']
+
     });
   }
 
