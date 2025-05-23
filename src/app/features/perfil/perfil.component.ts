@@ -24,7 +24,7 @@ export class PerfilComponent implements OnInit {
   bairro: string | null = null;
   cidade: string | null = null;
   uf: string | null = null;
-  nome = '';
+  nome: string | null = null;
 
   constructor(private router: Router, private fb: FormBuilder) {}
 
