@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+  styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
-   itens = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  itens = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
   dadosPessoais!: FormGroup;
   imagemPerfilUrl: string | null = null;
@@ -24,8 +24,7 @@ export class PerfilComponent implements OnInit {
   bairro: string | null = null;
   cidade: string | null = null;
   uf: string | null = null;
-nome: any;
-
+  nome = '';
 
   constructor(private router: Router, private fb: FormBuilder) {}
 
@@ -43,12 +42,10 @@ nome: any;
       bairro: [''],
       cidade: [''],
       uf: [''],
-
     });
   }
 
   cpfValidator(): Record<string, unknown> | null {
-
     return null;
   }
 }
