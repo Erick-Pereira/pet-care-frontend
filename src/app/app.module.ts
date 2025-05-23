@@ -13,6 +13,7 @@ import { ServicesComponent } from './features/services/services.component';
 import { LoginComponent } from './features/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-
     ServicesComponent,
     LoginComponent,
     PetDocumentComponent,
+    VaccinationCardComponent,
   ],
   imports: [
     BrowserModule,
