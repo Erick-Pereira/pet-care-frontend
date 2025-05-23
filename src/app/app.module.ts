@@ -20,9 +20,10 @@ import { AnimalPublicComponent } from './features/animal-public/animal-public.co
 import { VetHistoryComponent } from './features/vet-history/vet-history.component';
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
-import { SharedModule } from "./shared/shared.module";
+import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +42,11 @@ import { FormsModule } from '@angular/forms';
     VetHistoryComponent,
     AnimalHistoryComponent,
     ActivityLogComponent,
+    PetDocumentComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -51,8 +54,8 @@ import { FormsModule } from '@angular/forms';
     ToastrModule.forRoot(),
     SharedModule,
     CommonModule,
-    FormsModule
-],
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -8,11 +8,12 @@ import { DadosPessoaisComponent } from './features/register/dados-pessoais/dados
 import { DadosPetComponent } from './features/register/dados-pet/dados-pet.component';
 import { SenhaComponent } from './features/register/senha/senha.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
-import { PerfilListComponent} from './features/pet-profile/perfil-list/perfil-list.component'; 
+import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
 import { AnimalPublicComponent } from './features/animal-public/animal-public.component';
 import { VetHistoryComponent } from './features/vet-history/vet-history.component';
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
+import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,13 +24,13 @@ const routes: Routes = [
   { path: 'DadosPessoais', component: DadosPessoaisComponent },
   { path: 'DadosPet', component: DadosPetComponent },
   { path: 'Senha', component: SenhaComponent },
-  { path: 'Perfil', component: PerfilComponent},
-  { path: 'PerfilList', component: PerfilListComponent},
+  { path: 'Perfil', component: PerfilComponent },
+  { path: 'PerfilList', component: PerfilListComponent },
   { path: 'AnimalPublic', component: AnimalPublicComponent },
-  { path: 'VetHistory', component: VetHistoryComponent},
-  { path: 'AnimalHistory', component: AnimalHistoryComponent},
-  { path: 'ActivityLog', component: ActivityLogComponent},
-
+  { path: 'VetHistory', component: VetHistoryComponent },
+  { path: 'AnimalHistory', component: AnimalHistoryComponent },
+  { path: 'ActivityLog', component: ActivityLogComponent },
+  { path: 'pet-documents', component: PetDocumentComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

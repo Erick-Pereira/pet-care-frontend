@@ -1,23 +1,22 @@
 export interface Perfil {
-owner: any;
-chipNumber: any;
-isChipped: any;
-isCastrated: any;
-acquisition: any;
-color: any;
-approximateBirthDate: any;
-gender: any;
-breed: any;
-specie: any;
-name: any;
-observacoes: any;
-sexo: any;
-especie: any;
-idade: any;
-raca: any;
-tipo: any;
-  id: string;
-  nome: string;
-  imagemUrl?: string;
+owner: string;
+chipNumber: string;
+isChipped: boolean;
+isCastrated: boolean;
+acquisition: Date;
+color: string;
+approximateBirthDate: Date;
+gender: string;
+breed: string;
+specie: string;
+name: string;
+observacoes: string;
+sexo: string;
+especie: string;
+idade: number;
+raca: string;
+tipo: string;
+id: string;
+nome: string;
+imagemUrl?: string;
 }
-
