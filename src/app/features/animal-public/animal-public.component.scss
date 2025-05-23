@@ -1,0 +1,120 @@
+.animal-public-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.pet-info {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.pet-info p {
+  margin: 8px 0;
+}
+
+.qrcode-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.qrcode-section img {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.info-msg {
+  color: #555;
+  font-size: 14px;
+}
+
+.btn-acesso {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.codigo-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.codigo-container .form-group {
+  margin-bottom: 20px;
+}
+
+.codigo-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-confirmar {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-confirmar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.erro-msg {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.historico-medico {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.historico-medico h3 {
+  margin-bottom: 10px;
+}
+
+.historico-medico ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.historico-medico li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}

@@ -1,0 +1,70 @@
+<form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="pet-form-container">
+  <h2 class="centralizado">Insira os Dados do Pet</h2>
+
+  <div class="row">
+    <div class="form-field">
+      <label for="nomePet">Nome</label>
+      <input id="nomePet" type="text" formControlName="nomePet" class="form-control" />
+      <div *ngIf="formGroup.get('nomePet')?.touched && formGroup.get('nomePet')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('nomePet')?.hasError('required')">Nome é obrigatório.</small>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="especie">Espécie</label>
+      <select id="especie" formControlName="especie" class="form-control">
+        <option value="" disabled selected>Escolha a Espécie</option>
+        <option value="Cachorro">Cachorro</option>
+        <option value="Gato">Gato</option>
+        <option value="Pássaro">Pássaro</option>
+        <option value="Outro">Outro</option>
+      </select>
+      <div *ngIf="formGroup.get('especie')?.touched && formGroup.get('especie')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('especie')?.hasError('required')">Espécie é obrigatória.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-field">
+      <label for="raca">Raça</label>
+      <input id="raca" type="text" formControlName="raca" class="form-control" />
+      <div *ngIf="formGroup.get('raca')?.touched && formGroup.get('raca')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('raca')?.hasError('required')">Raça é obrigatória.</small>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="sexo">Sexo</label>
+      <select id="sexo" formControlName="sexo" class="form-control">
+        <option value="" disabled selected>Escolha o Sexo</option>
+        <option value="Macho">Macho</option>
+        <option value="Fêmea">Fêmea</option>
+      </select>
+      <div *ngIf="formGroup.get('sexo')?.touched && formGroup.get('sexo')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('sexo')?.hasError('required')">Sexo é obrigatório.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-field">
+      <label for="dataNascimento">Data de Nascimento</label>
+      <input id="dataNascimento" type="date" formControlName="dataNascimento" class="form-control" />
+      <div *ngIf="formGroup.get('dataNascimento')?.touched && formGroup.get('dataNascimento')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('dataNascimento')?.hasError('required')">Data de nascimento é obrigatória.</small>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="peso">Peso</label>
+      <input id="peso" type="text" formControlName="peso" class="form-control" pattern="^\d*\.?\d*$" />
+      <div *ngIf="formGroup.get('peso')?.touched && formGroup.get('peso')?.invalid" class="error-message">
+        <small *ngIf="formGroup.get('peso')?.hasError('required')">Peso é obrigatório.</small>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success w-100">{{ label }}</button>
+
+</form>
