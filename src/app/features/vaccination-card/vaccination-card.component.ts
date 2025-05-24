@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare const bootstrap: any;
 
@@ -19,18 +20,16 @@ export class VaccinationCardComponent implements OnInit {
     repeticao: '',
   };
 
+  constructor(private router: Router) {}
+
+  semRepeticao: boolean = false;
+
   private modalRef: any;
 
   ngOnInit(): void {
-    // 10 campos vazios iniciais
-    this.vaccines = Array.from({ length: 10 }, () => ({
-      nome: '',
-      codigo: '',
-      data: '',
-      lote: '',
-      repeticao: '',
-    }));
-    this.filteredVaccines = [...this.vaccines];
+    // Começa vazio, só adiciona vacina quando o usuário incluir
+    this.vaccines = [];
+    this.filteredVaccines = [];
   }
 
   openModal() {
@@ -42,6 +41,10 @@ export class VaccinationCardComponent implements OnInit {
   }
 
   saveVaccine() {
+    if (this.semRepeticao) {
+      this.newVaccine.repeticao = '';
+    }
+
     this.vaccines.push({ ...this.newVaccine });
     this.clearForm();
     this.filterVaccines();
@@ -56,6 +59,7 @@ export class VaccinationCardComponent implements OnInit {
       lote: '',
       repeticao: '',
     };
+    this.semRepeticao = false;
   }
 
   filterVaccines() {
@@ -73,6 +77,12 @@ export class VaccinationCardComponent implements OnInit {
   }
 
   goBack() {
-    window.history.back();
+    this.router.navigate(['/pet-documents']);
+  }
+
+  onSemRepeticaoChange() {
+    if (this.semRepeticao) {
+      this.newVaccine.repeticao = '';
+    }
   }
 }
