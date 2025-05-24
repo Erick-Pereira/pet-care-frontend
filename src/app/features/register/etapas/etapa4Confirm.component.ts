@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class Etapa4ConfirmComponent implements OnChanges {
   @Input() formGroup!: FormGroup;
-  @Output() voltarEtapa = new EventEmitter<void>();
+  @Output() anterior = new EventEmitter<void>();
   @Output() concluir = new EventEmitter<void>();
 
   dadosPessoaisForm!: FormGroup;
@@ -24,6 +24,10 @@ export class Etapa4ConfirmComponent implements OnChanges {
       console.log('Dados do pet:', this.dadosPetForm.value);
       console.log('Senha:', this.senhaForm.value);
     }
+  }
+
+  voltar(): void {
+    this.anterior.emit();
   }
 
   onSubmit(): void {

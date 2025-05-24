@@ -43,9 +43,6 @@ export class SenhaComponent {
     return null; // Caso contrário, nenhuma validação de erro
   }
 
-
-
-  /** Navega para a etapa anterior */
   voltar(): void {
     this.anterior.emit();
   }

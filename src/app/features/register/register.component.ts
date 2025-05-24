@@ -20,9 +20,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       dadosPessoais: this.fb.group({
         nome: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]], 
-        cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],  
-        telefone: ['', [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)]], 
+        email: ['', [Validators.required, Validators.email]],
+        cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+        telefone: ['', [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)]],
         cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         numero: ['', Validators.required],
         complemento: [''],
@@ -77,87 +77,51 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const dados = this.registerForm.value;
 
-      const payload = {
-        id: this.generateUUID(),
-        active: true,
-        updatedAt: new Date().toISOString(),
-        fullName: dados.nome,
-        email: dados.email,
-        phoneNumber: dados.telefone || '',
-        password: dados.senha,
-        cpf: dados.cpf || '',
-        permissionLevel: 'User',
-        addressId: this.generateUUID(),
-        address: {
-          id: this.generateUUID(),
-          active: true,
-          updatedAt: new Date().toISOString(),
-          street: dados.rua || '',
-          complement: dados.complemento || '',
-          number: dados.numero || '',
-          zipCode: dados.cep || '',
-          neighborhoodId: this.generateUUID(),
-          neighborhood: {
-            id: this.generateUUID(),
-            active: true,
-            updatedAt: new Date().toISOString(),
-            name: dados.bairro || '',
-            city: {
-              id: this.generateUUID(),
-              active: true,
-              updatedAt: new Date().toISOString(),
-              name: dados.cidade || '',
-              stateId: this.generateUUID(),
-              state: {
-                id: this.generateUUID(),
-                active: true,
-                updatedAt: new Date().toISOString(),
-                name: dados.estado || '',
-                abreviation: dados.uf || ''
-              }
-            },
-            cityId: this.generateUUID()
+      const payloadSimplificado = {
+        usuario: {
+          nome: dados.dadosPessoais.nome,
+          email: dados.dadosPessoais.email,
+          telefone: dados.dadosPessoais.telefone,
+          cpf: dados.dadosPessoais.cpf,
+          endereco: {
+            cep: dados.dadosPessoais.cep,
+            numero: dados.dadosPessoais.numero,
+            complemento: dados.dadosPessoais.complemento,
+            bairro: dados.dadosPessoais.bairro,
+            cidade: dados.dadosPessoais.cidade,
+            uf: dados.dadosPessoais.uf,
+            logradouro: dados.dadosPessoais.logradouro
           }
         },
         pet: {
-          id: this.generateUUID(),
-          name: dados.nomePet,
-          specieId: dados.especie,
-          breedId: dados.raca,
-          sex: dados.sexo,
-          birthDate: dados.dataNascimento,
-          weight: dados.peso,
-          color: dados.cor,
-          acquisitionType: dados.aquisicao,
-          castrated: dados.castrado,
-          chipped: dados.chipado,
-          chipNumber: dados.numeroChip
-        }
+          nome: dados.dadosPet.nomePet,
+          especie: dados.dadosPet.especie,
+          raca: dados.dadosPet.raca,
+          sexo: dados.dadosPet.sexo,
+          dataNascimento: dados.dadosPet.dataNascimento,
+          peso: dados.dadosPet.peso,
+          cor: dados.dadosPet.cor,
+          aquisicao: dados.dadosPet.aquisicao,
+          castrado: dados.dadosPet.castrado,
+          chipado: dados.dadosPet.chipado,
+          numeroChip: dados.dadosPet.numeroChip
+        },
+        senha: dados.senha.senha
       };
 
-
-      this.http.post('https://localhost:7295/api/Auth/register', payload).subscribe({
-        next: () => {
-          alert('✅ Registro realizado com sucesso!');
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          console.error('Erro ao registrar:', err);
-          alert('❌ Erro ao registrar. Verifique os dados e tente novamente.');
-        }
-      });
+      try {
+        localStorage.setItem('registroUsuario', JSON.stringify(payloadSimplificado));
+        alert('✅ Registro salvo localmente com sucesso!');
+        this.router.navigate(['/login']);
+      } catch (error) {
+        console.error('Erro ao salvar no localStorage:', error);
+        alert('❌ Erro ao salvar localmente.');
+      }
 
     } else {
       console.warn('⚠️ Formulário inválido. Verifique os campos obrigatórios.');
-      this.registerForm.markAllAsTouched(); // Marca todos os campos como tocados
+      this.registerForm.markAllAsTouched();
     }
   }
 
-  private generateUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-      const r = Math.random() * 16 | 0,
-        v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
 }

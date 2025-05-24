@@ -30,6 +30,24 @@ export class Etapa2PetComponent implements OnInit {
     this.buscarEspecies();
   }
 
+  racasDisponiveis: string[] = [];
+
+  buscarRacas(): void {
+    const especieSelecionada = this.formGroup.get('especie')?.value;
+
+    if (especieSelecionada === 'Gato') {
+      this.racasDisponiveis = ['Persa', 'Siamês', 'Maine Coon'];
+    } else if (especieSelecionada === 'Cachorro') {
+      this.racasDisponiveis = ['Pinscher', 'Pastor Alemão', 'Dobermann'];
+    } else {
+      this.racasDisponiveis = [];
+    }
+
+    // Limpa o campo de raça ao trocar a espécie
+    this.formGroup.get('raca')?.setValue('');
+  }
+
+
   buscarEspecies(): void {
     this.http.get<any>('https://localhost:7295/api/Specie')
       .subscribe({
@@ -45,39 +63,6 @@ export class Etapa2PetComponent implements OnInit {
         error: (err) => console.error('Erro ao buscar espécies:', err)
       });
   }
-
-  buscarRacas(): void {
-    const especieSelecionadaId = this.formGroup.get('especie')?.value;
-    if (!especieSelecionadaId) {
-      this.racas = [];
-      return;
-    }
-
-    this.http.get<any>(`https://localhost:7295/api/Breed?specieId=${especieSelecionadaId}`)
-      .subscribe({
-        next: (response) => {
-          console.log('Resposta da API raças:', response);
-          if (Array.isArray(response.data) && response.data.length > 0) {
-            this.racas = response.data;
-          } else {
-            console.warn('Nenhuma raça encontrada, preenchendo com dados temporários');
-            this.racas = [
-              { id: '1', nome: 'Raça Exemplo 1' },
-              { id: '2', nome: 'Raça Exemplo 2' }
-            ];
-          }
-        },
-        error: (err) => {
-          console.error('Erro ao buscar raças:', err);
-          this.racas = [
-            { id: '1', nome: 'Raça Exemplo 1' },
-            { id: '2', nome: 'Raça Exemplo 2' }
-          ];
-        }
-      });
-  }
-
-
 
   campoInvalido(campo: string): boolean {
     const control = this.formGroup.get(campo);

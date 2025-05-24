@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../features/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,23 +7,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) { }
 
   onLogin() {
-    this.authService.login(this.username, this.password).subscribe({
-      next: () => {
-        console.log('Login realizado com sucesso!');
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        console.error('Erro no login:', error);
-        this.errorMessage = 'Usuário ou senha inválidos.';
-      }
-    });
+    const dadosSalvos = localStorage.getItem('registroUsuario');
+
+    if (!dadosSalvos) {
+      this.errorMessage = '❌ Nenhum usuário registrado.';
+      return;
+    }
+
+    const usuario = JSON.parse(dadosSalvos);
+
+    if (usuario.usuario.email === this.email && usuario.senha === this.password) {
+      console.log('✅ Login realizado com sucesso!');
+      // Armazena "token" no localStorage
+      localStorage.setItem('usuarioLogado', JSON.stringify({
+        email: usuario.usuario.email,
+        nome: usuario.usuario.nome,
+        token: 'fake-token-' + Date.now()
+      }));
+      this.router.navigate(['/perfillist']);
+    }
+
   }
 
   irParaRegistro() {
