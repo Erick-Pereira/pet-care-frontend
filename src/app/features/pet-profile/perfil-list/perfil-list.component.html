@@ -6,7 +6,7 @@
       *ngFor="let perfil of perfis"
       class="profile-card"
       tabindex="0"
-      (click)="openModal(perfil.id)"
+      (click)="onSelecionar(perfil.id)"
       (keyup.enter)="onSelecionar(perfil.id)"
     >
       <img [src]="perfil.imagemUrl" width="100px" alt="Imagem do perfil" />
@@ -23,18 +23,15 @@
       <p>Adicionar Perfil</p>
     </div>
   </div>
-  z
 
   <div class="modal-overlay" *ngIf="modalSelecionado">
-    <div
-      class="modal d-flex justify-content-center align-items-center"
-      style="min-height: 100vh"
-    >
+    <div class="modal d-flex justify-content-center align-items-center" style="min-height: 100vh">
       <div class="bg-white rounded shadow p-4 w-100" style="max-width: 720px">
         <h4 class="mb-4 text-center">Registro do Pet</h4>
 
         <form #petForm="ngForm" (ngSubmit)="salvarPerfil()">
           <div class="row g-3">
+            
             <div class="col-md-6">
               <label for="pet-name" class="form-label">Nome</label>
               <input
@@ -88,9 +85,7 @@
             </div>
 
             <div class="col-md-6">
-              <label for="birth-date" class="form-label"
-                >Nascimento Aproximado</label
-              >
+              <label for="birth-date" class="form-label">Nascimento Aproximado</label>
               <input
                 id="birth-date"
                 type="date"
@@ -122,7 +117,6 @@
               />
             </div>
 
-            <!-- Campo "Número do Chip" visível apenas se marcado como microchipado -->
             <div class="col-md-6" *ngIf="modalSelecionado?.isChipped">
               <label for="chip-number" class="form-label">Número do Chip</label>
               <input
@@ -144,9 +138,7 @@
                     [(ngModel)]="modalSelecionado.isCastrated"
                     name="isCastrated"
                   />
-                  <label for="castrado" class="form-check-label"
-                    >Castrado</label
-                  >
+                  <label for="castrado" class="form-check-label">Castrado</label>
                 </div>
 
                 <div class="form-check">
@@ -156,19 +148,15 @@
                     class="form-check-input"
                     [(ngModel)]="modalSelecionado.isChipped"
                     name="isChipped"
-                    (change)="onToggleMicrochipado()"
+                    (change)="atualizarStatusMicrochipado()"
                   />
-                  <label for="chipped" class="form-check-label"
-                    >Microchipado</label
-                  >
+                  <label for="chipped" class="form-check-label">Microchipado</label>
                 </div>
               </div>
             </div>
 
             <div class="col-12">
-              <label for="pet-owner" class="form-label"
-                >Responsável (Dono)</label
-              >
+              <label for="pet-owner" class="form-label">Responsável (Dono)</label>
               <input
                 id="pet-owner"
                 type="text"

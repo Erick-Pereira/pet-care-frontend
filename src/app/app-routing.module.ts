@@ -14,6 +14,7 @@ import { VetHistoryComponent } from './features/vet-history/vet-history.componen
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: 'AnimalHistory', component: AnimalHistoryComponent },
   { path: 'ActivityLog', component: ActivityLogComponent },
   { path: 'pet-documents', component: PetDocumentComponent },
+  { path: 'pet-perfil/:id', component: PetPerfilComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Perfil } from '@app/core/entities/perfil.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-list',
@@ -7,6 +8,8 @@ import { Perfil } from '@app/core/entities/perfil.model';
   styleUrls: ['./perfil-list.component.scss'],
 })
 export class PerfilListComponent {
+  constructor(private router: Router) {}
+
   @Output() selecionar = new EventEmitter<string>();
   @Output() criar = new EventEmitter<void>();
 
@@ -44,13 +47,12 @@ export class PerfilListComponent {
   }
 
   adicionar(): void {
-    this.abrirModalNovoPerfil(); // apenas abre o modal
+    this.abrirModalNovoPerfil();
   }
 
   salvarPerfil(): void {
     if (!this.modalSelecionado) return;
 
-    // Nome padrão caso esteja vazio
     this.modalSelecionado.name =
       this.modalSelecionado.name || this.modalSelecionado.nome || 'Perfil';
 
@@ -60,9 +62,7 @@ export class PerfilListComponent {
       this.perfis.push({ ...this.modalSelecionado });
       this.criar.emit();
     } else {
-      const index = this.perfis.findIndex(
-        (p) => p.id === this.modalSelecionado!.id,
-      );
+      const index = this.perfis.findIndex(p => p.id === this.modalSelecionado!.id);
       if (index !== -1) {
         this.perfis[index] = { ...this.modalSelecionado };
         this.selecionar.emit(this.modalSelecionado.id);
@@ -73,11 +73,7 @@ export class PerfilListComponent {
   }
 
   openModal(id: string): void {
-    const modal = this.perfis.find((p) => p.id === id);
-    if (modal) {
-      this.modalSelecionado = JSON.parse(JSON.stringify(modal)); // cópia profunda
-      this.estaCriandoNovo = false;
-    }
+    this.router.navigate(['/pet-perfil', id]);
   }
 
   fecharModal(): void {
@@ -90,10 +86,11 @@ export class PerfilListComponent {
     if (perfil) {
       this.perfilSelecionado = { ...perfil };
       this.selecionar.emit(perfil.id);
+      this.router.navigate(['/pet-perfil', id]);
     }
   }
 
-  onToggleMicrochipado(): void {
+  atualizarStatusMicrochipado(): void {
     if (!this.modalSelecionado?.isChipped) {
       if (this.modalSelecionado) {
         this.modalSelecionado.chipNumber = '';
