@@ -1,42 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  @Input() label = 'Entrar';
-  @Input() label2 = 'Esqueci minha senha';
-  @Input() label3 = 'Não tem uma conta?';
-  @Input() rota = '/dashboard'; 
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  loginForm!: FormGroup;
-  public registrar = 'Registrar';
+  constructor(private router: Router) { }
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  onLogin() {
+    const dadosSalvos = localStorage.getItem('registroUsuario');
 
-  ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
-  }
-
-  onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+    if (!dadosSalvos) {
+      this.errorMessage = '❌ Nenhum usuário registrado.';
       return;
     }
+
+    const usuario = JSON.parse(dadosSalvos);
+
+    if (usuario.usuario.email === this.email && usuario.senha === this.password) {
+      console.log('✅ Login realizado com sucesso!');
+      // Armazena "token" no localStorage
+      localStorage.setItem('usuarioLogado', JSON.stringify({
+        email: usuario.usuario.email,
+        nome: usuario.usuario.nome,
+        token: 'fake-token-' + Date.now()
+      }));
+      this.router.navigate(['/perfillist']);
+    }
+
   }
 
-  navegar(): void {
-    this.router.navigate([this.rota]);
-  }
-
-  irParaDadosPessoais(): void {
-    this.router.navigate(['/DadosPessoais']);
+  irParaRegistro() {
+    this.router.navigate(['/register']);
   }
 }
