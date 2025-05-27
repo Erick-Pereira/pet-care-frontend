@@ -1,0 +1,229 @@
+<!-- documentos-pet.component.html -->
+
+<div class="container my-4">
+  <!-- Título e botão -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+    <h2 class="mb-3">Documentos PET</h2>
+    <button
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#novoDocumentoModal"
+    >
+      <i class="bi bi-plus"></i> Adicionar Documento
+    </button>
+  </div>
+
+  <!-- Cards principais -->
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card">
+        <div class="card-header">Carteira de Vacinação</div>
+        <div class="card-body">
+          <p class="card-text">
+            Visualize aqui as vacinas aplicadas no seu pet.
+          </p>
+          <button class="btn btn-primary mt-2">
+            <i class="bi bi-eye"></i> Ver Carteira
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card">
+        <div class="card-header">Registro do Animal</div>
+        <div class="card-body">
+          <p class="card-text">
+            Veja os dados de registro e identificação do seu animal.
+          </p>
+          <button class="btn btn-primary mt-2">
+            <i class="bi bi-card-list"></i> Ver Registro
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de documentos anexados -->
+  <div *ngIf="documentos.length > 0" class="mt-4">
+    <h3>Documentos Anexados</h3>
+    <div class="row">
+      <div *ngFor="let doc of documentos" class="col-12 col-md-4 mb-3">
+        <div class="card">
+          <div class="card-header">{{ doc.titulo }}</div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ doc.tipoArquivo || 'Tipo não informado' }}
+            </h6>
+            <p class="card-text" *ngIf="doc.descricao">
+              Descrição: {{ doc.descricao }}
+            </p>
+            <p *ngIf="doc.dataInicio">Data de início: {{ doc.dataInicio }}</p>
+            <p *ngIf="doc.dataFim">Data de fim: {{ doc.dataFim }}</p>
+            <p *ngIf="!doc.dataFim && doc.semExpiracao">
+              Sem data de expiração
+            </p>
+
+            <!-- Miniatura do arquivo -->
+            <div class="d-flex align-items-center mt-2">
+              <ng-container *ngIf="doc.previewURL && doc.tipoArquivo">
+                <img
+                  *ngIf="doc.tipoArquivo.startsWith('image/')"
+                  [src]="doc.previewURL"
+                  alt="Imagem"
+                  style="
+                    width: 60px;
+                    height: 60px;
+                    object-fit: cover;
+                    margin-right: 10px;
+                  "
+                />
+                <i
+                  *ngIf="doc.tipoArquivo === 'application/pdf'"
+                  class="bi bi-file-earmark-pdf"
+                  style="font-size: 2rem; margin-right: 10px"
+                ></i>
+              </ng-container>
+              <span>{{ doc.nomeArquivo }}</span>
+            </div>
+
+            <a
+              [href]="doc.previewURL"
+              target="_blank"
+              class="btn btn-outline-primary mt-3"
+              >Visualizar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para novo documento -->
+  <div
+    class="modal fade"
+    id="novoDocumentoModal"
+    tabindex="-1"
+    aria-labelledby="novoDocumentoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <form (ngSubmit)="adicionarDocumento()" #form="ngForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="novoDocumentoModalLabel">
+              Novo Documento
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-3">
+              * Campos obrigatórios. Campos não marcados são opcionais.
+            </p>
+
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título *</label>
+              <input
+                id="titulo"
+                type="text"
+                class="form-control"
+                [(ngModel)]="novoDoc.titulo"
+                name="titulo"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="descricao" class="form-label"
+                >Descrição (opcional)</label
+              >
+              <textarea
+                id="descricao"
+                class="form-control"
+                [(ngModel)]="novoDoc.descricao"
+                name="descricao"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="nomeArquivo" class="form-label"
+                >Nome do Arquivo *</label
+              >
+              <input
+                id="nomeArquivo"
+                type="text"
+                class="form-control"
+                [(ngModel)]="novoDoc.nomeArquivo"
+                name="nomeArquivo"
+                [disabled]="!arquivoSelecionado"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="arquivo" class="form-label"
+                >Arquivo (imagem ou PDF) *</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                (change)="onFileChange($event)"
+                accept="image/*,application/pdf"
+                required
+              />
+            </div>
+
+            <!-- Vigência de Datas -->
+            <div class="mb-3">
+              <p class="form-label d-block">Vigência (opcional)</p>
+              <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                <input
+                  type="date"
+                  class="form-control"
+                  style="max-width: 180px"
+                  [(ngModel)]="novoDoc.dataInicio"
+                  name="dataInicio"
+                />
+                <input
+                  type="date"
+                  class="form-control"
+                  style="max-width: 180px"
+                  [(ngModel)]="novoDoc.dataFim"
+                  name="dataFim"
+                  [disabled]="semExpiracao"
+                />
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  id="semExpiracao"
+                  class="form-check-input"
+                  [(ngModel)]="semExpiracao"
+                  name="semExpiracao"
+                />
+                <label for="semExpiracao" class="form-check-label"
+                  >Sem data de expiração</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!form.valid || !arquivoSelecionado"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
