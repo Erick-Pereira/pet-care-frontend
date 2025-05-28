@@ -1,190 +1,149 @@
-<div class="perfil-container">
-  <h2>Escolha seu Perfil</h2>
-
-  <div class="perfil-grid">
-    <div
-      *ngFor="let perfil of perfis"
-      class="profile-card"
-      tabindex="0"
-      (click)="onSelecionar(perfil.id)"
-      (keyup.enter)="onSelecionar(perfil.id)"
-    >
-      <img [src]="perfil.imagemUrl" width="100px" alt="Imagem do perfil" />
-      <p>{{ perfil.nome }}</p>
-    </div>
-
-    <div
-      class="card add"
-      (click)="abrirModalNovoPerfil()"
-      (keydown.enter)="abrirModalNovoPerfil()"
-      tabindex="0"
-    >
-      <div class="plus">+</div>
-      <p>Adicionar Perfil</p>
-    </div>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Perfis</h2>
+    <button class="btn btn-primary" (click)="adicionar()">Novo Perfil</button>
   </div>
 
-  <div class="modal-overlay" *ngIf="modalSelecionado">
-    <div class="modal d-flex justify-content-center align-items-center" style="min-height: 100vh">
-      <div class="bg-white rounded shadow p-4 w-100" style="max-width: 720px">
-        <h4 class="mb-4 text-center">Registro do Pet</h4>
+  <div *ngIf="perfis.length === 0" class="alert alert-info">
+    Nenhum perfil cadastrado.
+  </div>
 
-        <form #petForm="ngForm" (ngSubmit)="salvarPerfil()">
-          <div class="row g-3">
-            
-            <div class="col-md-6">
-              <label for="pet-name" class="form-label">Nome</label>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let perfil of perfis">
+      <div
+        class="card h-100"
+        (click)="onSelecionar(perfil.id)"
+        (keydown.enter)="onSelecionar(perfil.id)"
+        tabindex="0"
+        style="cursor: pointer;"
+        role="button"
+        aria-pressed="false"
+      >
+        <img
+          [src]="perfil.imagemUrl || './assets/pet profile pic.png'"
+          class="card-img-top"
+          alt="Imagem do perfil"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ perfil.nome || perfil.name }}</h5>
+          <p class="card-text">
+            {{ perfil.raca || perfil.breed }}<br />
+            {{ perfil.especie || perfil.specie }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de criação/edição -->
+<div
+  class="modal fade show"
+  tabindex="-1"
+  [ngClass]="{ 'd-block': modalSelecionado }"
+  *ngIf="modalSelecionado"
+  role="dialog"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="salvarPerfil()">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ estaCriandoNovo ? 'Novo Perfil' : 'Editar Perfil' }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Fechar"
+            (click)="fecharModal()"
+          ></button>
+        </div>
+
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="nome">Nome</label>
+            <input id="nome" type="text" class="form-control" [(ngModel)]="modalSelecionado.nome" name="nome" required />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="raca">Raça</label>
+            <input id="raca" type="text" class="form-control" [(ngModel)]="modalSelecionado.raca" name="raca" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="especie">Espécie</label>
+            <input id="especie" type="text" class="form-control" [(ngModel)]="modalSelecionado.especie" name="especie" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="sexo">Sexo</label>
+            <select id="sexo" class="form-select" [(ngModel)]="modalSelecionado.sexo" name="sexo">
+              <option value="">Selecione</option>
+              <option value="M">Macho</option>
+              <option value="F">Fêmea</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="cor">Cor</label>
+            <input id="cor" type="text" class="form-control" [(ngModel)]="modalSelecionado.color" name="cor" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="acquisition">Data de Aquisição</label>
+            <input id="acquisition" type="date" class="form-control" [(ngModel)]="modalSelecionado.acquisition" name="acquisition" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="birthDate">Data Nascimento Aproximada</label>
+            <input id="birthDate" type="date" class="form-control" [(ngModel)]="modalSelecionado.approximateBirthDate" name="birthDate" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="isChipped">Microchipado?</label>
+            <div class="form-check">
               <input
-                id="pet-name"
-                type="text"
-                class="form-control"
-                required
-                [(ngModel)]="modalSelecionado.name"
-                name="name"
-                #name="ngModel"
+                id="isChipped"
+                class="form-check-input"
+                type="checkbox"
+                [(ngModel)]="modalSelecionado.isChipped"
+                name="isChipped"
+                (change)="atualizarStatusMicrochipado()"
               />
-              <div *ngIf="name.invalid && name.touched" class="text-danger">
-                Nome obrigatório
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="pet-specie" class="form-label">Espécie</label>
-              <input
-                id="pet-specie"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.specie"
-                name="specie"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <label for="pet-breed" class="form-label">Raça</label>
-              <input
-                id="pet-breed"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.breed"
-                name="breed"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <label for="pet-gender" class="form-label">Gênero</label>
-              <select
-                id="pet-gender"
-                class="form-select"
-                [(ngModel)]="modalSelecionado.gender"
-                name="gender"
-              >
-                <option value="">Selecione</option>
-                <option value="Male">Macho</option>
-                <option value="Female">Fêmea</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label for="birth-date" class="form-label">Nascimento Aproximado</label>
-              <input
-                id="birth-date"
-                type="date"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.approximateBirthDate"
-                name="approximateBirthDate"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <label for="pet-color" class="form-label">Cor</label>
-              <input
-                id="pet-color"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.color"
-                name="color"
-              />
-            </div>
-
-            <div class="col-md-6">
-              <label for="pet-acquisition" class="form-label">Aquisição</label>
-              <input
-                id="pet-acquisition"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.acquisition"
-                name="acquisition"
-              />
-            </div>
-
-            <div class="col-md-6" *ngIf="modalSelecionado?.isChipped">
-              <label for="chip-number" class="form-label">Número do Chip</label>
-              <input
-                id="chip-number"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.chipNumber"
-                name="chipNumber"
-              />
-            </div>
-
-            <div class="col-12">
-              <div class="d-flex gap-4 align-items-center ps-1 pt-2">
-                <div class="form-check">
-                  <input
-                    id="castrado"
-                    type="checkbox"
-                    class="form-check-input"
-                    [(ngModel)]="modalSelecionado.isCastrated"
-                    name="isCastrated"
-                  />
-                  <label for="castrado" class="form-check-label">Castrado</label>
-                </div>
-
-                <div class="form-check">
-                  <input
-                    id="chipped"
-                    type="checkbox"
-                    class="form-check-input"
-                    [(ngModel)]="modalSelecionado.isChipped"
-                    name="isChipped"
-                    (change)="atualizarStatusMicrochipado()"
-                  />
-                  <label for="chipped" class="form-check-label">Microchipado</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="pet-owner" class="form-label">Responsável (Dono)</label>
-              <input
-                id="pet-owner"
-                type="text"
-                class="form-control"
-                [(ngModel)]="modalSelecionado.owner"
-                name="owner"
-              />
-            </div>
-
-            <div class="col-12 d-flex justify-content-end gap-2 mt-3">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                (click)="fecharModal()"
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                class="btn btn-primary"
-                [disabled]="petForm.invalid"
-              >
-                Salvar
-              </button>
+              <label class="form-check-label" for="isChipped">Sim</label>
             </div>
           </div>
-        </form>
-      </div>
+
+          <div class="col-md-6" *ngIf="modalSelecionado.isChipped">
+            <label class="form-label" for="chipNumber">Número do Chip</label>
+            <input id="chipNumber" type="text" class="form-control" [(ngModel)]="modalSelecionado.chipNumber" name="chipNumber" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="isCastrated">Castrado?</label>
+            <div class="form-check">
+              <input
+                id="isCastrated"
+                class="form-check-input"
+                type="checkbox"
+                [(ngModel)]="modalSelecionado.isCastrated"
+                name="isCastrated"
+              />
+              <label class="form-check-label" for="isCastrated">Sim</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label" for="observacoes">Observações</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="modalSelecionado.observacoes" name="observacoes"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
