@@ -1,0 +1,42 @@
+<div class="animal-public-container">
+  <div class="pet-info">
+    <h2 *ngIf="pet.mostrarNome">{{ pet.nome }}</h2>
+    <p>Espécie: {{ pet.especie }}</p>
+    <p>Raça: {{ pet.raca }}</p>
+
+    <p *ngIf="pet.mostrarTutor"><strong>Tutor:</strong> {{ pet.tutor.nome }}</p>
+    <p *ngIf="pet.mostrarTelefone"><strong>Contato:</strong> {{ pet.tutor.telefone }}</p>
+  </div>
+
+  <div class="qrcode-section">
+    <h3>QR Code</h3>
+
+    <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent(qrCodeUrl) + '&size=200x200'" alt="QR Code">
+    <p class="info-msg">Escaneie para acessar esta página de identificação do pet.</p>
+  </div>
+
+  <button (click)="mostrarCampoCodigo = !mostrarCampoCodigo" class="btn-acesso">
+    Acessar Histórico Médico
+  </button>
+
+  <form [formGroup]="codigoForm" (ngSubmit)="validarCodigo()" *ngIf="mostrarCampoCodigo" class="codigo-container">
+    <input type="text" formControlName="codigo" placeholder="Digite o código fornecido" />
+    <button type="submit" [disabled]="codigoForm.invalid">Confirmar</button>
+
+    <div *ngIf="codigoForm.get('codigo')?.touched && codigoForm.get('codigo')?.invalid" class="erro-msg">
+      Código é obrigatório
+    </div>
+    <div *ngIf="erroCodigo" class="erro-msg">
+      Código inválido
+    </div>
+  </form>
+
+  <div *ngIf="acessoPermitido && pet.mostrarHistorico" class="historico-medico">
+    <h3>Histórico Médico</h3>
+    <ul>
+      <li *ngFor="let item of pet.historicoMedico">
+        {{ item.data | date }} - {{ item.descricao }}
+      </li>
+    </ul>
+  </div>
+</div>

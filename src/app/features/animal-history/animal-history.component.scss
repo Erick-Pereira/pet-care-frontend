@@ -1,0 +1,95 @@
+.animal-history-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.animal-history-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.historico-item {
+  border-left: 4px solid #4CAF50;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.data {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.descricao {
+  color: #444;
+  font-size: 1rem;
+}
+
+.link-compartilhavel {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.shared-link-input {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f3f3f3;
+}
+
+.link-compartilhavel button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.link-compartilhavel button:hover {
+  background-color: #45a049;
+}
+
+.sem-historico {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .animal-history-container {
+    padding: 1rem;
+  }
+
+  .shared-link-input {
+    font-size: 0.9rem;
+  }
+
+  .link-compartilhavel button {
+    width: 100%;
+  }
+}
