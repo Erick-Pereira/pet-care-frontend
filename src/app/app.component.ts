@@ -11,5 +11,6 @@ export class AppComponent {
     { label: 'Sobre', path: '/about' },
     { label: 'Serviços', path: '/services' },
     { label: 'Login', path: '/login' },
+    { label: 'Register', path: '/register' },
   ];
 }

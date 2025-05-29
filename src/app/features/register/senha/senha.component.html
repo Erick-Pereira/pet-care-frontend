@@ -1,0 +1,73 @@
+<div class="senha-container">
+  <div class="form-container">
+    <h2>Senha</h2>
+
+    <form [formGroup]="senhaForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-field">
+        <label for="senha">Senha</label>
+        <div class="input-wrapper">
+          <input
+            [type]="hidePassword ? 'password' : 'text'"
+            id="senha"
+            formControlName="senha"
+            placeholder="Digite sua senha"
+            autocomplete="new-password"
+            aria-required="true"
+          />
+          <i
+            class="fa"
+            [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"
+            (click)="togglePasswordVisibility()"
+            (keydown.enter)="togglePasswordVisibility()"
+            (keydown.space)="togglePasswordVisibility()"
+            tabindex="0"
+            aria-label="Mostrar ou ocultar senha"
+            role="button"
+          ></i>
+        </div>
+        <div
+          class="error-message"
+          *ngIf="senhaForm.get('senha')?.invalid && senhaForm.get('senha')?.touched"
+        >
+          A senha é obrigatória.
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="confirmarSenha">Confirmar Senha</label>
+        <div class="input-wrapper">
+          <input
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            id="confirmarSenha"
+            formControlName="confirmarSenha"
+            placeholder="Confirme sua senha"
+            autocomplete="new-password"
+            aria-required="true"
+          />
+          <i
+            class="fa"
+            [ngClass]="hideConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"
+            (click)="toggleConfirmPasswordVisibility()"
+            (keydown.enter)="toggleConfirmPasswordVisibility()"
+            (keydown.space)="toggleConfirmPasswordVisibility()"
+            tabindex="0"
+            aria-label="Mostrar ou ocultar confirmação de senha"
+            role="button"
+          ></i>
+        </div>
+        <div
+          class="error-message"
+          *ngIf="senhaForm.get('confirmarSenha')?.invalid && senhaForm.get('confirmarSenha')?.touched"
+        >
+          A confirmação de senha é obrigatória.
+        </div>
+      </div>
+
+      <div class="botoes">
+        <button type="button" (click)="voltar()">Voltar</button>
+        <button type="submit" [disabled]="senhaForm.invalid">Próximo</button>
+      </div>
+    </form>
+  </div>
+</div>

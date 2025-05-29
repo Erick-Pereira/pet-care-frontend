@@ -4,7 +4,15 @@
   <!-- Título e botão -->
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
     <h2 class="mb-3">Documentos PET</h2>
+<<<<<<< HEAD
     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#novoDocumentoModal">
+=======
+    <button
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#novoDocumentoModal"
+    >
+>>>>>>> 8da1664a537cb9b09e996568b460866f1258dcaf
       <i class="bi bi-plus"></i> Adicionar Documento
     </button>
   </div>
@@ -15,8 +23,15 @@
       <div class="card">
         <div class="card-header">Carteira de Vacinação</div>
         <div class="card-body">
+<<<<<<< HEAD
           <p class="card-text">Visualize aqui as vacinas aplicadas no seu pet.</p>
           <button class="btn btn-primary mt-2" [routerLink]="['/vaccination-card']">
+=======
+          <p class="card-text">
+            Visualize aqui as vacinas aplicadas no seu pet.
+          </p>
+          <button class="btn btn-primary mt-2">
+>>>>>>> 8da1664a537cb9b09e996568b460866f1258dcaf
             <i class="bi bi-eye"></i> Ver Carteira
           </button>
         </div>
@@ -26,7 +41,13 @@
       <div class="card">
         <div class="card-header">Registro do Animal</div>
         <div class="card-body">
+<<<<<<< HEAD
           <p class="card-text">Veja os dados de registro e identificação do seu animal.</p>
+=======
+          <p class="card-text">
+            Veja os dados de registro e identificação do seu animal.
+          </p>
+>>>>>>> 8da1664a537cb9b09e996568b460866f1258dcaf
           <button class="btn btn-primary mt-2">
             <i class="bi bi-card-list"></i> Ver Registro
           </button>
@@ -43,11 +64,25 @@
         <div class="card">
           <div class="card-header">{{ doc.titulo }}</div>
           <div class="card-body">
+<<<<<<< HEAD
             <h6 class="card-subtitle mb-2 text-muted">{{ doc.tipoArquivo || 'Tipo não informado' }}</h6>
             <p class="card-text" *ngIf="doc.descricao">Descrição: {{ doc.descricao }}</p>
             <p *ngIf="doc.dataInicio">Data de início: {{ doc.dataInicio }}</p>
             <p *ngIf="doc.dataFim">Data de fim: {{ doc.dataFim }}</p>
             <p *ngIf="!doc.dataFim && doc.semExpiracao">Sem data de expiração</p>
+=======
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ doc.tipoArquivo || 'Tipo não informado' }}
+            </h6>
+            <p class="card-text" *ngIf="doc.descricao">
+              Descrição: {{ doc.descricao }}
+            </p>
+            <p *ngIf="doc.dataInicio">Data de início: {{ doc.dataInicio }}</p>
+            <p *ngIf="doc.dataFim">Data de fim: {{ doc.dataFim }}</p>
+            <p *ngIf="!doc.dataFim && doc.semExpiracao">
+              Sem data de expiração
+            </p>
+>>>>>>> 8da1664a537cb9b09e996568b460866f1258dcaf
 
             <!-- Miniatura do arquivo -->
             <div class="d-flex align-items-center mt-2">
@@ -69,9 +104,10 @@
       </div>
     </div>
   </div>
-
   <!-- Modal para novo documento -->
-  <div class="modal fade" id="novoDocumentoModal" tabindex="-1" aria-labelledby="novoDocumentoModalLabel" aria-hidden="true">
+    aria-hidden="true"
+  >
+>>>>>>> 8da1664a537cb9b09e996568b460866f1258dcaf
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <form (ngSubmit)="adicionarDocumento()" #form="ngForm">
