@@ -4,14 +4,13 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   email = '';
   password = '';
   errorMessage = '';
-  loginForm!: FormGroup; // Explicitly type loginForm
+  loginForm!: FormGroup;
   label = '';
 
   constructor(private router: Router) { }
