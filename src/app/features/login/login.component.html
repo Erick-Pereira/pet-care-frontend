@@ -6,23 +6,35 @@
       <input
         type="email"
         id="email"
-        name="email"
+        formControlName="email"
         class="form-control"
         [(ngModel)]="email"
         required
       />
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+        <small *ngIf="loginForm.get('email')?.hasError('required')">E-mail é obrigatório.</small>
+        <small *ngIf="loginForm.get('email')?.hasError('email')">E-mail inválido.</small>
+      </div>
     </div>
-    
-    <div class="mb-3">
+
+    <div class="mb-4">
       <label for="password" class="form-label">Senha:</label>
       <input
         type="password"
         id="password"
-        name="password"
+        formControlName="password"
         class="form-control"
         [(ngModel)]="password"
         required
       />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+        <small *ngIf="loginForm.get('password')?.hasError('required')">Senha é obrigatória.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">{{ label }}</button>
+    <div class="text-center mt-3">
+      <small>Não tem uma conta? <a routerLink="/register">Registrar</a></small>
     </div>
     <button type="submit" class="btn btn-success w-100">Entrar</button>
 

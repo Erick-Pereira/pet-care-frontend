@@ -1,32 +1,33 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Perfil } from '@app/core/entities/perfil.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-list',
   templateUrl: './perfil-list.component.html',
-  styleUrls: ['./perfil-list.component.scss'],
 })
 export class PerfilListComponent {
   @Output() selecionar = new EventEmitter<string>();
   @Output() criar = new EventEmitter<void>();
 
+  perfis: Perfil[] = [];
   perfilSelecionado: Perfil | null = null;
   modalSelecionado: Perfil | null = null;
-
-  perfis: Perfil[] = [];
-
   estaCriandoNovo = false;
 
-  abrirModalNovoPerfil(): void {
-    this.modalSelecionado = {
+  constructor(private router: Router) {}
+
+  private criarPerfilVazio(): Perfil {
+    const dataAtual = new Date();
+    return {
       id: '',
       name: '',
       nome: '',
       imagemUrl: './assets/pet profile pic.png',
-      acquisition: new Date(),
-      approximateBirthDate: new Date(),
+      acquisition: dataAtual,
+      approximateBirthDate: dataAtual,
       gender: '',
-      specie: '',
+      especie: '',
       observacoes: '',
       idade: 0,
       raca: '',
@@ -35,34 +36,45 @@ export class PerfilListComponent {
       isChipped: false,
       isCastrated: false,
       color: '',
-      breed: '',
-      sexo: '',
-      especie: '',
       tipo: '',
+      breed: '',
+      specie: '',
+      sexo: '',
     };
+  }
+
+  abrirModalNovoPerfil(): void {
+    this.modalSelecionado = this.criarPerfilVazio();
     this.estaCriandoNovo = true;
   }
 
   adicionar(): void {
-    this.abrirModalNovoPerfil(); // apenas abre o modal
+    this.abrirModalNovoPerfil();
+  }
+
+  atualizarStatusMicrochipado(): void {
+    if (!this.modalSelecionado) return;
+
+    if (!this.modalSelecionado.isChipped) {
+      this.modalSelecionado.chipNumber = '';
+    }
+  }
+
+  private garantirNomePerfil(perfil: Perfil): string {
+    return (perfil.name?.trim() || perfil.nome?.trim() || 'Perfil').trim();
   }
 
   salvarPerfil(): void {
     if (!this.modalSelecionado) return;
 
-    // Nome padrão caso esteja vazio
-    this.modalSelecionado.name =
-      this.modalSelecionado.name || this.modalSelecionado.nome || 'Perfil';
+    this.modalSelecionado.name = this.garantirNomePerfil(this.modalSelecionado);
 
     if (this.estaCriandoNovo) {
-      const novoId = (this.perfis.length + 1).toString();
-      this.modalSelecionado.id = novoId;
+      this.modalSelecionado.id = (this.perfis.length + 1).toString();
       this.perfis.push({ ...this.modalSelecionado });
       this.criar.emit();
     } else {
-      const index = this.perfis.findIndex(
-        (p) => p.id === this.modalSelecionado!.id,
-      );
+      const index = this.perfis.findIndex(p => p.id === this.modalSelecionado!.id);
       if (index !== -1) {
         this.perfis[index] = { ...this.modalSelecionado };
         this.selecionar.emit(this.modalSelecionado.id);
@@ -73,11 +85,7 @@ export class PerfilListComponent {
   }
 
   openModal(id: string): void {
-    const modal = this.perfis.find((p) => p.id === id);
-    if (modal) {
-      this.modalSelecionado = JSON.parse(JSON.stringify(modal)); // cópia profunda
-      this.estaCriandoNovo = false;
-    }
+    this.router.navigate(['/pet-perfil', id]);
   }
 
   fecharModal(): void {
@@ -86,18 +94,11 @@ export class PerfilListComponent {
   }
 
   onSelecionar(id: string): void {
-    const perfil = this.perfis.find((p) => p.id === id);
-    if (perfil) {
-      this.perfilSelecionado = { ...perfil };
-      this.selecionar.emit(perfil.id);
-    }
-  }
+    const perfil = this.perfis.find(p => p.id === id);
+    if (!perfil) return;
 
-  onToggleMicrochipado(): void {
-    if (!this.modalSelecionado?.isChipped) {
-      if (this.modalSelecionado) {
-        this.modalSelecionado.chipNumber = '';
-      }
-    }
+    this.perfilSelecionado = { ...perfil };
+    this.selecionar.emit(perfil.id);
+    this.router.navigate(['/pet-perfil', id]);
   }
 }

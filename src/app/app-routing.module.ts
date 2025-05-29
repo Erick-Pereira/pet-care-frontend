@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ServicesComponent } from './features/services/services.component';
+
+import { ServicesComponent } from './services/services.component';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
@@ -13,11 +14,12 @@ import { VetHistoryComponent } from './features/vet-history/vet-history.componen
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
-  { path: 'services', component: ServicesComponent, canActivate: [AuthGuard] }, 
+  { path: 'services', component: ServicesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'Perfil', component: PerfilComponent, canActivate: [AuthGuard] },
@@ -27,6 +29,7 @@ const routes: Routes = [
   { path: 'AnimalHistory', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
   { path: 'ActivityLog', component: ActivityLogComponent, canActivate: [AuthGuard] },
   { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
+  { path: 'pet-perfil/:id', component: PetPerfilComponent },
   { path: '**', redirectTo: '' }
 ];
 @NgModule({
