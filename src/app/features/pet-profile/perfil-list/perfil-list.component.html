@@ -39,6 +39,18 @@
 </div>
 
 <div
+  class="modal-backdrop fade"
+  [ngClass]="{ show: modalSelecionado }"
+  *ngIf="modalSelecionado"
+  (click)="fecharModal()"
+  (keydown.enter)="fecharModal()"
+  tabindex="0"
+  role="button"
+  aria-pressed="false"
+  style="cursor: pointer"
+></div>
+
+<div
   class="modal fade"
   tabindex="-1"
   role="dialog"
@@ -198,16 +210,5 @@
         </div>
       </form>
     </div>
-    <div
-      class="modal-backdrop fade"
-      [ngClass]="{ show: modalSelecionado }"
-      *ngIf="modalSelecionado"
-      (click)="fecharModal()"
-      (keydown.enter)="fecharModal()"
-      tabindex="0"
-      role="button"
-      aria-pressed="false"
-      style="cursor: pointer"
-    ></div>
   </div>
 </div>
