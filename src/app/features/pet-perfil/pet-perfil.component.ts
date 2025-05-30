@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 interface Pet {
   nome: string;
   dataNascimento: string;

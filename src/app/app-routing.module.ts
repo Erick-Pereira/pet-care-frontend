@@ -15,6 +15,7 @@ import { AnimalHistoryComponent } from './features/animal-history/animal-history
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
+import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component'; // <- Adicionado aqui
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -30,8 +31,10 @@ const routes: Routes = [
   { path: 'ActivityLog', component: ActivityLogComponent, canActivate: [AuthGuard] },
   { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
   { path: 'pet-perfil/:id', component: PetPerfilComponent },
+  { path: 'pet-perfil-edit/:id', component: PetPerfilEditComponent }, // <- Nova rota aqui
   { path: '**', redirectTo: '' }
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
+import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
     ActivityLogComponent,
     PetDocumentComponent,
     PetPerfilComponent,
+    PetPerfilEditComponent,
   ],
   imports: [
     BrowserModule,
