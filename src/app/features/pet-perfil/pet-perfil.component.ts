@@ -56,9 +56,9 @@ export class PetPerfilComponent implements OnInit {
       endereco: ''
     };
 
-    this.petImageUrl = '';
+    // 🐾 Aqui você define a imagem do pet a partir da pasta assets
+    this.petImageUrl = 'assets/Foto perfil Sofi.JPG';
 
     this.mostrarPopup = false;
-
   }
 }

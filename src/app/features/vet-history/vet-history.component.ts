@@ -17,7 +17,7 @@ export class VetHistoryComponent implements OnInit {
     historico: this.fb.array([])
   });
 }
-  
+
   ngOnInit(): void {
     this.addEntry();
     }
@@ -32,7 +32,7 @@ export class VetHistoryComponent implements OnInit {
       data: ['', [Validators.required]],
       descricao: ['', [Validators.required, Validators.minLength(5)]],
       profissional: ['', Validators.maxLength(100)],
-      contatoProfissional: ['', Validators.maxLength(100)], 
+      contatoProfissional: ['', Validators.maxLength(100)],
       observacoes: ['', Validators.maxLength(500)],
     });
   }
