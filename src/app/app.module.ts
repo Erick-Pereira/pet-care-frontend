@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
     SharedModule,
     CommonModule,
     FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],

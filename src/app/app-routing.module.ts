@@ -23,12 +23,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'Perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'PerfilList', component: PerfilListComponent, canActivate: [AuthGuard] },
+  { path: 'PerfilList', component: PerfilListComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'AnimalPublic', component: AnimalPublicComponent, canActivate: [AuthGuard] },
   { path: 'VetHistory', component: VetHistoryComponent, canActivate: [AuthGuard] },
   { path: 'AnimalHistory', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
   { path: 'ActivityLog', component: ActivityLogComponent, canActivate: [AuthGuard] },
-  { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
+  { path: 'pet-documents', component: PetDocumentComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'pet-perfil/:id', component: PetPerfilComponent },
   { path: '**', redirectTo: '' }
 ];
