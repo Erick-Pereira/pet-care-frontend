@@ -6,10 +6,6 @@
     </button>
   </div>
 
-  <div *ngIf="perfis.length === 0" class="alert alert-info">
-    Nenhum perfil cadastrado.
-  </div>
-
   <div class="row">
     <div class="col-md-4 mb-3" *ngFor="let perfil of perfis">
       <div
@@ -23,8 +19,9 @@
       >
         <img
           [src]="perfil.urlImagem || './assets/pet profile pic.png'"
-          class="card-img-top"
+          class="d-block mx-auto"
           alt="Imagem do perfil"
+          style="height: 200px; width: 450px; object-fit: contain"
         />
         <div class="card-body">
           <h5 class="card-title">{{ perfil.nome || perfil.nome }}</h5>
@@ -199,7 +196,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="fecharModal()">
+          <button type="button" class="btn btn-outline-danger" (click)="fecharModal()">
             Cancelar
           </button>
           <button type="submit" class="btn btn-success">Salvar</button>
