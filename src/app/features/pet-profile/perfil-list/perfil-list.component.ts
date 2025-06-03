@@ -29,12 +29,16 @@ export class PerfilListComponent {
     this.router.navigate(['/pet-perfil', id]);
   }
 
-  openModal(id: string): void {
+  navegarParaPerfil(id: string): void {
     this.router.navigate(['/pet-perfil', id]);
   }
 
   // 🔹 Métodos de Modal
   adicionar(): void {
+    if (this.perfis.length >= 5) {
+    alert('Você atingiu o limite de 5 perfis.');
+    return;
+  }
     this.abrirModalNovoPerfil();
   }
 
