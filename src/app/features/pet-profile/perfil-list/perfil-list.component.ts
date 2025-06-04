@@ -15,6 +15,7 @@ export class PerfilListComponent {
   modalSelecionado: Perfil | null = null;
   perfilSelecionado: Perfil | null = null;
   perfis: Perfil[] = [];
+  hoverMap: Record<string, boolean> = {};
 
   // 🔹 Construtor
   constructor(private router: Router) {}
@@ -55,7 +56,7 @@ export class PerfilListComponent {
   salvarPerfil(): void {
     if (!this.modalSelecionado) return;
 
-    this.modalSelecionado.nome = this.garantirNomePerfil(this.modalSelecionado);
+    this.modalSelecionado.nome = this.modalSelecionado.nome.trim();
 
     if (this.estaCriandoNovo) {
       this.modalSelecionado.id = (this.perfis.length + 1).toString();
@@ -110,9 +111,5 @@ export class PerfilListComponent {
       tipo: '',
       urlImagem: '',
     };
-  }
-
-  private garantirNomePerfil(perfil: Perfil): string {
-    return (perfil.nome?.trim() || 'Perfil').trim();
   }
 }
