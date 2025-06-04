@@ -22,7 +22,7 @@
           <p class="card-text">
             Visualize aqui as vacinas aplicadas no seu pet.
           </p>
-          <button class="btn btn-primary mt-2">
+          <button class="btn btn-success mt-2">
             <i class="bi bi-eye"></i> Ver Carteira
           </button>
         </div>
@@ -35,7 +35,7 @@
           <p class="card-text">
             Veja os dados de registro e identificação do seu animal.
           </p>
-          <button class="btn btn-primary mt-2">
+          <button class="btn btn-success mt-2" (click)="abrirPdf()">
             <i class="bi bi-card-list"></i> Ver Registro
           </button>
         </div>
@@ -218,6 +218,7 @@
               type="submit"
               class="btn btn-success"
               [disabled]="!form.valid || !arquivoSelecionado"
+
             >
               Salvar
             </button>
