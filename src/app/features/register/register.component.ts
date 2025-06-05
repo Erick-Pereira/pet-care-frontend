@@ -51,7 +51,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log('RegisterComponent initialized')
+  }
 
   irParaProximaEtapa(): void {
     this.etapaAtual++;
