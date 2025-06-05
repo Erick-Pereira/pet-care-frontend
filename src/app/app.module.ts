@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
+import { PetRgComponent } from './features/pet-rg/pet-rg.component';
 
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
@@ -51,6 +52,7 @@ import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-ed
     PetDocumentComponent,
     PetPerfilComponent,
     PetPerfilEditComponent,
+    PetRgComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,36 @@
+<!-- Conteúdo a ser convertido em PDF -->
+<div id="conteudo-pdf">
+  <div class="container border rounded p-4" style="max-width: 900px; margin: 2rem auto;">
+    <div class="row g-3 mb-4">
+      <!-- Coluna com a foto -->
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+        <img [src]="petImageUrl" alt="Foto do Pet" class="img-fluid rounded-circle mb-3" style="max-width: 180px; max-height: 180px; object-fit: cover;">
+      </div>
+
+      <!-- Coluna com os dados -->
+      <div class="col-12 col-md-8">
+        <div class="row g-3">
+          <!-- Dados do Pet -->
+          <div class="col-12 col-md-6">
+            <h2>Dados do Pet</h2>
+            <p><strong>Nome:</strong> {{ pet.nome }}</p>
+            <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
+            <p><strong>Raça:</strong> {{ pet.raca }}</p>
+            <p><strong>Forma de aquisição:</strong> {{ pet.aquisicao }}</p>
+            <p><strong>Possui Chip:</strong> {{ pet.possuiChip ? 'Sim' : 'Não' }}</p>
+            <p *ngIf="pet.possuiChip"><strong>Código do Chip:</strong> {{ pet.codigoChip }}</p>
+            <p><strong>Sexo:</strong> {{ pet.genero }}</p>
+            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+            <p><strong>Cor:</strong> {{ pet.cor }}</p>
+            <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botão de imprimir (fora da área que será exportada) -->
+<div class="text-center mt-3">
+  <button (click)="imprimir()" class="btn btn-success">Imprimir</button>
+</div>
