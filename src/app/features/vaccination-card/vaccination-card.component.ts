@@ -11,7 +11,7 @@ declare const bootstrap: any;
 export class VaccinationCardComponent implements OnInit {
   vaccines: any[] = [];
   filteredVaccines: any[] = [];
-  searchTerm: string = '';
+  searchTerm = '';
   newVaccine: any = {
     nome: '',
     codigo: '',
@@ -22,7 +22,7 @@ export class VaccinationCardComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  semRepeticao: boolean = false;
+  semRepeticao = false;
 
   private modalRef: any;
 

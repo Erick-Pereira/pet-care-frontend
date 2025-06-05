@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+interface ApiResponse<T> {
+  data: T;
+}
+
 interface Especie {
   id: string;
   name: string;
@@ -49,7 +53,8 @@ export class Etapa2PetComponent implements OnInit {
 
 
   buscarEspecies(): void {
-    this.http.get<any>('https://localhost:7295/api/Specie')
+    this.http
+      .get<ApiResponse<Especie[]>>('https://localhost:7295/api/Specie')
       .subscribe({
         next: (response) => {
           console.log('Resposta da API espécies:', response);
@@ -60,7 +65,7 @@ export class Etapa2PetComponent implements OnInit {
             this.especies = [];
           }
         },
-        error: (err) => console.error('Erro ao buscar espécies:', err)
+        error: (err) => console.error('Erro ao buscar espécies:', err),
       });
   }
 
