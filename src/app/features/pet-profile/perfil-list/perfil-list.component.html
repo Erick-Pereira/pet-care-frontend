@@ -29,7 +29,6 @@
           style="max-height: 250px; object-fit: cover; width: 100%"
         />
       </div>
-
       <div class="text-center fw-bold mt-1">{{ perfil.nome }}</div>
     </div>
   </div>
@@ -47,13 +46,7 @@
   style="cursor: pointer"
 ></div>
 
-<div
-  class="modal fade"
-  tabindex="-1"
-  role="dialog"
-  [ngClass]="{ 'show d-block': modalSelecionado }"
-  *ngIf="modalSelecionado"
->
+<div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{ 'show d-block': modalSelecionado }" *ngIf="modalSelecionado">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form (ngSubmit)="salvarPerfil()">
@@ -91,7 +84,7 @@
                 class="form-control"
                 [(ngModel)]="modalSelecionado.raca"
                 name="raca"
-                required=""
+                required
               />
             </div>
 
@@ -132,35 +125,32 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" for="acquisition" class="form-label"
-                >Data de Aquisição</label
-              >
+              <label class="form-label" for="acquisition">Data de Aquisição</label>
               <input
                 id="acquisition"
                 type="date"
                 class="form-control"
                 [(ngModel)]="modalSelecionado.dataAquisicao"
                 name="acquisition"
-                required=""
+                required
               />
             </div>
 
-            <div class="col-md-6">
-              <label for="birthDate" class="form-label"
-                >Data de Nascimento Aproximada</label
-              >
+            <div class="col 12">
+              <label class="form-label" for="birthDate">Data de Nascimento Aproximada</label>
               <input
                 id="birthDate"
                 type="date"
                 class="form-control"
                 [(ngModel)]="modalSelecionado.dataNascimentoAproximada"
                 name="birthDate"
-                required=""
+                required
               />
             </div>
 
-            <div class="col-md-3 d-flex align-items-end">
-              <div class="form-check">
+            <!-- Checkboxes alinhados nas extremidades -->
+            <div class="col-12 d-flex justify-content-between mt-3">
+              <div class="form-check d-flex align-items-center">
                 <input
                   id="isCastrated"
                   class="form-check-input"
@@ -168,16 +158,11 @@
                   [(ngModel)]="modalSelecionado.estaCastrado"
                   name="isCastrated"
                   (change)="atualizarStatusCastrado()"
-                  required
                 />
-                <label class="form-check-label ms-2" for="isCastrated"
-                  >Castrado?</label
-                >
+                <label class="form-check-label ms-2 mb-0" for="isCastrated">Castrado?</label>
               </div>
-            </div>
 
-            <div class="col-md-3 d-flex align-items-end">
-              <div class="form-check">
+              <div class="form-check d-flex align-items-center">
                 <input
                   id="isChipped"
                   class="form-check-input"
@@ -185,11 +170,8 @@
                   [(ngModel)]="modalSelecionado.estaChipado"
                   name="isChipped"
                   (change)="atualizarStatusMicrochipado()"
-                  required=""
                 />
-                <label class="form-check-label ms-2" for="isChipped"
-                  >Microchipado?</label
-                >
+                <label class="form-check-label ms-2 mb-0" for="isChipped">Microchipado?</label>
               </div>
             </div>
           </div>
