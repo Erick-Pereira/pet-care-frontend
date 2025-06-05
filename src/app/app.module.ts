@@ -11,11 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
-
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
 import { Etapa2PetComponent } from './features/register/etapas/etapa2Pet.component';
-import { SenhaComponent } from './features/register/etapas/etapa3Senha.component';
+import { SenhaComponent } from './features/register/senha/senha.component';
 import { Etapa4ConfirmComponent } from './features/register/etapas/etapa4Confirm.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
@@ -26,7 +25,7 @@ import { ActivityLogComponent } from './features/activity-log/activity-log.compo
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
-import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
+import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
 
 @NgModule({
@@ -48,7 +47,7 @@ import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
     AnimalHistoryComponent,
     ActivityLogComponent,
     PetDocumentComponent,
-    PetPerfilComponent,
+    VaccinationCardComponent,
   ],
   imports: [
     BrowserModule,

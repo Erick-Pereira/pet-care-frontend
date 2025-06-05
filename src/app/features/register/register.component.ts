@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -15,21 +15,24 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.registerForm = this.fb.group({
       dadosPessoais: this.fb.group({
         nome: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-        telefone: ['', [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)]],
+        telefone: [
+          '',
+          [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)],
+        ],
         cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         numero: ['', Validators.required],
         complemento: [''],
         bairro: [{ value: '', disabled: true }, Validators.required],
         uf: [{ value: '', disabled: true }, Validators.required],
         cidade: [{ value: '', disabled: true }, Validators.required],
-        logradouro: [{ value: '', disabled: true }, Validators.required]
+        logradouro: [{ value: '', disabled: true }, Validators.required],
       }),
       dadosPet: this.fb.group({
         nomePet: ['', Validators.required],
@@ -42,16 +45,18 @@ export class RegisterComponent implements OnInit {
         aquisicao: ['', Validators.required],
         castrado: [false, Validators.required],
         chipado: [false, Validators.required],
-        numeroChip: ['']
+        numeroChip: [''],
       }),
       senha: this.fb.group({
         senha: ['', Validators.required],
-        confirmarSenha: ['', Validators.required]
-      })
+        confirmarSenha: ['', Validators.required],
+      }),
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log('RegisterComponent initialized');
+  }
 
   irParaProximaEtapa(): void {
     this.etapaAtual++;
@@ -90,8 +95,8 @@ export class RegisterComponent implements OnInit {
             bairro: dados.dadosPessoais.bairro,
             cidade: dados.dadosPessoais.cidade,
             uf: dados.dadosPessoais.uf,
-            logradouro: dados.dadosPessoais.logradouro
-          }
+            logradouro: dados.dadosPessoais.logradouro,
+          },
         },
         pet: {
           nome: dados.dadosPet.nomePet,
@@ -104,24 +109,25 @@ export class RegisterComponent implements OnInit {
           aquisicao: dados.dadosPet.aquisicao,
           castrado: dados.dadosPet.castrado,
           chipado: dados.dadosPet.chipado,
-          numeroChip: dados.dadosPet.numeroChip
+          numeroChip: dados.dadosPet.numeroChip,
         },
-        senha: dados.senha.senha
+        senha: dados.senha.senha,
       };
 
       try {
-        localStorage.setItem('registroUsuario', JSON.stringify(payloadSimplificado));
+        localStorage.setItem(
+          'registroUsuario',
+          JSON.stringify(payloadSimplificado),
+        );
         alert('✅ Registro salvo localmente com sucesso!');
         this.router.navigate(['/login']);
       } catch (error) {
         console.error('Erro ao salvar no localStorage:', error);
         alert('❌ Erro ao salvar localmente.');
       }
-
     } else {
       console.warn('⚠️ Formulário inválido. Verifique os campos obrigatórios.');
       this.registerForm.markAllAsTouched();
     }
   }
-
 }
