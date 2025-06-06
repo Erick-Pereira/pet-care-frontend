@@ -63,9 +63,7 @@ export class PerfilListComponent {
       this.perfis.push({ ...this.modalSelecionado });
       this.criar.emit();
     } else {
-      const index = this.perfis.findIndex(
-        (p) => p.id === this.modalSelecionado!.id,
-      );
+      const index = this.perfis.findIndex(p => p.id === this.modalSelecionado!.id);
       if (index !== -1) {
         this.perfis[index] = { ...this.modalSelecionado };
         this.selecionar.emit(this.modalSelecionado.id);

@@ -1,0 +1,105 @@
+<div class="container py-4">
+  <!-- Header com botão de voltar, busca e adicionar -->
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <button class="btn btn-outline-secondary" (click)="goBack()">Voltar</button>
+
+    <div class="input-group w-auto flex-fill">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar vacina..."
+        [(ngModel)]="searchTerm"
+        (input)="filterVaccines()"
+      />
+      <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">&times;</button>
+    </div>
+
+    <button class="btn btn-success" (click)="openModal()">+ Vacina</button>
+  </div>
+
+  <!-- Conteúdo da carteira -->
+  <div class="overflow-auto">
+    <div *ngIf="filteredVaccines.length > 0; else noVaccines" class="d-flex gap-3 flex-nowrap" style="min-width: 100%;">
+      <div
+        *ngFor="let vacina of filteredVaccines"
+        class="card flex-shrink-0"
+        style="width: 250px; min-height: 200px;"
+      >
+        <div class="card-body">
+          <h5 class="card-title">{{ vacina.nome || 'Nome da vacina' }}</h5>
+          <p class="card-text mb-1"><strong>Código:</strong> {{ vacina.codigo || '-' }}</p>
+          <p class="card-text mb-1"><strong>Data:</strong> {{ vacina.data || '-' }}</p>
+          <p class="card-text mb-1" *ngIf="vacina.lote"><strong>Lote:</strong> {{ vacina.lote }}</p>
+          <p class="card-text mb-1" *ngIf="vacina.repeticao"><strong>Repetir:</strong> {{ vacina.repeticao }}</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noVaccines>
+      <p class="text-muted text-center mt-4">Ainda não há registros de vacinas.</p>
+    </ng-template>
+  </div>
+
+  <!-- Modal de inserção -->
+  <div
+    class="modal fade"
+    id="vaccineModal"
+    tabindex="-1"
+    aria-labelledby="vaccineModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form class="modal-content" (ngSubmit)="saveVaccine()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="vaccineModalLabel">Adicionar Vacina</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <p class="form-label">Nome (obrigatório)</p>
+            <input type="text" class="form-control" [(ngModel)]="newVaccine.nome" name="nome" required />
+          </div>
+          <div class="mb-2">
+            <p class="form-label">Código (obrigatório)</p>
+            <input type="text" class="form-control" [(ngModel)]="newVaccine.codigo" name="codigo" required />
+          </div>
+          <div class="mb-2">
+            <p class="form-label">Data (obrigatório)</p>
+            <input type="date" class="form-control" [(ngModel)]="newVaccine.data" name="data" required />
+          </div>
+          <div class="mb-2">
+            <p class="form-label">Lote (opcional)</p>
+            <input type="text" class="form-control" [(ngModel)]="newVaccine.lote" name="lote" />
+          </div>
+          <div class="mb-2">
+            <p class="form-label">Data para repetição (opcional)</p>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="newVaccine.repeticao"
+              name="repeticao"
+              [disabled]="semRepeticao"
+            />
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="semRepeticaoCheckbox"
+              [(ngModel)]="semRepeticao"
+              name="semRepeticao"
+              (change)="onSemRepeticaoChange()"
+            />
+            <label class="form-check-label" for="semRepeticaoCheckbox">
+              Não precisa de repetição
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

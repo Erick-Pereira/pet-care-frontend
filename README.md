@@ -48,7 +48,7 @@ antes de commitar você fazer os seguintes comandos
 
 `ng lint` - assegura que o codigo está deacordo com os padrões
 
-`ng run build` - assegura que o codigo está compilando e que não há nenhum erro que impessa do sistema rodar
+`npm run build` - assegura que o codigo está compilando e que não há nenhum erro que impessa do sistema rodar
 
 após isso você deve rodar os seguinte comando
 

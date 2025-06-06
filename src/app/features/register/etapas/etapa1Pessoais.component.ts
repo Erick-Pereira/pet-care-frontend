@@ -85,7 +85,7 @@ export class Etapa1PessoaisComponent implements OnInit {
               this.formGroup.get('uf')?.enable();
               this.formGroup.get('cidade')?.enable();
             } else {
-              alert('CEP nÃ£o encontrado.');
+              alert('CEP não encontrado.');
             }
           },
           (error) => {
