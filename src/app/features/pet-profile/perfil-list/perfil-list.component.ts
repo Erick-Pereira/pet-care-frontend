@@ -7,40 +7,40 @@ import { Router } from '@angular/router';
   templateUrl: './perfil-list.component.html',
 })
 export class PerfilListComponent {
-  @Output() selecionar = new EventEmitter<string>();
+  // 🔹 Atributos
   @Output() criar = new EventEmitter<void>();
+  @Output() selecionar = new EventEmitter<string>();
 
-  perfis: Perfil[] = [];
-  perfilSelecionado: Perfil | null = null;
-  modalSelecionado: Perfil | null = null;
   estaCriandoNovo = false;
+  modalSelecionado: Perfil | null = null;
+  perfilSelecionado: Perfil | null = null;
+  perfis: Perfil[] = [];
+  hoverMap: Record<string, boolean> = {};
 
+  // 🔹 Construtor
   constructor(private router: Router) {}
 
-  private criarPerfilVazio(): Perfil {
-    const dataAtual = new Date();
-    return {
-      id: '',
-      name: '',
-      nome: '',
-      imagemUrl: './assets/pet profile pic.png',
-      acquisition: dataAtual,
-      approximateBirthDate: dataAtual,
-      gender: '',
-      especie: '',
-      observacoes: '',
-      idade: 0,
-      raca: '',
-      owner: '',
-      chipNumber: '',
-      isChipped: false,
-      isCastrated: false,
-      color: '',
-      tipo: '',
-      breed: '',
-      specie: '',
-      sexo: '',
-    };
+  // 🔹 Métodos de Evento
+  onSelecionar(id: string): void {
+    const perfil = this.perfis.find((p) => p.id === id);
+    if (!perfil) return;
+
+    this.perfilSelecionado = { ...perfil };
+    this.selecionar.emit(perfil.id);
+    this.router.navigate(['/pet-perfil', id]);
+  }
+
+  navegarParaPerfil(id: string): void {
+    this.router.navigate(['/pet-perfil', id]);
+  }
+
+  // 🔹 Métodos de Modal
+  adicionar(): void {
+    if (this.perfis.length >= 5) {
+    alert('Você atingiu o limite de 5 perfis.');
+    return;
+  }
+    this.abrirModalNovoPerfil();
   }
 
   abrirModalNovoPerfil(): void {
@@ -48,26 +48,15 @@ export class PerfilListComponent {
     this.estaCriandoNovo = true;
   }
 
-  adicionar(): void {
-    this.abrirModalNovoPerfil();
-  }
-
-  atualizarStatusMicrochipado(): void {
-    if (!this.modalSelecionado) return;
-
-    if (!this.modalSelecionado.isChipped) {
-      this.modalSelecionado.chipNumber = '';
-    }
-  }
-
-  private garantirNomePerfil(perfil: Perfil): string {
-    return (perfil.name?.trim() || perfil.nome?.trim() || 'Perfil').trim();
+  fecharModal(): void {
+    this.modalSelecionado = null;
+    this.estaCriandoNovo = false;
   }
 
   salvarPerfil(): void {
     if (!this.modalSelecionado) return;
 
-    this.modalSelecionado.name = this.garantirNomePerfil(this.modalSelecionado);
+    this.modalSelecionado.nome = this.modalSelecionado.nome.trim();
 
     if (this.estaCriandoNovo) {
       this.modalSelecionado.id = (this.perfis.length + 1).toString();
@@ -84,21 +73,41 @@ export class PerfilListComponent {
     this.fecharModal();
   }
 
-  openModal(id: string): void {
-    this.router.navigate(['/pet-perfil', id]);
+  // 🔹 Métodos de Atualização
+  atualizarStatusCastrado(): void {
+    throw new Error('Method not implemented.');
   }
 
-  fecharModal(): void {
-    this.modalSelecionado = null;
-    this.estaCriandoNovo = false;
+  atualizarStatusMicrochipado(): void {
+    if (!this.modalSelecionado) return;
+
+    if (!this.modalSelecionado.estaChipado) {
+      this.modalSelecionado.numeroChip = '';
+    }
   }
 
-  onSelecionar(id: string): void {
-    const perfil = this.perfis.find(p => p.id === id);
-    if (!perfil) return;
-
-    this.perfilSelecionado = { ...perfil };
-    this.selecionar.emit(perfil.id);
-    this.router.navigate(['/pet-perfil', id]);
+  // 🔹 Métodos Utilitários
+  private criarPerfilVazio(): Perfil {
+    const dataAtual = new Date();
+    return {
+      cor: '',
+      dataAquisicao: dataAtual,
+      dataNascimentoAproximada: dataAtual,
+      dono: '',
+      especie: '',
+      especieOriginal: '',
+      estaCastrado: false,
+      estaChipado: false,
+      genero: '',
+      id: '',
+      idade: 0,
+      nome: '',
+      numeroChip: '',
+      observacoes: '',
+      raca: '',
+      sexo: '',
+      tipo: '',
+      urlImagem: '',
+    };
   }
 }

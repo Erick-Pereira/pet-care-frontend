@@ -25,6 +25,8 @@ import { ActivityLogComponent } from './features/activity-log/activity-log.compo
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
 
@@ -47,6 +49,7 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     AnimalHistoryComponent,
     ActivityLogComponent,
     PetDocumentComponent,
+    PetPerfilComponent,
     VaccinationCardComponent,
   ],
   imports: [
@@ -61,6 +64,7 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     SharedModule,
     CommonModule,
     FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],
