@@ -15,7 +15,7 @@ import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
 import { Etapa2PetComponent } from './features/register/etapas/etapa2Pet.component';
-import { SenhaComponent } from './features/register/senha/senha.component';
+import { SenhaComponent } from './features/register/etapas/etapa3Senha.component';
 import { Etapa4ConfirmComponent } from './features/register/etapas/etapa4Confirm.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
@@ -42,7 +42,6 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     Etapa2PetComponent,
     SenhaComponent,
     Etapa4ConfirmComponent,
-    SenhaComponent,
     PerfilComponent,
     PerfilListComponent,
     AnimalPublicComponent,
