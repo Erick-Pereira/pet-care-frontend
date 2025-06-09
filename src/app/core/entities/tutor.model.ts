@@ -5,4 +5,3 @@ export interface Tutor {
   email: string;
   endereco: string;
 }
-  

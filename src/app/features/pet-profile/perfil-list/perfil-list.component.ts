@@ -1,13 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Perfil } from '@app/core/entities/perfil.model';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Perfil } from '@app/core/entities/perfil/perfil.model';
 
 @Component({
   selector: 'app-perfil-list',
   templateUrl: './perfil-list.component.html',
 })
-export class PerfilListComponent {
-  // 🔹 Atributos
+export class PerfilListComponent implements OnInit {
   @Output() criar = new EventEmitter<void>();
   @Output() selecionar = new EventEmitter<string>();
 
@@ -16,9 +16,26 @@ export class PerfilListComponent {
   perfilSelecionado: Perfil | null = null;
   perfis: Perfil[] = [];
   hoverMap: Record<string, boolean> = {};
+  PerfilForm!: FormGroup;
 
-  // 🔹 Construtor
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder
+
+  ) {}
+
+  ngOnInit(): void {
+    this.PerfilForm = this.getFormGroup();
+    }
+
+    getFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.email]],
+      race: ['', [Validators.required, Validators.minLength(6)]],
+      specie: ['', [Validators.required, Validators.minLength(6)]],
+      
+    });
+  }
 
   // 🔹 Métodos de Evento
   onSelecionar(id: string): void {
@@ -37,9 +54,9 @@ export class PerfilListComponent {
   // 🔹 Métodos de Modal
   adicionar(): void {
     if (this.perfis.length >= 5) {
-    alert('Você atingiu o limite de 5 perfis.');
-    return;
-  }
+      alert('Você atingiu o limite de 5 perfis.');
+      return;
+    }
     this.abrirModalNovoPerfil();
   }
 
@@ -63,7 +80,9 @@ export class PerfilListComponent {
       this.perfis.push({ ...this.modalSelecionado });
       this.criar.emit();
     } else {
-      const index = this.perfis.findIndex(p => p.id === this.modalSelecionado!.id);
+      const index = this.perfis.findIndex(
+        (p) => p.id === this.modalSelecionado!.id,
+      );
       if (index !== -1) {
         this.perfis[index] = { ...this.modalSelecionado };
         this.selecionar.emit(this.modalSelecionado.id);
