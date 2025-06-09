@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,35 +13,45 @@ export class LoginComponent {
   email = '';
   password = '';
   errorMessage = '';
-  loginForm!: FormGroup; // Explicitly type loginForm
-  label = '';
+  loginForm!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   onLogin() {
-    const dadosSalvos = localStorage.getItem('registroUsuario');
-
-    if (!dadosSalvos) {
-      this.errorMessage = '❌ Nenhum usuário registrado.';
+    if (!this.email || !this.password) {
+      this.errorMessage = 'Preencha email e senha.';
       return;
     }
 
-    const usuario = JSON.parse(dadosSalvos);
+    const loginData = {
+      username: this.email,
+      password: this.password
+    };
 
-    if (usuario.usuario.email === this.email && usuario.senha === this.password) {
-      console.log('✅ Login realizado com sucesso!');
-      // Armazena "token" no localStorage
-      localStorage.setItem('usuarioLogado', JSON.stringify({
-        email: usuario.usuario.email,
-        nome: usuario.usuario.nome,
-        token: 'fake-token-' + Date.now()
-      }));
-      this.router.navigate(['/perfillist']);
-    }
+    this.http.post<any>('https://localhost:7295/api/Auth/login', loginData)
+      .subscribe({
+        next: (response) => {
+          const expiryDate = new Date();
+          expiryDate.setHours(expiryDate.getHours() + 1);
 
+          this.cookieService.set('auth_token', response.token, expiryDate);
+
+          console.log('✅ Login realizado com sucesso!');
+          this.router.navigate(['/perfillist']);
+        },
+        error: (error) => {
+          console.error('Erro ao fazer login', error);
+          this.errorMessage = '❌ Credenciais inválidas ou erro no servidor.';
+        }
+      });
   }
 
   irParaRegistro() {
     this.router.navigate(['/register']);
   }
 }
+
