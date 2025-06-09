@@ -2,19 +2,15 @@
   <h1 class="text-center text-success mb-4">Login</h1>
   <form class="w-50 mx-auto" (ngSubmit)="onLogin()">
     <div class="mb-3">
-      <label for="email" class="form-label">email:</label>
+      <label for="email" class="form-label">Email:</label>
       <input
         type="email"
         id="email"
-        formControlName="email"
+        name="email"
         class="form-control"
         [(ngModel)]="email"
         required
       />
-      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-        <small *ngIf="loginForm.get('email')?.hasError('required')">E-mail é obrigatório.</small>
-        <small *ngIf="loginForm.get('email')?.hasError('email')">E-mail inválido.</small>
-      </div>
     </div>
 
     <div class="mb-4">
@@ -22,23 +18,18 @@
       <input
         type="password"
         id="password"
-        formControlName="password"
+        name="password"
         class="form-control"
         [(ngModel)]="password"
         required
       />
-      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
-        <small *ngIf="loginForm.get('password')?.hasError('required')">Senha é obrigatória.</small>
-      </div>
     </div>
 
-    <button type="submit" class="btn btn-success w-100">{{ label }}</button>
+    <button type="submit" class="btn btn-success w-100">Entrar</button>
+
     <div class="text-center mt-3">
       <small>Não tem uma conta? <a routerLink="/register">Registrar</a></small>
     </div>
-    <button type="submit" class="btn btn-success w-100">Entrar</button>
-
-    <button (click)="irParaRegistro()">Não tem conta? Cadastre-se</button>
 
     <div *ngIf="errorMessage" class="alert alert-danger mt-3">
       {{ errorMessage }}
