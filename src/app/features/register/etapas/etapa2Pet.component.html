@@ -13,8 +13,7 @@
         <label for="especie">Espécie</label>
         <select id="especie" formControlName="especie" class="form-control" (change)="buscarRacas()">
           <option value="" disabled>Escolha a Espécie</option>
-          <option>Gato</option>
-          <option>Cachorro</option>
+          <option *ngFor="let especie of especies" [value]="especie.name">{{ especie.name }}</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('especie')">Espécie é obrigatória.</div>
       </div>
@@ -23,18 +22,18 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label for="raca">Raça</label>
-        <select id="raca" formControlName="raca" class="form-control">
+        <select id="raca" formControlName="raca" class="form-control" [disabled]="!formGroup.get('especie')?.value">
           <option value="" disabled>Escolha a Raça</option>
-          <option *ngFor="let raca of racasDisponiveis" [value]="raca">{{ raca }}</option>
+          <option *ngFor="let raca of racasDisponiveis" [value]="raca.nome">{{ raca.nome }}</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('raca')">Raça é obrigatória.</div>
       </div>
 
 
       <div class="form-group col-md-6">
-        <label for="sexo">Sexo</label>
+        <label for="sexo">Gênero</label>
         <select id="sexo" formControlName="sexo" class="form-control">
-          <option value="" disabled>Escolha o Sexo</option>
+          <option value="" disabled>Escolha o Gênero</option>
           <option value="Macho">Macho</option>
           <option value="Fêmea">Fêmea</option>
         </select>
@@ -47,12 +46,6 @@
         <label for="dataNascimento">Data de Nascimento</label>
         <input id="dataNascimento" type="date" formControlName="dataNascimento" class="form-control" />
         <div class="text-danger small" *ngIf="campoInvalido('dataNascimento')">Data de nascimento é obrigatória.</div>
-      </div>
-
-      <div class="form-group col-md-6">
-        <label for="peso">Peso (kg)</label>
-        <input id="peso" type="number" formControlName="peso" class="form-control" step="0.01" min="0" />
-        <div class="text-danger small" *ngIf="campoInvalido('peso')">Peso é obrigatório.</div>
       </div>
     </div>
 

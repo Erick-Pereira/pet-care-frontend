@@ -14,6 +14,7 @@ interface Especie {
 interface Raca {
   id: string;
   nome: string;
+  SpeciesId: string;
 }
 
 @Component({
@@ -26,31 +27,13 @@ export class Etapa2PetComponent implements OnInit {
   @Output() anterior = new EventEmitter<void>();
 
   especies: Especie[] = [];
-  racas: Raca[] = [];
+  racasDisponiveis: Raca[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.buscarEspecies();
   }
-
-  racasDisponiveis: string[] = [];
-
-  buscarRacas(): void {
-    const especieSelecionada = this.formGroup.get('especie')?.value;
-
-    if (especieSelecionada === 'Gato') {
-      this.racasDisponiveis = ['Persa', 'Siamês', 'Maine Coon'];
-    } else if (especieSelecionada === 'Cachorro') {
-      this.racasDisponiveis = ['Pinscher', 'Pastor Alemão', 'Dobermann'];
-    } else {
-      this.racasDisponiveis = [];
-    }
-
-    // Limpa o campo de raça ao trocar a espécie
-    this.formGroup.get('raca')?.setValue('');
-  }
-
 
   buscarEspecies(): void {
     this.http
@@ -58,15 +41,47 @@ export class Etapa2PetComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Resposta da API espécies:', response);
-          if (Array.isArray(response.data)) {
-            this.especies = response.data;
-          } else {
-            console.error('Data não é um array:', response.data);
-            this.especies = [];
-          }
+          this.especies = response.data || [];
         },
         error: (err) => console.error('Erro ao buscar espécies:', err),
       });
+  }
+
+  buscarRacas(): void {
+    const especieSelecionada = this.formGroup.get('especie')?.value;
+
+    console.log('Espécie selecionada:', especieSelecionada);
+
+    const especieId = this.especies.find(especie => especie.name === especieSelecionada)?.id;
+
+    console.log('ID da espécie selecionada:', especieId);
+
+    if (!especieId) {
+      this.racasDisponiveis = [];
+      console.warn('Nenhuma espécie foi selecionada ou o ID não foi encontrado. Campo de raça permanecerá vazio.');
+      return;
+    }
+
+    this.http
+      .get<ApiResponse<Raca[]>>('https://localhost:7295/api/Breed')
+      .subscribe({
+        next: (response) => {
+          console.log('Dados brutos retornados pela API de raças:', response);
+          this.racasDisponiveis = response.data.filter(raca => raca.SpeciesId === especieId) || [];
+          
+          console.log('Raças disponíveis após o filtro:', this.racasDisponiveis);
+
+          if (this.racasDisponiveis.length === 0) {
+            console.warn(`Nenhuma raça encontrada para a espécie com ID: ${especieId}`);
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar raças:', err);
+          alert('Erro ao carregar as raças. Tente novamente mais tarde.');
+        },
+      });
+
+    this.formGroup.get('raca')?.setValue('');
   }
 
   campoInvalido(campo: string): boolean {
@@ -86,7 +101,6 @@ export class Etapa2PetComponent implements OnInit {
       }
     });
 
-    // 🔍 Validação condicional do campo numeroChip
     const chipado = this.formGroup.get('chipado')?.value;
     const numeroChipControl = this.formGroup.get('numeroChip');
 
@@ -106,5 +120,4 @@ export class Etapa2PetComponent implements OnInit {
 
     this.proximo.emit();
   }
-
 }
