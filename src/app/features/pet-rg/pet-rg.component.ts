@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 declare var require: any;
 const html2pdf = require('html2pdf.js');
 
-
-
 interface Pet {
   nome: string;
   dataNascimento: string;
@@ -19,6 +17,14 @@ interface Pet {
   castrado: boolean;
 }
 
+interface Tutor {
+  nome: string;
+  cpf: string;
+  telefone: string;
+  email: string;
+  endereco: string;
+}
+
 @Component({
   selector: 'app-pet-rg',
   templateUrl: './pet-rg.component.html',
@@ -27,6 +33,7 @@ interface Pet {
 export class PetRgComponent implements OnInit {
 
   pet!: Pet;
+  tutor!: Tutor;
   petImageUrl!: string;
 
   ngOnInit(): void {
@@ -41,6 +48,14 @@ export class PetRgComponent implements OnInit {
       especie: 'Canina',
       cor: 'Branca',
       castrado: true
+    };
+
+    this.tutor = {
+      nome: 'João Silva',
+      cpf: '123.456.789-00',
+      telefone: '(11) 98765-4321',
+      email: 'joao.silva@email.com',
+      endereco: 'Rua das Flores, 123 - São Paulo/SP'
     };
 
     this.petImageUrl = 'assets/Foto perfil Sofi.JPG';

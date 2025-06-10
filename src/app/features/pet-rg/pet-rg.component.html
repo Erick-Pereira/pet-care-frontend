@@ -1,17 +1,15 @@
-<!-- Conteúdo a ser convertido em PDF -->
 <div id="conteudo-pdf">
   <div class="container border rounded p-4" style="max-width: 900px; margin: 2rem auto;">
     <div class="row g-3 mb-4">
-      <!-- Coluna com a foto -->
+      <!-- Foto do Pet -->
       <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <img [src]="petImageUrl" alt="Foto do Pet" class="img-fluid rounded-circle mb-3" style="max-width: 180px; max-height: 180px; object-fit: cover;">
       </div>
 
-      <!-- Coluna com os dados -->
+      <!-- Dados do Pet -->
       <div class="col-12 col-md-8">
         <div class="row g-3">
-          <!-- Dados do Pet -->
-          <div class="col-12 col-md-6">
+          <div class="col-12">
             <h2>Dados do Pet</h2>
             <p><strong>Nome:</strong> {{ pet.nome }}</p>
             <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
@@ -27,10 +25,32 @@
         </div>
       </div>
     </div>
+
+    <!-- Dados do Tutor com QR Code -->
+    <div class="row g-3">
+      <!-- Imagem QR Code -->
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+        <img src="assets/qr code.png" alt="QR Code" class="img-fluid" style="max-width: 180px;">
+      </div>
+
+      <!-- Dados do Tutor -->
+      <div class="col-12 col-md-8">
+        <h2>Dados do Tutor</h2>
+        <p><strong>Nome:</strong> {{ tutor.nome }}</p>
+        <p><strong>CPF:</strong> {{ tutor.cpf }}</p>
+        <p><strong>Telefone:</strong> {{ tutor.telefone }}</p>
+        <p><strong>Email:</strong> {{ tutor.email }}</p>
+        <p><strong>Endereço:</strong> {{ tutor.endereco }}</p>
+
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Botão de imprimir (fora da área que será exportada) -->
+<!-- Botão imprimir -->
 <div class="text-center mt-3">
   <button (click)="imprimir()" class="btn btn-success">Imprimir</button>
 </div>
+
+
+
