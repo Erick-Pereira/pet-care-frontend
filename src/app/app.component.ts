@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   menuItems = [
     { label: 'Início', path: '/' },
-    { label: 'Sobre', path: '/about' },
+    { label: 'About', path: '/about' },
     { label: 'Serviços', path: '/services' },
     { label: 'Login', path: '/login' },
     { label: 'Register', path: '/register' },
