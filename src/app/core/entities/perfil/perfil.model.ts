@@ -1,20 +1,18 @@
 export interface Perfil {
-  dono: string;
-  numeroChip: string;
-  estaChipado: boolean;
-  estaCastrado: boolean;
-  dataAquisicao: Date;
-  cor: string;
-  dataNascimentoAproximada: Date;
-  genero: string;
-  especieOriginal: string;
-  observacoes: string;
-  sexo: string;
-  especie: string;
-  idade: number;
-  raca: string;
-  tipo: string;
+  acquisition: Date;
+  age: number;
+  approximateBirthDate: Date;
+  chipNumber: string;
+  color: string;
+  gender: string;
   id: string;
-  nome: string;
-  urlImagem?: string;
+  imageUrl?: string;
+  isCastrated: boolean;
+  isChipped: boolean;
+  name: string;
+  owner: string;
+  race: string;
+  sex: string;
+  specie: string;
+  type: string;
 }

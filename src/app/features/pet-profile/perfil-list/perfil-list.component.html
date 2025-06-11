@@ -23,13 +23,13 @@
         style="width: 100%; transition: transform 0.3s ease"
       >
         <img
-          [src]="perfil.urlImagem || './assets/pet profile pic.png'"
+          [src]="perfil.imageUrl || './assets/pet profile pic.png'"
           class="d-block mx-auto"
           alt="Imagem do perfil"
           style="max-height: 250px; object-fit: cover; width: 100%"
         />
       </div>
-      <div class="text-center fw-bold mt-1">{{ perfil.nome }}</div>
+      <div class="text-center fw-bold mt-1">{{ perfil.name }}</div>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{ 'show d-block': modalSelecionado }" *ngIf="modalSelecionado">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form (ngSubmit)="salvarPerfil()">
+      <form [formGroup]="formPerfil" (ngSubmit)="salvarPerfil()">
         <div class="modal-header">
           <h5 class="modal-title">
             {{ estaCriandoNovo ? 'Novo Perfil' : 'Editar Perfil' }}
@@ -65,47 +65,43 @@
         <div class="modal-body">
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label" for="nome">Nome</label>
+              <label class="form-label" for="name">Nome</label>
               <input
                 id="nome"
                 type="text"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.nome"
-                name="nome"
+                formControlName="name"
                 required
               />
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" for="raca">Raça</label>
+              <label class="form-label" for="rece">Raça</label>
               <input
                 id="raca"
                 type="text"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.raca"
-                name="raca"
+                formControlName="race"
                 required
               />
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" for="especie">Espécie</label>
+              <label class="form-label" for="specie">Espécie</label>
               <input
                 id="especie"
                 type="text"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.especie"
-                name="especie"
+                formControlName="specie"
               />
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" for="sexo">Sexo</label>
+              <label class="form-label" for="sex">Sexo</label>
               <select
-                id="sexo"
+                id="sex"
                 class="form-select"
-                [(ngModel)]="modalSelecionado.sexo"
-                name="sexo"
+                formControlName="sex"
               >
                 <option value="" disabled selected>Selecione</option>
                 <option value="M">Macho</option>
@@ -119,19 +115,17 @@
                 id="cor"
                 type="text"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.cor"
-                name="cor"
+                formControlName="color"
               />
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" for="acquisition">Data de Aquisição</label>
+              <label class="form-label" for="acquisitionDate">Data de Aquisição</label>
               <input
                 id="acquisition"
                 type="date"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.dataAquisicao"
-                name="acquisition"
+                formControlName="acquisitionDate"
                 required
               />
             </div>
@@ -142,8 +136,7 @@
                 id="birthDate"
                 type="date"
                 class="form-control"
-                [(ngModel)]="modalSelecionado.dataNascimentoAproximada"
-                name="birthDate"
+                formControlName="approximateBirthDate"
                 required
               />
             </div>
@@ -155,9 +148,7 @@
                   id="isCastrated"
                   class="form-check-input"
                   type="checkbox"
-                  [(ngModel)]="modalSelecionado.estaCastrado"
-                  name="isCastrated"
-                  (change)="atualizarStatusCastrado()"
+                  formControlName="isCastrated"
                 />
                 <label class="form-check-label ms-2 mb-0" for="isCastrated">Castrado?</label>
               </div>
@@ -167,12 +158,20 @@
                   id="isChipped"
                   class="form-check-input"
                   type="checkbox"
-                  [(ngModel)]="modalSelecionado.estaChipado"
-                  name="isChipped"
-                  (change)="atualizarStatusMicrochipado()"
+                  formControlName="isChipped"
                 />
                 <label class="form-check-label ms-2 mb-0" for="isChipped">Microchipado?</label>
               </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="formPerfil.get('isChipped')?.value">
+              <label class="form-label" for="chipNumber">Número do Microchip</label>
+              <input
+                id="chipNumber"
+                type="text"
+                class="form-control"
+                formControlName="chipNumber"
+              />
             </div>
           </div>
         </div>

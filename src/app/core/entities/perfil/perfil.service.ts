@@ -16,4 +16,5 @@ export class PerfilService {
     // Chamando a API de login e retornando um Observable
     return this.http.post(`${this.defaultLink}auth/login`, { username, password });
   }
+
 }

@@ -16,24 +16,27 @@ export class PerfilListComponent implements OnInit {
   perfilSelecionado: Perfil | null = null;
   perfis: Perfil[] = [];
   hoverMap: Record<string, boolean> = {};
-  PerfilForm!: FormGroup;
+  formPerfil!: FormGroup;
 
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder
-
-  ) {}
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.PerfilForm = this.getFormGroup();
-    }
+    this.formPerfil = this.getFormGroup();
+  }
 
-    getFormGroup(): FormGroup {
+  getFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.email]],
       race: ['', [Validators.required, Validators.minLength(6)]],
       specie: ['', [Validators.required, Validators.minLength(6)]],
-      
+      breed: ['', [Validators.required, Validators.minLength(6)]],
+      gender: ['', [Validators.required, Validators.minLength(6)]],
+      ApproximateBirthDate: ['', [Validators.required]],
+      color: ['', [Validators.required, Validators.minLength(6)]],
+      acquisition: ['', [Validators.required, Validators.minLength(6)]],
+      isCastraded: [false, [Validators.required]],
+      isChipped: [false, [Validators.required]],
+      chipNumber: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -73,7 +76,7 @@ export class PerfilListComponent implements OnInit {
   salvarPerfil(): void {
     if (!this.modalSelecionado) return;
 
-    this.modalSelecionado.nome = this.modalSelecionado.nome.trim();
+    this.modalSelecionado.name = this.modalSelecionado.name.trim();
 
     if (this.estaCriandoNovo) {
       this.modalSelecionado.id = (this.perfis.length + 1).toString();
@@ -100,8 +103,8 @@ export class PerfilListComponent implements OnInit {
   atualizarStatusMicrochipado(): void {
     if (!this.modalSelecionado) return;
 
-    if (!this.modalSelecionado.estaChipado) {
-      this.modalSelecionado.numeroChip = '';
+    if (!this.modalSelecionado.isChipped) {
+      this.modalSelecionado.chipNumber = '';
     }
   }
 
@@ -109,24 +112,22 @@ export class PerfilListComponent implements OnInit {
   private criarPerfilVazio(): Perfil {
     const dataAtual = new Date();
     return {
-      cor: '',
-      dataAquisicao: dataAtual,
-      dataNascimentoAproximada: dataAtual,
-      dono: '',
-      especie: '',
-      especieOriginal: '',
-      estaCastrado: false,
-      estaChipado: false,
-      genero: '',
+      acquisition: dataAtual,
+      age: 0,
+      approximateBirthDate: dataAtual,
+      chipNumber: '',
+      color: '',
+      gender: '',
       id: '',
-      idade: 0,
-      nome: '',
-      numeroChip: '',
-      observacoes: '',
-      raca: '',
-      sexo: '',
-      tipo: '',
-      urlImagem: '',
+      imageUrl: '',
+      isCastrated: false,
+      isChipped: false,
+      name: '',
+      owner: '',
+      race: '',
+      sex: '',
+      specie: '',
+      type: '',
     };
   }
 }
