@@ -7,7 +7,7 @@
   </div>
 
   <div class="row gx-4 gy-4">
-    <div class="col-4 col-sm-6 col-md-4 col-lg-3" *ngFor="let perfil of perfis">
+    <div class="col-4 col-sm-6 col-md-4 col-lg-3" *ngFor="let perfil of profiles">
       <div
         class="card h-100 rounded-3"
         (click)="onSelecionar(perfil.id)"
@@ -49,7 +49,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{ 'show d-block': modalSelecionado }" *ngIf="modalSelecionado">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form [formGroup]="formPerfil" (ngSubmit)="salvarPerfil()">
+      <form [formGroup]="profileForm" (ngSubmit)="salvarPerfil()">
         <div class="modal-header">
           <h5 class="modal-title">
             {{ estaCriandoNovo ? 'Novo Perfil' : 'Editar Perfil' }}
@@ -141,7 +141,6 @@
               />
             </div>
 
-            <!-- Checkboxes alinhados nas extremidades -->
             <div class="col-12 d-flex justify-content-between mt-3">
               <div class="form-check d-flex align-items-center">
                 <input
@@ -164,7 +163,7 @@
               </div>
             </div>
 
-            <div class="col-md-6" *ngIf="formPerfil.get('isChipped')?.value">
+            <div class="col-md-6" *ngIf="profileForm.get('isChipped')?.value">
               <label class="form-label" for="chipNumber">Número do Microchip</label>
               <input
                 id="chipNumber"

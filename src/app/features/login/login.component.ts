@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PerfilService } from '@app/core/entities/perfil/perfil.service';
+import { PerfilService } from '@app/core/entities/profile/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.perfilService.logar(formValues.email, formValues.password).subscribe(
       (response) => {
         console.log('Login realizado com sucesso:', response);
-        this.router.navigate(['/perfillist']);
+        this.router.navigate(['/pet-profile/1']);
       },
       (error) => {
         this.errorMessage = '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
