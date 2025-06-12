@@ -12,11 +12,10 @@ import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { PetRgComponent } from './features/pet-rg/pet-rg.component';
-
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
 import { Etapa2PetComponent } from './features/register/etapas/etapa2Pet.component';
-import { SenhaComponent } from './features/register/etapas/etapa3Senha.component';
+import { SenhaComponent } from './features/register/senha/senha.component';
 import { Etapa4ConfirmComponent } from './features/register/etapas/etapa4Confirm.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
@@ -29,7 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component';
-
+import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +52,7 @@ import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-ed
     PetPerfilComponent,
     PetPerfilEditComponent,
     PetRgComponent,
+    VaccinationCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-pet-perfil-edit',
   templateUrl: './pet-perfil-edit.component.html',
-  styleUrls: ['./pet-perfil-edit.component.scss']
+  styleUrls: ['./pet-perfil-edit.component.scss'],
 })
 export class PetPerfilEditComponent implements OnInit {
   id!: string;
@@ -18,7 +18,7 @@ export class PetPerfilEditComponent implements OnInit {
     genero: '',
     especie: '',
     cor: '',
-    castrado: false
+    castrado: false,
   };
 
   constructor(private route: ActivatedRoute, private router: Router) {}

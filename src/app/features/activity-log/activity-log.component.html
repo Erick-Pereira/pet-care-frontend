@@ -1,7 +1,11 @@
 <div class="activity-log">
   <h2>Registro de Atividades Diárias</h2>
 
-  <form [formGroup]="activityForm" (ngSubmit)="addActivity()" class="activity-form">
+  <form
+    [formGroup]="activityForm"
+    (ngSubmit)="addActivity()"
+    class="activity-form"
+  >
     <div class="form-group">
       <label for="date">Data:</label>
       <input type="date" id="date" formControlName="date" required />
@@ -18,19 +22,33 @@
 
     <div class="form-group">
       <label for="description">Descrição:</label>
-      <input type="text" id="description" formControlName="description" required />
+      <input
+        type="text"
+        id="description"
+        formControlName="description"
+        required
+      />
     </div>
 
     <div class="form-actions">
       <button type="submit" [disabled]="activityForm.invalid">
         {{ editingIndex !== null ? 'Salvar Edição' : 'Adicionar' }}
       </button>
-      <button type="button" *ngIf="editingIndex !== null" (click)="cancelEdit()">Cancelar</button>
+      <button
+        type="button"
+        *ngIf="editingIndex !== null"
+        (click)="cancelEdit()"
+      >
+        Cancelar
+      </button>
     </div>
   </form>
 
   <div class="activity-list" *ngIf="activities.length > 0; else noActivities">
-    <div class="activity-item" *ngFor="let activity of activities; let i = index">
+    <div
+      class="activity-item"
+      *ngFor="let activity of activities; let i = index"
+    >
       <div class="activity-header">
         <strong>{{ activity.date }} - {{ activity.type }}</strong>
         <div class="activity-actions">

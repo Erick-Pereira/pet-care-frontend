@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.component.html',
-  styleUrls: ['./senha.component.scss']
+  styleUrls: ['./senha.component.scss'],
 })
 export class SenhaComponent {
   @Output() prev = new EventEmitter<void>();
@@ -19,9 +25,9 @@ export class SenhaComponent {
     this.senhaForm = this.fb.group(
       {
         senha: ['', [Validators.required, Validators.minLength(6)]],
-        confirmarSenha: ['', Validators.required]
+        confirmarSenha: ['', Validators.required],
       },
-      { validators: this.passwordsMatchValidator }
+      { validators: this.passwordsMatchValidator },
     );
   }
 
@@ -41,10 +47,14 @@ export class SenhaComponent {
     this.hideConfirmPassword = !this.hideConfirmPassword;
   }
 
-  private passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
+  private passwordsMatchValidator(
+    group: AbstractControl,
+  ): ValidationErrors | null {
     const senha = group.get('senha')?.value;
     const confirmar = group.get('confirmarSenha')?.value;
-    return senha && confirmar && senha !== confirmar ? { mustMatch: true } : null;
+    return senha && confirmar && senha !== confirmar
+      ? { mustMatch: true }
+      : null;
   }
 
   voltar(): void {

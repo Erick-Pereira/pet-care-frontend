@@ -14,31 +14,61 @@ import { VetHistoryComponent } from './features/vet-history/vet-history.componen
 import { AnimalHistoryComponent } from './features/animal-history/animal-history.component';
 import { ActivityLogComponent } from './features/activity-log/activity-log.component';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
+import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component'; // <- Adicionado aqui
 import { PetRgComponent } from './features/pet-rg/pet-rg.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
-  { path: 'services', component: ServicesComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'vaccination-card',
+    component: VaccinationCardComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'register', component: RegisterComponent },
-  { path: 'Perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'PerfilList', component: PerfilListComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'AnimalPublic', component: AnimalPublicComponent, canActivate: [AuthGuard] },
-  { path: 'VetHistory', component: VetHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'AnimalHistory', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'ActivityLog', component: ActivityLogComponent, canActivate: [AuthGuard] },
-  { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
-  { path: 'pet-perfil/:id', component: PetPerfilComponent },
   { path: 'pet-perfil-edit/:id', component: PetPerfilEditComponent }, // <- Nova rota aqui
   { path: 'pet-rg', component: PetRgComponent },
-  { path: '**', redirectTo: '' }
+  { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile-list',
+    component: PerfilListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-public',
+    component: AnimalPublicComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'vet-history',
+    component: VetHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-history',
+    component: AnimalHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'activity-log',
+    component: ActivityLogComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'pet-documents',
+    component: PetDocumentComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'pet-profile/:id', component: PetPerfilComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -28,10 +28,9 @@ interface Tutor {
 @Component({
   selector: 'app-pet-rg',
   templateUrl: './pet-rg.component.html',
-  styleUrls: ['./pet-rg.component.scss']
+  styleUrls: ['./pet-rg.component.scss'],
 })
 export class PetRgComponent implements OnInit {
-
   pet!: Pet;
   tutor!: Tutor;
   petImageUrl!: string;
@@ -47,7 +46,7 @@ export class PetRgComponent implements OnInit {
       genero: 'Fêmea',
       especie: 'Canina',
       cor: 'Branca',
-      castrado: true
+      castrado: true,
     };
 
     this.tutor = {
@@ -55,7 +54,7 @@ export class PetRgComponent implements OnInit {
       cpf: '123.456.789-00',
       telefone: '(11) 98765-4321',
       email: 'joao.silva@email.com',
-      endereco: 'Rua das Flores, 123 - São Paulo/SP'
+      endereco: 'Rua das Flores, 123 - São Paulo/SP',
     };
 
     this.petImageUrl = 'assets/Foto perfil Sofi.JPG';
@@ -65,11 +64,11 @@ export class PetRgComponent implements OnInit {
     const element = document.getElementById('conteudo-pdf');
     if (element) {
       const options = {
-        margin:       0.5,
-        filename:     'rg-do-pet.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        margin: 0.5,
+        filename: 'rg-do-pet.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
       };
 
       html2pdf().set(options).from(element).save();

@@ -8,9 +8,8 @@ describe('PetRgComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PetRgComponent ]
-    })
-    .compileComponents();
+      declarations: [PetRgComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PetRgComponent);
     component = fixture.componentInstance;
