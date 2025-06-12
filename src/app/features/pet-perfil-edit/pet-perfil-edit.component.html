@@ -1,0 +1,138 @@
+<div class="container mt-4">
+  <h2>Editar Dados do Pet</h2>
+  <form (ngSubmit)="onSubmit()" #petForm="ngForm">
+    <!-- Nome -->
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input
+        type="text"
+        id="nome"
+        class="form-control"
+        [(ngModel)]="pet.nome"
+        name="nome"
+        required
+      />
+    </div>
+
+    <!-- Data de Nascimento -->
+    <div class="mb-3">
+      <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+      <input
+        type="date"
+        id="dataNascimento"
+        class="form-control"
+        [(ngModel)]="pet.dataNascimento"
+        name="dataNascimento"
+        required
+      />
+    </div>
+
+    <!-- Raça -->
+    <div class="mb-3">
+      <label for="raca" class="form-label">Raça</label>
+      <input
+        type="text"
+        id="raca"
+        class="form-control"
+        [(ngModel)]="pet.raca"
+        name="raca"
+      />
+    </div>
+
+    <!-- Forma de aquisição -->
+    <div class="mb-3">
+      <label for="aquisicao" class="form-label">Forma de aquisição</label>
+      <input
+        type="text"
+        id="aquisicao"
+        class="form-control"
+        [(ngModel)]="pet.aquisicao"
+        name="aquisicao"
+      />
+    </div>
+
+    <!-- Possui Chip -->
+    <div class="mb-3">
+      <label for="possuiChip" class="form-label">Possui Chip</label>
+      <select
+        id="possuiChip"
+        class="form-select"
+        [(ngModel)]="pet.possuiChip"
+        name="possuiChip"
+      >
+        <option [ngValue]="true">Sim</option>
+        <option [ngValue]="false">Não</option>
+      </select>
+    </div>
+
+    <!-- Código do Chip (se possuir chip) -->
+    <div class="mb-3" *ngIf="pet.possuiChip">
+      <label for="codigoChip" class="form-label">Código do Chip</label>
+      <input
+        type="text"
+        id="codigoChip"
+        class="form-control"
+        [(ngModel)]="pet.codigoChip"
+        name="codigoChip"
+      />
+    </div>
+
+    <!-- Sexo -->
+    <div class="mb-3">
+      <label for="genero" class="form-label">Sexo</label>
+      <select
+        id="genero"
+        class="form-select"
+        [(ngModel)]="pet.genero"
+        name="genero"
+      >
+        <option value="Macho">Macho</option>
+        <option value="Fêmea">Fêmea</option>
+      </select>
+    </div>
+
+    <!-- Espécie -->
+    <div class="mb-3">
+      <label for="especie" class="form-label">Espécie</label>
+      <input
+        type="text"
+        id="especie"
+        class="form-control"
+        [(ngModel)]="pet.especie"
+        name="especie"
+      />
+    </div>
+
+    <!-- Cor -->
+    <div class="mb-3">
+      <label for="cor" class="form-label">Cor</label>
+      <input
+        type="text"
+        id="cor"
+        class="form-control"
+        [(ngModel)]="pet.cor"
+        name="cor"
+      />
+    </div>
+
+    <!-- Castrado -->
+    <div class="mb-3">
+      <label for="castrado" class="form-label">Castrado</label>
+      <select
+        id="castrado"
+        class="form-select"
+        [(ngModel)]="pet.castrado"
+        name="castrado"
+      >
+        <option [ngValue]="true">Sim</option>
+        <option [ngValue]="false">Não</option>
+      </select>
+    </div>
+
+    <!-- Botões -->
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Cancelar
+    </button>
+  </form>
+</div>

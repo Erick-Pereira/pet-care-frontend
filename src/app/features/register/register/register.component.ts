@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   FormGroup!: FormGroup;
@@ -27,16 +33,19 @@ export class RegisterComponent implements OnInit {
         complemento: [''],
         bairro: [''],
         uf: [''],
-        cidade: ['']
+        cidade: [''],
       }),
       dadosPet: this.fb.group({
         petNome: ['', Validators.required],
-        petTipo: ['', Validators.required]
+        petTipo: ['', Validators.required],
       }),
-      senha: this.fb.group({
-        senha: ['', Validators.required],
-        confirmarSenha: ['', Validators.required]
-      }, { validators: this.senhaMatchValidator })
+      senha: this.fb.group(
+        {
+          senha: ['', Validators.required],
+          confirmarSenha: ['', Validators.required],
+        },
+        { validators: this.senhaMatchValidator },
+      ),
     });
   }
 
@@ -72,7 +81,8 @@ export class RegisterComponent implements OnInit {
 
   cpfValidator(control: AbstractControl): ValidationErrors | null {
     const cpf = control.value?.replace(/[^\d]+/g, '');
-    if (!cpf || cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return { invalidCPF: true };
+    if (!cpf || cpf.length !== 11 || /^(\d)\1+$/.test(cpf))
+      return { invalidCPF: true };
 
     let soma = 0;
     for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
@@ -89,7 +99,13 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
-  get dadosPessoais() { return this.FormGroup.get('dadosPessoais') as FormGroup; }
-  get dadosPet() { return this.FormGroup.get('dadosPet') as FormGroup; }
-  get senhaGroup() { return this.FormGroup.get('senha') as FormGroup; }
+  get dadosPessoais() {
+    return this.FormGroup.get('dadosPessoais') as FormGroup;
+  }
+  get dadosPet() {
+    return this.FormGroup.get('dadosPet') as FormGroup;
+  }
+  get senhaGroup() {
+    return this.FormGroup.get('senha') as FormGroup;
+  }
 }

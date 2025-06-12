@@ -18,7 +18,7 @@ interface Raca {
 
 @Component({
   selector: 'app-etapa2-pet',
-  templateUrl: './etapa2Pet.component.html'
+  templateUrl: './etapa2Pet.component.html',
 })
 export class Etapa2PetComponent implements OnInit {
   @Input() formGroup!: FormGroup;
@@ -28,7 +28,7 @@ export class Etapa2PetComponent implements OnInit {
   especies: Especie[] = [];
   racas: Raca[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.buscarEspecies();
@@ -50,7 +50,6 @@ export class Etapa2PetComponent implements OnInit {
     // Limpa o campo de raça ao trocar a espécie
     this.formGroup.get('raca')?.setValue('');
   }
-
 
   buscarEspecies(): void {
     this.http
@@ -75,10 +74,20 @@ export class Etapa2PetComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const camposEtapa2 = ['nomePet', 'especie', 'sexo', 'dataNascimento', 'peso', 'cor', 'aquisicao', 'castrado', 'chipado'];
+    const camposEtapa2 = [
+      'nomePet',
+      'especie',
+      'sexo',
+      'dataNascimento',
+      'peso',
+      'cor',
+      'aquisicao',
+      'castrado',
+      'chipado',
+    ];
     let etapa2Valida = true;
 
-    camposEtapa2.forEach(campo => {
+    camposEtapa2.forEach((campo) => {
       const control = this.formGroup.get(campo);
       if (control && control.invalid) {
         console.log(`Campo inválido etapa 2: ${campo}`, control.value);
@@ -95,16 +104,19 @@ export class Etapa2PetComponent implements OnInit {
         numeroChipControl?.setErrors({ required: true });
         numeroChipControl?.markAsTouched();
         etapa2Valida = false;
-        console.log('Campo número do chip é obrigatório quando o animal é chipado');
+        console.log(
+          'Campo número do chip é obrigatório quando o animal é chipado',
+        );
       }
     }
 
     if (!etapa2Valida) {
-      camposEtapa2.forEach(campo => this.formGroup.get(campo)?.markAsTouched());
+      camposEtapa2.forEach((campo) =>
+        this.formGroup.get(campo)?.markAsTouched(),
+      );
       return;
     }
 
     this.proximo.emit();
   }
-
 }

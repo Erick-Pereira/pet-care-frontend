@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
+import { PetRgComponent } from './features/pet-rg/pet-rg.component';
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
 import { Etapa2PetComponent } from './features/register/etapas/etapa2Pet.component';
@@ -26,9 +27,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-document.component';
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component';
 import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
-
 
 @NgModule({
   declarations: [
@@ -50,6 +50,8 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     ActivityLogComponent,
     PetDocumentComponent,
     PetPerfilComponent,
+    PetPerfilEditComponent,
+    PetRgComponent,
     VaccinationCardComponent,
   ],
   imports: [
@@ -64,7 +66,6 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     SharedModule,
     CommonModule,
     FormsModule,
-    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],

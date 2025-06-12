@@ -1,0 +1,73 @@
+<div id="conteudo-pdf">
+  <div
+    class="container border rounded p-4"
+    style="max-width: 900px; margin: 2rem auto"
+  >
+    <div class="row g-3 mb-4">
+      <!-- Foto do Pet -->
+      <div
+        class="col-12 col-md-4 d-flex justify-content-center align-items-center"
+      >
+        <img
+          [src]="petImageUrl"
+          alt="Foto do Pet"
+          class="img-fluid rounded-circle mb-3"
+          style="max-width: 180px; max-height: 180px; object-fit: cover"
+        />
+      </div>
+
+      <!-- Dados do Pet -->
+      <div class="col-12 col-md-8">
+        <div class="row g-3">
+          <div class="col-12">
+            <h2>Dados do Pet</h2>
+            <p><strong>Nome:</strong> {{ pet.nome }}</p>
+            <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
+            <p><strong>Raça:</strong> {{ pet.raca }}</p>
+            <p><strong>Forma de aquisição:</strong> {{ pet.aquisicao }}</p>
+            <p>
+              <strong>Possui Chip:</strong> {{ pet.possuiChip ? 'Sim' : 'Não' }}
+            </p>
+            <p *ngIf="pet.possuiChip">
+              <strong>Código do Chip:</strong> {{ pet.codigoChip }}
+            </p>
+            <p><strong>Sexo:</strong> {{ pet.genero }}</p>
+            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+            <p><strong>Cor:</strong> {{ pet.cor }}</p>
+            <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dados do Tutor com QR Code -->
+    <div class="row g-3">
+      <!-- Imagem QR Code -->
+      <div
+        class="col-12 col-md-4 d-flex justify-content-center align-items-center"
+      >
+        <img
+          src="assets/qr code.png"
+          alt="QR Code"
+          class="img-fluid"
+          style="max-width: 180px"
+        />
+      </div>
+
+      <!-- Dados do Tutor -->
+      <div class="col-12 col-md-8">
+        <h2>Dados do Tutor</h2>
+        <p><strong>Nome:</strong> {{ tutor.nome }}</p>
+        <p><strong>CPF:</strong> {{ tutor.cpf }}</p>
+        <p><strong>Telefone:</strong> {{ tutor.telefone }}</p>
+        <p><strong>Email:</strong> {{ tutor.email }}</p>
+        <p><strong>Endereço:</strong> {{ tutor.endereco }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botão imprimir -->
+<div class="text-center mt-3">
+  <button (click)="imprimir()" class="btn btn-success">Imprimir</button>
+</div>

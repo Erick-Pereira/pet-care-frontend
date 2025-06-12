@@ -69,7 +69,8 @@ $text-light: #888;
           border-radius: $border-radius;
           background-color: #fff;
           color: $text-dark;
-          transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease,
+            transform 0.3s ease;
           transition-duration: 0.3s;
 
           &:focus {

@@ -3,7 +3,11 @@
 
   <form [formGroup]="formGroup" (ngSubmit)="salvar()">
     <div formArrayName="historico">
-      <div *ngFor="let item of historico.controls; let i = index" [formGroupName]="i" class="card">
+      <div
+        *ngFor="let item of historico.controls; let i = index"
+        [formGroupName]="i"
+        class="card"
+      >
         <h3>Registro {{ i + 1 }}</h3>
 
         <label>
@@ -18,22 +22,22 @@
 
         <label>
           Data:
-          <input type="date" formControlName="data" required>
+          <input type="date" formControlName="data" required />
         </label>
 
         <label>
           Descrição:
-          <input type="text" formControlName="descricao" required>
+          <input type="text" formControlName="descricao" required />
         </label>
 
         <label>
           Profissional:
-          <input type="text" formControlName="profissional">
+          <input type="text" formControlName="profissional" />
         </label>
 
         <label>
           Contato do Profissional:
-          <input type="text" formControlName="contatoProfissional">
+          <input type="text" formControlName="contatoProfissional" />
         </label>
 
         <label>
@@ -41,12 +45,16 @@
           <textarea formControlName="observacoes"></textarea>
         </label>
 
-        <button type="button" (click)="removeEntry(i)" class="btn-remove">Remover</button>
+        <button type="button" (click)="removeEntry(i)" class="btn-remove">
+          Remover
+        </button>
         <hr />
       </div>
     </div>
 
-    <button type="button" (click)="addEntry()" class="btn-add">Adicionar Registro</button>
+    <button type="button" (click)="addEntry()" class="btn-add">
+      Adicionar Registro
+    </button>
     <button type="submit" class="btn-save">Salvar Histórico</button>
   </form>
 </div>

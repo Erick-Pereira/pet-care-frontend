@@ -15,9 +15,11 @@
       <div class="card">
         <div class="card-header">Carteira de Vacinação</div>
         <div class="card-body">
-          <p class="card-text">Visualize aqui as vacinas aplicadas no seu pet.</p>
-          <button class="btn btn-outline-success mt-2" [routerLink]="['/vaccination-card']">
-            <i class="bi bi-eye"></i> Ver Carteira de Vacinação
+          <p class="card-text">
+            Visualize aqui as vacinas aplicadas no seu pet.
+          </p>
+          <button class="btn btn-success mt-2">
+            <i class="bi bi-eye"></i> Ver Carteira
           </button>
         </div>
       </div>
@@ -26,8 +28,10 @@
       <div class="card">
         <div class="card-header">Registro do Animal</div>
         <div class="card-body">
-          <p class="card-text">Veja os dados de registro e identificação do seu pet.</p>
-          <button class="btn btn-outline-success mt-2">
+          <p class="card-text">
+            Veja os dados de registro e identificação do seu animal.
+          </p>
+          <button class="btn btn-success mt-2" (click)="abrirPdf()">
             <i class="bi bi-card-list"></i> Ver Registro
           </button>
         </div>
@@ -144,7 +148,14 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" [disabled]="!form.valid || !arquivoSelecionado">Salvar</button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!form.valid || !arquivoSelecionado"
+
+            >
+              Salvar
+            </button>
           </div>
         </form>
       </div>

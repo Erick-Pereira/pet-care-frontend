@@ -105,4 +105,10 @@ export class PetDocumentComponent {
     this.tipoArquivo = null;
     this.semExpiracao = false;
   }
+
+  // ✅ Função para abrir o PDF sofi.pdf em nova aba
+  abrirPdf() {
+    const pdfPath = 'assets/sofi.pdf';
+    window.open(pdfPath, '_blank');
+  }
 }

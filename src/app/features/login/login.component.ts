@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private perfilService: PerfilService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +46,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/pet-profile/1']);
       },
       (error) => {
-        this.errorMessage = '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
+        this.errorMessage =
+          '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
         console.error('Erro de login:', error);
-      }
+      },
     );
   }
 

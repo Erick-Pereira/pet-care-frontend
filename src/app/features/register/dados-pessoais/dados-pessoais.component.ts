@@ -1,35 +1,40 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dados-pessoais',
   templateUrl: './dados-pessoais.component.html',
-  styleUrls: ['./dados-pessoais.component.scss']
+  styleUrls: ['./dados-pessoais.component.scss'],
 })
 export class DadosPessoaisComponent implements OnInit {
-  @Input () label = 'próximo';
+  @Input() label = 'próximo';
 
   @Output() proximaEtapa = new EventEmitter<void>();
   dadosPessoais!: FormGroup;
   progress = 0;
 
   constructor(private router: Router, private fb: FormBuilder) {}
-    ngOnInit(): void {
-      this.dadosPessoais = this.fb.group({
-        nome: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [Validators.required, this.cpfValidator]],
-        telefone: ['', [Validators.required]],
-        celular: ['', [Validators.required]],
-        cep: ['', [Validators.required]],
-        endereco: ['', [Validators.required]],
-        numero: ['', [Validators.required]],
-        complemento: ['', [Validators.required]],
-        bairro: ['', [Validators.required]], 
-        uf: ['', [Validators.required]],
-        cidade: ['', [Validators.required]],
-      });
+  ngOnInit(): void {
+    this.dadosPessoais = this.fb.group({
+      nome: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      cpf: ['', [Validators.required, this.cpfValidator]],
+      telefone: ['', [Validators.required]],
+      celular: ['', [Validators.required]],
+      cep: ['', [Validators.required]],
+      endereco: ['', [Validators.required]],
+      numero: ['', [Validators.required]],
+      complemento: ['', [Validators.required]],
+      bairro: ['', [Validators.required]],
+      uf: ['', [Validators.required]],
+      cidade: ['', [Validators.required]],
+    });
 
     this.dadosPessoais.valueChanges.subscribe(() => {
       this.updateProgress();
@@ -40,25 +45,49 @@ export class DadosPessoaisComponent implements OnInit {
     this.router.navigate(['/DadosPet']);
   }
 
-    currentStep() {
+  currentStep() {
     throw new Error('Method not implemented.');
   }
   nextStep() {
     throw new Error('Method not implemented.');
   }
 
-  get nome() { return this.dadosPessoais.get('nome'); }
-  get email() { return this.dadosPessoais.get('email'); }
-  get cpf() { return this.dadosPessoais.get('cpf'); }
-  get telefone() { return this.dadosPessoais.get('telefone'); }
-  get celular() { return this.dadosPessoais.get('celular'); }
-  get cep() { return this.dadosPessoais.get('cep'); }
-  get endereco() { return this.dadosPessoais.get('endereco'); }
-  get numero() { return this.dadosPessoais.get('numero'); }
-  get complemento() { return this.dadosPessoais.get('complemento'); }
-  get bairro() { return this.dadosPessoais.get('bairro'); }
-  get uf() { return this.dadosPessoais.get('uf'); }
-  get cidade() { return this.dadosPessoais.get('cidade'); }
+  get nome() {
+    return this.dadosPessoais.get('nome');
+  }
+  get email() {
+    return this.dadosPessoais.get('email');
+  }
+  get cpf() {
+    return this.dadosPessoais.get('cpf');
+  }
+  get telefone() {
+    return this.dadosPessoais.get('telefone');
+  }
+  get celular() {
+    return this.dadosPessoais.get('celular');
+  }
+  get cep() {
+    return this.dadosPessoais.get('cep');
+  }
+  get endereco() {
+    return this.dadosPessoais.get('endereco');
+  }
+  get numero() {
+    return this.dadosPessoais.get('numero');
+  }
+  get complemento() {
+    return this.dadosPessoais.get('complemento');
+  }
+  get bairro() {
+    return this.dadosPessoais.get('bairro');
+  }
+  get uf() {
+    return this.dadosPessoais.get('uf');
+  }
+  get cidade() {
+    return this.dadosPessoais.get('cidade');
+  }
 
   onSubmit(): void {
     if (this.dadosPessoais.valid) {
@@ -70,13 +99,16 @@ export class DadosPessoaisComponent implements OnInit {
 
   private updateProgress(): void {
     const totalFields = Object.keys(this.dadosPessoais.controls).length;
-    const filledFields = Object.values(this.dadosPessoais.controls).filter(control => control.value).length;
+    const filledFields = Object.values(this.dadosPessoais.controls).filter(
+      (control) => control.value,
+    ).length;
     this.progress = (filledFields / totalFields) * 100;
   }
 
   private cpfValidator(control: AbstractControl) {
     const cpf = control.value?.replace(/[^\d]+/g, '');
-    if (!cpf || cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return { invalidCPF: true };
+    if (!cpf || cpf.length !== 11 || /^(\d)\1+$/.test(cpf))
+      return { invalidCPF: true };
 
     let soma = 0;
     for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);

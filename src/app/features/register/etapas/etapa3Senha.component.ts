@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-etapa3-senha',
@@ -14,10 +20,13 @@ export class SenhaComponent {
   hideConfirmPassword = true;
 
   constructor(private fb: FormBuilder) {
-    this.formGroup = this.fb.group({
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarSenha: ['', Validators.required]
-    }, { validators: this.passwordsMatchValidator });
+    this.formGroup = this.fb.group(
+      {
+        senha: ['', [Validators.required, Validators.minLength(6)]],
+        confirmarSenha: ['', Validators.required],
+      },
+      { validators: this.passwordsMatchValidator },
+    );
   }
 
   /** Alterna visibilidade do campo "senha" */
@@ -31,7 +40,9 @@ export class SenhaComponent {
   }
 
   /** Validação cruzada de senha e confirmação */
-  private passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
+  private passwordsMatchValidator(
+    group: AbstractControl,
+  ): ValidationErrors | null {
     const senha = group.get('senha')?.value;
     const confirmar = group.get('confirmarSenha')?.value;
 
@@ -62,17 +73,27 @@ export class SenhaComponent {
 
   /** Verifica se o campo de senha possui erro de validação */
   get senhaInvalid(): boolean {
-    return (this.formGroup.get('senha')?.invalid && this.formGroup.get('senha')?.touched) ?? false;
+    return (
+      (this.formGroup.get('senha')?.invalid &&
+        this.formGroup.get('senha')?.touched) ??
+      false
+    );
   }
 
   /** Verifica se o campo de confirmação de senha possui erro de validação */
   get confirmarSenhaInvalid(): boolean {
-    return (this.formGroup.get('confirmarSenha')?.invalid && this.formGroup.get('confirmarSenha')?.touched) ?? false;
+    return (
+      (this.formGroup.get('confirmarSenha')?.invalid &&
+        this.formGroup.get('confirmarSenha')?.touched) ??
+      false
+    );
   }
 
   /** Verifica se as senhas não coincidem */
   get senhasNaoCoincidem(): boolean {
-    return this.formGroup.hasError('mustMatch') && (this.formGroup.get('confirmarSenha')?.touched ?? false);
+    return (
+      this.formGroup.hasError('mustMatch') &&
+      (this.formGroup.get('confirmarSenha')?.touched ?? false)
+    );
   }
-
 }
