@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-// @ts-ignore
-declare var require: any;
+declare const require: any;
 const html2pdf = require('html2pdf.js');
 
 interface Pet {
