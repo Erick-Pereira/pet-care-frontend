@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
@@ -82,47 +83,53 @@ export class RegisterComponent implements OnInit {
       const dados = this.registerForm.value;
 
       const payloadSimplificado = {
-        usuario: {
-          nome: dados.dadosPessoais.nome,
+        name: dados.dadosPet.nomePet,
+        specieId: dados.dadosPet.especie,
+        breedId: dados.dadosPet.raca, 
+        gender: Number(dados.dadosPet.sexo), 
+        approximateBirthDate: dados.dadosPet.dataNascimento, 
+        color: dados.dadosPet.cor,
+        acquisition: dados.dadosPet.aquisicao,
+        isCastrated: Boolean(dados.dadosPet.castrado),
+        isChipped: Boolean(dados.dadosPet.chipado), 
+        chipNumber: dados.dadosPet.numeroChip || '',
+        owner: {
+          fullName: dados.dadosPessoais.nome,
           email: dados.dadosPessoais.email,
-          telefone: dados.dadosPessoais.telefone,
+          phoneNumber: dados.dadosPessoais.telefone,
           cpf: dados.dadosPessoais.cpf,
-          endereco: {
-            cep: dados.dadosPessoais.cep,
-            numero: dados.dadosPessoais.numero,
-            complemento: dados.dadosPessoais.complemento,
-            bairro: dados.dadosPessoais.bairro,
-            cidade: dados.dadosPessoais.cidade,
-            uf: dados.dadosPessoais.uf,
-            logradouro: dados.dadosPessoais.logradouro,
-          },
-        },
-        pet: {
-          nome: dados.dadosPet.nomePet,
-          especie: dados.dadosPet.especie,
-          raca: dados.dadosPet.raca,
-          sexo: dados.dadosPet.sexo,
-          dataNascimento: dados.dadosPet.dataNascimento,
-          cor: dados.dadosPet.cor,
-          aquisicao: dados.dadosPet.aquisicao,
-          castrado: dados.dadosPet.castrado,
-          chipado: dados.dadosPet.chipado,
-          numeroChip: dados.dadosPet.numeroChip,
-        },
-        senha: dados.senha.senha,
+          password: dados.senha.senha,
+          address: {
+            street: dados.dadosPessoais.logradouro,
+            complement: dados.dadosPessoais.complemento || '', // Envie uma string vazia se o campo estiver vazio
+            number: dados.dadosPessoais.numero,
+            zipCode: dados.dadosPessoais.cep,
+            neighborhood: {
+              name: dados.dadosPessoais.bairro,
+              city: {
+                name: dados.dadosPessoais.cidade,
+                state: {
+                  abreviation: dados.dadosPessoais.uf,
+                }
+              }
+            }
+          }
+        }
       };
 
-      try {
-        localStorage.setItem(
-          'registroUsuario',
-          JSON.stringify(payloadSimplificado),
-        );
-        alert('✅ Registro salvo localmente com sucesso!');
-        this.router.navigate(['/login']);
-      } catch (error) {
-        console.error('Erro ao salvar no localStorage:', error);
-        alert('❌ Erro ao salvar localmente.');
-      }
+      console.log('Payload sendo enviado:', payloadSimplificado);
+
+      this.http.post('https://localhost:7295/api/Pet/register', payloadSimplificado).subscribe({
+        next: (response) => {
+          console.log('Registro realizado com sucesso:', response);
+          alert('✅ Registro realizado com sucesso!');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Erro ao registrar:', err);
+          alert('❌ Erro ao registrar. Tente novamente mais tarde.');
+        }
+      });
     } else {
       console.warn('⚠️ Formulário inválido. Verifique os campos obrigatórios.');
       this.registerForm.markAllAsTouched();

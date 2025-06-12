@@ -13,8 +13,8 @@ interface Especie {
 
 interface Raca {
   id: string;
-  nome: string;
-  SpeciesId: string;
+  name: string;
+  speciesId: string;
 }
 
 @Component({
@@ -49,11 +49,8 @@ export class Etapa2PetComponent implements OnInit {
 
   buscarRacas(): void {
     const especieSelecionada = this.formGroup.get('especie')?.value;
-
     console.log('Espécie selecionada:', especieSelecionada);
-
     const especieId = this.especies.find(especie => especie.name === especieSelecionada)?.id;
-
     console.log('ID da espécie selecionada:', especieId);
 
     if (!especieId) {
@@ -67,8 +64,8 @@ export class Etapa2PetComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Dados brutos retornados pela API de raças:', response);
-          this.racasDisponiveis = response.data.filter(raca => raca.SpeciesId === especieId) || [];
-          
+
+          this.racasDisponiveis = response.data.filter(raca => raca.speciesId === especieId) || [];
           console.log('Raças disponíveis após o filtro:', this.racasDisponiveis);
 
           if (this.racasDisponiveis.length === 0) {
@@ -90,7 +87,7 @@ export class Etapa2PetComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const camposEtapa2 = ['nomePet', 'especie', 'sexo', 'dataNascimento', 'peso', 'cor', 'aquisicao', 'castrado', 'chipado'];
+    const camposEtapa2 = ['nomePet', 'especie', 'raca', 'sexo', 'dataNascimento', 'cor', 'aquisicao', 'castrado', 'chipado'];
     let etapa2Valida = true;
 
     camposEtapa2.forEach(campo => {
@@ -118,6 +115,21 @@ export class Etapa2PetComponent implements OnInit {
       return;
     }
 
-    this.proximo.emit();
+    const especieId = this.especies.find(especie => especie.name === this.formGroup.get('especie')?.value)?.id;
+    const racaId = this.racasDisponiveis.find(raca => raca.name === this.formGroup.get('raca')?.value)?.id;
+
+    if (!especieId || !racaId) {
+      console.error('Erro: IDs de espécie ou raça não encontrados.');
+      return;
+    }
+
+    this.formGroup.patchValue({
+      especie: especieId,
+      raca: racaId,
+    });
+
+    console.log('FormGroup atualizado com IDs:', this.formGroup.value);
+
+    this.proximo.emit(this.formGroup.value);
   }
 }

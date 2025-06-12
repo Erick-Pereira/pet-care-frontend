@@ -52,6 +52,7 @@ export class SenhaComponent {
     const confirmar = this.formGroup.get('confirmarSenha')?.value;
 
     if (senha && confirmar && senha === confirmar) {
+      console.log('Payload sendo enviado:', senha);
       this.proximo.emit();
     } else {
       console.warn('Senhas não coincidem ou estão vazias');

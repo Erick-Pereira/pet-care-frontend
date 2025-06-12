@@ -108,6 +108,8 @@ export class Etapa1PessoaisComponent implements OnInit {
     this.removerMascaraAntesDeEnviar();
 
     if (this.formGroup.valid) {
+      const payload = this.formGroup.value;
+      console.log('Payload sendo enviado:', payload);
       this.proximo.emit();
     } else {
       this.formGroup.markAllAsTouched();

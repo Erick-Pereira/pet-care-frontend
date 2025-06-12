@@ -24,7 +24,7 @@
         <label for="raca">Raça</label>
         <select id="raca" formControlName="raca" class="form-control" [disabled]="!formGroup.get('especie')?.value">
           <option value="" disabled>Escolha a Raça</option>
-          <option *ngFor="let raca of racasDisponiveis" [value]="raca.nome">{{ raca.nome }}</option>
+          <option *ngFor="let raca of racasDisponiveis" [value]="raca.name">{{ raca.name }}</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('raca')">Raça é obrigatória.</div>
       </div>
@@ -34,8 +34,8 @@
         <label for="sexo">Gênero</label>
         <select id="sexo" formControlName="sexo" class="form-control">
           <option value="" disabled>Escolha o Gênero</option>
-          <option value="Macho">Macho</option>
-          <option value="Fêmea">Fêmea</option>
+          <option value=1>Macho</option>
+          <option value=2>Fêmea</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('sexo')">Sexo é obrigatório.</div>
       </div>
@@ -61,9 +61,9 @@
         <select id="aquisicao" formControlName="aquisicao" class="form-control">
           <option value="" disabled>Selecione</option>
           <option value="adocao">Adoção</option>
-          <option value="compra">Comprado</option>
-          <option value="achado">Achado na rua</option>
-          <option value="filhote">Filhote do seu pet</option>
+          <option value="compra">Compra</option>
+          <option value="resgate">Resgate</option>
+          <option value="filhote">Filhote do outro pet</option>
           <option value="outro">Outro</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('aquisicao')">Aquisição é obrigatória.</div>
