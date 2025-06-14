@@ -22,12 +22,18 @@ export class RegisterComponent implements OnInit {
       dadosPessoais: this.fb.group({
         nome: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-        telefone: [
-          '',
-          [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)],
-        ],
-        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+        cpf: ['', [
+          Validators.required,
+          Validators.pattern(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/) // 000.000.000-00
+        ]],
+        telefone: ['', [
+          Validators.required,
+          Validators.pattern(/^(\(\d{2}\)\s?\d{4,5}-\d{4})$/) // (00) 0000-0000 ou (00) 00000-0000
+        ]],
+        cep: ['', [
+          Validators.required,
+          Validators.pattern(/^\d{5}-\d{3}$/) // 00000-000
+        ]],
         numero: ['', Validators.required],
         complemento: [''],
         bairro: [{ value: '', disabled: true }, Validators.required],

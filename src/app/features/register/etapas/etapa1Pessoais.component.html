@@ -11,7 +11,7 @@
     <div class="form-group col-md-6">
       <label for="cpf">CPF</label>
       <input id="cpf" type="text" formControlName="cpf" class="form-control"
-            (blur)="aplicarMascara('cpf')" (input)="limparCaracteresEspeciais('cpf')" placeholder="Ex: 00000000000" />
+       (blur)="aplicarMascara('cpf')" placeholder="Ex: 000.000.000-00" />
       <div class="text-danger small" *ngIf="campoInvalido('cpf')">CPF inválido. Deve conter 11 números.</div>
     </div>
   </div>
@@ -27,7 +27,7 @@
     <div class="form-group col-md-6">
       <label for="telefone">N° do Celular</label>
       <input id="telefone" formControlName="telefone" type="text" class="form-control"
-            (blur)="aplicarMascara('telefone')" (input)="limparCaracteresEspeciais('telefone')" placeholder="DDD + número" />
+       (blur)="aplicarMascara('telefone')" placeholder="DDD + número" />
       <div class="text-danger small" *ngIf="campoInvalido('telefone')">N° inválido. Deve conter 10 ou 11 números.</div>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <div class="form-group col-md-6">
       <label for="cep">CEP</label>
       <input id="cep" formControlName="cep" type="text" class="form-control"
-            (blur)="buscarEnderecoViaCEP()" (input)="limparCaracteresEspeciais('cep')" placeholder="Ex: 01001-000" />
+            (blur)="aplicarMascara('cep'); buscarEnderecoViaCEP()" placeholder="Ex: 01001-000" />
       <div class="text-danger small" *ngIf="campoInvalido('cep')">CEP inválido. Deve conter 8 números.</div>
     </div>
   </div>
