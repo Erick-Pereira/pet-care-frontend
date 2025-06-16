@@ -5,55 +5,97 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label for="nomePet">Nome</label>
-        <input id="nomePet" type="text" formControlName="nomePet" class="form-control" placeholder="Ex: Rex" />
-        <div class="text-danger small" *ngIf="campoInvalido('nomePet')">Nome é obrigatório.</div>
+        <input
+          id="nomePet"
+          type="text"
+          formControlName="nomePet"
+          class="form-control"
+          placeholder="Ex: Rex"
+        />
+        <div class="text-danger small" *ngIf="campoInvalido('nomePet')">
+          Nome é obrigatório.
+        </div>
       </div>
 
       <div class="form-group col-md-6">
         <label for="especie">Espécie</label>
-        <select id="especie" formControlName="especie" class="form-control" (change)="buscarRacas()">
+        <select
+          id="especie"
+          formControlName="especie"
+          class="form-control"
+          (change)="buscarRacas()"
+        >
           <option value="" disabled>Escolha a Espécie</option>
-          <option *ngFor="let especie of especies" [value]="especie.name">{{ especie.name }}</option>
+          <option *ngFor="let especie of especies" [value]="especie.name">
+            {{ especie.name }}
+          </option>
         </select>
-        <div class="text-danger small" *ngIf="campoInvalido('especie')">Espécie é obrigatória.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('especie')">
+          Espécie é obrigatória.
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label for="raca">Raça</label>
-        <select id="raca" formControlName="raca" class="form-control" [disabled]="!formGroup.get('especie')?.value">
+        <select
+          id="raca"
+          formControlName="raca"
+          class="form-control"
+          [disabled]="!formGroup.get('especie')?.value"
+        >
           <option value="" disabled>Escolha a Raça</option>
-          <option *ngFor="let raca of racasDisponiveis" [value]="raca.name">{{ raca.name }}</option>
+          <option *ngFor="let raca of racasDisponiveis" [value]="raca.name">
+            {{ raca.name }}
+          </option>
         </select>
-        <div class="text-danger small" *ngIf="campoInvalido('raca')">Raça é obrigatória.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('raca')">
+          Raça é obrigatória.
+        </div>
       </div>
-
 
       <div class="form-group col-md-6">
         <label for="sexo">Gênero</label>
         <select id="sexo" formControlName="sexo" class="form-control">
           <option value="" disabled>Escolha o Gênero</option>
-          <option value=0>Macho</option>
-          <option value=1>Fêmea</option>
+          <option value="0">Macho</option>
+          <option value="1">Fêmea</option>
         </select>
-        <div class="text-danger small" *ngIf="campoInvalido('sexo')">Sexo é obrigatório.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('sexo')">
+          Sexo é obrigatório.
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label for="dataNascimento">Data de Nascimento</label>
-        <input id="dataNascimento" type="date" formControlName="dataNascimento" class="form-control" />
-        <div class="text-danger small" *ngIf="campoInvalido('dataNascimento')">Data de nascimento é obrigatória.</div>
+        <input
+          id="dataNascimento"
+          type="date"
+          formControlName="dataNascimento"
+          class="form-control"
+        />
+        <div class="text-danger small" *ngIf="campoInvalido('dataNascimento')">
+          Data de nascimento é obrigatória.
+        </div>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="form-group col-md-6">
         <label for="cor">Cor</label>
-        <input id="cor" type="text" formControlName="cor" class="form-control" placeholder="Ex: Branco e preto" />
-        <div class="text-danger small" *ngIf="campoInvalido('cor')">Cor é obrigatória.</div>
+        <input
+          id="cor"
+          type="text"
+          formControlName="cor"
+          class="form-control"
+          placeholder="Ex: Branco e preto"
+        />
+        <div class="text-danger small" *ngIf="campoInvalido('cor')">
+          Cor é obrigatória.
+        </div>
       </div>
 
       <div class="form-group col-md-6">
@@ -66,7 +108,9 @@
           <option value="filhote">Filhote do outro pet</option>
           <option value="outro">Outro</option>
         </select>
-        <div class="text-danger small" *ngIf="campoInvalido('aquisicao')">Aquisição é obrigatória.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('aquisicao')">
+          Aquisição é obrigatória.
+        </div>
       </div>
     </div>
 
@@ -74,42 +118,81 @@
       <div class="form-group col-md-6">
         <p>Castrado</p>
         <div class="form-check">
-          <input type="radio" id="castradoSim" class="form-check-input" formControlName="castrado" [value]="true">
+          <input
+            type="radio"
+            id="castradoSim"
+            class="form-check-input"
+            formControlName="castrado"
+            [value]="true"
+          />
           <label for="castradoSim" class="form-check-label">Sim</label>
         </div>
         <div class="form-check">
-          <input type="radio" id="castradoNao" class="form-check-input" formControlName="castrado" [value]="false">
+          <input
+            type="radio"
+            id="castradoNao"
+            class="form-check-input"
+            formControlName="castrado"
+            [value]="false"
+          />
           <label for="castradoNao" class="form-check-label">Não</label>
         </div>
-        <div class="text-danger small" *ngIf="campoInvalido('castrado')">Informe se é castrado.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('castrado')">
+          Informe se é castrado.
+        </div>
       </div>
 
       <div class="form-group col-md-6">
         <p>Chipado</p>
         <div class="form-check">
-          <input type="radio" id="chipadoSim" class="form-check-input" formControlName="chipado" [value]="true">
+          <input
+            type="radio"
+            id="chipadoSim"
+            class="form-check-input"
+            formControlName="chipado"
+            [value]="true"
+          />
           <label for="chipadoSim" class="form-check-label">Sim</label>
         </div>
         <div class="form-check">
-          <input type="radio" id="chipadoNao" class="form-check-input" formControlName="chipado" [value]="false">
+          <input
+            type="radio"
+            id="chipadoNao"
+            class="form-check-input"
+            formControlName="chipado"
+            [value]="false"
+          />
           <label for="chipadoNao" class="form-check-label">Não</label>
         </div>
-        <div class="text-danger small" *ngIf="campoInvalido('chipado')">Informe se é chipado.</div>
+        <div class="text-danger small" *ngIf="campoInvalido('chipado')">
+          Informe se é chipado.
+        </div>
       </div>
     </div>
 
     <div class="row mt-3" *ngIf="formGroup.get('chipado')?.value === true">
       <div class="form-group col-md-6">
         <label for="numeroChip">Número do Chip</label>
-        <input id="numeroChip" type="text" formControlName="numeroChip" class="form-control"
-          placeholder="Ex: 123456789" />
-        <div class="text-danger small" *ngIf="campoInvalido('numeroChip')">Número do chip é obrigatório.</div>
+        <input
+          id="numeroChip"
+          type="text"
+          formControlName="numeroChip"
+          class="form-control"
+          placeholder="Ex: 123456789"
+        />
+        <div class="text-danger small" *ngIf="campoInvalido('numeroChip')">
+          Número do chip é obrigatório.
+        </div>
       </div>
     </div>
 
     <div class="botoes-navegacao mt-4 d-flex justify-content-between">
-      <button type="button" class="btn btn-secondary" (click)="anterior.emit()">Anterior</button>
-      <button type="button" class="btn btn-primary" (click)="onSubmit()">Próximo</button>
+      <button type="button" class="btn btn-secondary" (click)="anterior.emit()">
+        Anterior
+      </button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">
+        Próximo
+      </button>
     </div>
   </div>
 </form>

@@ -22,20 +22,48 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'vaccination-card', component: VaccinationCardComponent, canActivate: [AuthGuard] },
+  {
+    path: 'vaccination-card',
+    component: VaccinationCardComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'profile-list', component: PerfilListComponent, canActivate: [AuthGuard]},
-  { path: 'animal-public', component: AnimalPublicComponent, canActivate: [AuthGuard] },
-  { path: 'vet-history', component: VetHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'animal-history', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
-  { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile-list',
+    component: PerfilListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-public',
+    component: AnimalPublicComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'vet-history',
+    component: VetHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-history',
+    component: AnimalHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'activity-log',
+    component: ActivityLogComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'pet-documents',
+    component: PetDocumentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'pet-profile/:id', component: PetPerfilComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

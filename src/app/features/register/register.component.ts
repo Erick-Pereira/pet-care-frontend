@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
@@ -22,18 +21,15 @@ export class RegisterComponent implements OnInit {
       dadosPessoais: this.fb.group({
         nome: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [
-          Validators.required,
-          Validators.pattern(/^\d{11}$/)
-        ]],
-        telefone: ['', [
-          Validators.required,
-          Validators.pattern(/^(\(\d{2}\)\s?\d{4,5}-\d{4})$/) // (00) 0000-0000 ou (00) 00000-0000
-        ]],
-        cep: ['', [
-          Validators.required,
-          Validators.pattern(/^\d{8}$/)
-        ]],
+        cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+        telefone: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^(\(\d{2}\)\s?\d{4,5}-\d{4})$/), // (00) 0000-0000 ou (00) 00000-0000
+          ],
+        ],
+        cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         numero: ['', Validators.required],
         complemento: [''],
         bairro: [{ value: '', disabled: true }, Validators.required],
@@ -91,13 +87,13 @@ export class RegisterComponent implements OnInit {
       const payloadSimplificado = {
         name: dados.dadosPet.nomePet,
         specieId: dados.dadosPet.especie,
-        breedId: dados.dadosPet.raca, 
-        gender: Number(dados.dadosPet.sexo), 
-        approximateBirthDate: dados.dadosPet.dataNascimento, 
+        breedId: dados.dadosPet.raca,
+        gender: Number(dados.dadosPet.sexo),
+        approximateBirthDate: dados.dadosPet.dataNascimento,
         color: dados.dadosPet.cor,
         acquisition: dados.dadosPet.aquisicao,
         isCastrated: Boolean(dados.dadosPet.castrado),
-        isChipped: Boolean(dados.dadosPet.chipado), 
+        isChipped: Boolean(dados.dadosPet.chipado),
         chipNumber: dados.dadosPet.numeroChip || '',
         owner: {
           fullName: dados.dadosPessoais.nome,
@@ -116,26 +112,28 @@ export class RegisterComponent implements OnInit {
                 name: dados.dadosPessoais.cidade,
                 state: {
                   abreviation: dados.dadosPessoais.uf,
-                }
-              }
-            }
-          }
-        }
+                },
+              },
+            },
+          },
+        },
       };
 
       console.log('Payload sendo enviado:', payloadSimplificado);
 
-      this.http.post('https://localhost:7295/api/Pet/register', payloadSimplificado).subscribe({
-        next: (response) => {
-          console.log('Registro realizado com sucesso:', response);
-          alert('✅ Registro realizado com sucesso!');
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          console.error('Erro ao registrar:', err);
-          alert('❌ Erro ao registrar. Tente novamente mais tarde.');
-        }
-      });
+      this.http
+        .post('https://localhost:7295/api/Pet/register', payloadSimplificado)
+        .subscribe({
+          next: (response) => {
+            console.log('Registro realizado com sucesso:', response);
+            alert('✅ Registro realizado com sucesso!');
+            this.router.navigate(['/login']);
+          },
+          error: (err) => {
+            console.error('Erro ao registrar:', err);
+            alert('❌ Erro ao registrar. Tente novamente mais tarde.');
+          },
+        });
     } else {
       console.warn('⚠️ Formulário inválido. Verifique os campos obrigatórios.');
       this.registerForm.markAllAsTouched();

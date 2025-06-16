@@ -30,7 +30,6 @@ import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +63,7 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     SharedModule,
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

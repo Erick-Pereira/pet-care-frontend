@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilService } from '@app/core/entities/profile/profile.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
 })
-
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage = '';
@@ -19,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private perfilService: PerfilService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +45,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/pet-profile/1']);
       },
       (error) => {
-        this.errorMessage = '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
+        this.errorMessage =
+          '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
         console.error('Erro de login:', error);
-      }
+      },
     );
   }
 
@@ -63,4 +61,3 @@ export class LoginComponent implements OnInit {
     console.log(formValues);
   }
 }
-
