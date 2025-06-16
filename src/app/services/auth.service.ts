@@ -6,14 +6,14 @@ import { tap } from 'rxjs/operators';
 import { Inject } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7295/api/Auth/login';
 
   constructor(
     private http: HttpClient,
-    @Inject(CookieService) private cookieService: CookieService
+    @Inject(CookieService) private cookieService: CookieService,
   ) {}
 
   login(username: string, password: string): Observable<{ token: string }> {
@@ -27,7 +27,7 @@ export class AuthService {
           expireDate.setHours(expireDate.getHours() + 1);
           this.cookieService.set('auth_token', token, expireDate);
         }
-      })
+      }),
     );
   }
 
@@ -36,4 +36,3 @@ export class AuthService {
     return !!token;
   }
 }
-

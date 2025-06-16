@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +15,7 @@ import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register.component';
 import { Etapa1PessoaisComponent } from './features/register/etapas/etapa1Pessoais.component';
 import { Etapa2PetComponent } from './features/register/etapas/etapa2Pet.component';
-import { SenhaComponent } from './features/register/senha/senha.component';
+import { SenhaComponent } from './features/register/etapas/etapa3Senha.component';
 import { Etapa4ConfirmComponent } from './features/register/etapas/etapa4Confirm.component';
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
@@ -29,7 +30,6 @@ import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +41,6 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     Etapa2PetComponent,
     SenhaComponent,
     Etapa4ConfirmComponent,
-    SenhaComponent,
     PerfilComponent,
     PerfilListComponent,
     AnimalPublicComponent,
@@ -64,9 +63,9 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     SharedModule,
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

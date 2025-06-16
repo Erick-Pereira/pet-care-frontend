@@ -13,12 +13,13 @@ interface Especie {
 
 interface Raca {
   id: string;
-  nome: string;
+  name: string;
+  speciesId: string;
 }
 
 @Component({
   selector: 'app-etapa2-pet',
-  templateUrl: './etapa2Pet.component.html'
+  templateUrl: './etapa2Pet.component.html',
 })
 export class Etapa2PetComponent implements OnInit {
   @Input() formGroup!: FormGroup;
@@ -26,31 +27,13 @@ export class Etapa2PetComponent implements OnInit {
   @Output() anterior = new EventEmitter<void>();
 
   especies: Especie[] = [];
-  racas: Raca[] = [];
+  racasDisponiveis: Raca[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.buscarEspecies();
   }
-
-  racasDisponiveis: string[] = [];
-
-  buscarRacas(): void {
-    const especieSelecionada = this.formGroup.get('especie')?.value;
-
-    if (especieSelecionada === 'Gato') {
-      this.racasDisponiveis = ['Persa', 'Siamês', 'Maine Coon'];
-    } else if (especieSelecionada === 'Cachorro') {
-      this.racasDisponiveis = ['Pinscher', 'Pastor Alemão', 'Dobermann'];
-    } else {
-      this.racasDisponiveis = [];
-    }
-
-    // Limpa o campo de raça ao trocar a espécie
-    this.formGroup.get('raca')?.setValue('');
-  }
-
 
   buscarEspecies(): void {
     this.http
@@ -58,15 +41,54 @@ export class Etapa2PetComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Resposta da API espécies:', response);
-          if (Array.isArray(response.data)) {
-            this.especies = response.data;
-          } else {
-            console.error('Data não é um array:', response.data);
-            this.especies = [];
-          }
+          this.especies = response.data || [];
         },
         error: (err) => console.error('Erro ao buscar espécies:', err),
       });
+  }
+
+  buscarRacas(): void {
+    const especieSelecionada = this.formGroup.get('especie')?.value;
+    console.log('Espécie selecionada:', especieSelecionada);
+    const especieId = this.especies.find(
+      (especie) => especie.name === especieSelecionada,
+    )?.id;
+    console.log('ID da espécie selecionada:', especieId);
+
+    if (!especieId) {
+      this.racasDisponiveis = [];
+      console.warn(
+        'Nenhuma espécie foi selecionada ou o ID não foi encontrado. Campo de raça permanecerá vazio.',
+      );
+      return;
+    }
+
+    this.http
+      .get<ApiResponse<Raca[]>>('https://localhost:7295/api/Breed')
+      .subscribe({
+        next: (response) => {
+          console.log('Dados brutos retornados pela API de raças:', response);
+
+          this.racasDisponiveis =
+            response.data.filter((raca) => raca.speciesId === especieId) || [];
+          console.log(
+            'Raças disponíveis após o filtro:',
+            this.racasDisponiveis,
+          );
+
+          if (this.racasDisponiveis.length === 0) {
+            console.warn(
+              `Nenhuma raça encontrada para a espécie com ID: ${especieId}`,
+            );
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar raças:', err);
+          alert('Erro ao carregar as raças. Tente novamente mais tarde.');
+        },
+      });
+
+    this.formGroup.get('raca')?.setValue('');
   }
 
   campoInvalido(campo: string): boolean {
@@ -75,10 +97,20 @@ export class Etapa2PetComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const camposEtapa2 = ['nomePet', 'especie', 'sexo', 'dataNascimento', 'peso', 'cor', 'aquisicao', 'castrado', 'chipado'];
+    const camposEtapa2 = [
+      'nomePet',
+      'especie',
+      'raca',
+      'sexo',
+      'dataNascimento',
+      'cor',
+      'aquisicao',
+      'castrado',
+      'chipado',
+    ];
     let etapa2Valida = true;
 
-    camposEtapa2.forEach(campo => {
+    camposEtapa2.forEach((campo) => {
       const control = this.formGroup.get(campo);
       if (control && control.invalid) {
         console.log(`Campo inválido etapa 2: ${campo}`, control.value);
@@ -86,7 +118,6 @@ export class Etapa2PetComponent implements OnInit {
       }
     });
 
-    // 🔍 Validação condicional do campo numeroChip
     const chipado = this.formGroup.get('chipado')?.value;
     const numeroChipControl = this.formGroup.get('numeroChip');
 
@@ -95,16 +126,38 @@ export class Etapa2PetComponent implements OnInit {
         numeroChipControl?.setErrors({ required: true });
         numeroChipControl?.markAsTouched();
         etapa2Valida = false;
-        console.log('Campo número do chip é obrigatório quando o animal é chipado');
+        console.log(
+          'Campo número do chip é obrigatório quando o animal é chipado',
+        );
       }
     }
 
     if (!etapa2Valida) {
-      camposEtapa2.forEach(campo => this.formGroup.get(campo)?.markAsTouched());
+      camposEtapa2.forEach((campo) =>
+        this.formGroup.get(campo)?.markAsTouched(),
+      );
       return;
     }
 
-    this.proximo.emit();
-  }
+    const especieId = this.especies.find(
+      (especie) => especie.name === this.formGroup.get('especie')?.value,
+    )?.id;
+    const racaId = this.racasDisponiveis.find(
+      (raca) => raca.name === this.formGroup.get('raca')?.value,
+    )?.id;
 
+    if (!especieId || !racaId) {
+      console.error('Erro: IDs de espécie ou raça não encontrados.');
+      return;
+    }
+
+    this.formGroup.patchValue({
+      especie: especieId,
+      raca: racaId,
+    });
+
+    console.log('FormGroup atualizado com IDs:', this.formGroup.value);
+
+    this.proximo.emit(this.formGroup.value);
+  }
 }

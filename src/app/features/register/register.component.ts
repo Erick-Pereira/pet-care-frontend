@@ -24,7 +24,10 @@ export class RegisterComponent implements OnInit {
         cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
         telefone: [
           '',
-          [Validators.required, Validators.pattern(/^(\d{10}|\d{11})$/)],
+          [
+            Validators.required,
+            Validators.pattern(/^(\(\d{2}\)\s?\d{4,5}-\d{4})$/), // (00) 0000-0000 ou (00) 00000-0000
+          ],
         ],
         cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
         numero: ['', Validators.required],
@@ -40,7 +43,6 @@ export class RegisterComponent implements OnInit {
         raca: ['', Validators.required],
         sexo: ['', Validators.required],
         dataNascimento: ['', Validators.required],
-        peso: ['', Validators.required],
         cor: ['', Validators.required],
         aquisicao: ['', Validators.required],
         castrado: [false, Validators.required],
@@ -83,48 +85,55 @@ export class RegisterComponent implements OnInit {
       const dados = this.registerForm.value;
 
       const payloadSimplificado = {
-        usuario: {
-          nome: dados.dadosPessoais.nome,
+        name: dados.dadosPet.nomePet,
+        specieId: dados.dadosPet.especie,
+        breedId: dados.dadosPet.raca,
+        gender: Number(dados.dadosPet.sexo),
+        approximateBirthDate: dados.dadosPet.dataNascimento,
+        color: dados.dadosPet.cor,
+        acquisition: dados.dadosPet.aquisicao,
+        isCastrated: Boolean(dados.dadosPet.castrado),
+        isChipped: Boolean(dados.dadosPet.chipado),
+        chipNumber: dados.dadosPet.numeroChip || '',
+        owner: {
+          fullName: dados.dadosPessoais.nome,
           email: dados.dadosPessoais.email,
-          telefone: dados.dadosPessoais.telefone,
+          phoneNumber: dados.dadosPessoais.telefone,
           cpf: dados.dadosPessoais.cpf,
-          endereco: {
-            cep: dados.dadosPessoais.cep,
-            numero: dados.dadosPessoais.numero,
-            complemento: dados.dadosPessoais.complemento,
-            bairro: dados.dadosPessoais.bairro,
-            cidade: dados.dadosPessoais.cidade,
-            uf: dados.dadosPessoais.uf,
-            logradouro: dados.dadosPessoais.logradouro,
+          password: dados.senha.senha,
+          address: {
+            street: dados.dadosPessoais.logradouro,
+            complement: dados.dadosPessoais.complemento || '', // Envie uma string vazia se o campo estiver vazio
+            number: dados.dadosPessoais.numero,
+            zipCode: dados.dadosPessoais.cep,
+            neighborhood: {
+              name: dados.dadosPessoais.bairro,
+              city: {
+                name: dados.dadosPessoais.cidade,
+                state: {
+                  abreviation: dados.dadosPessoais.uf,
+                },
+              },
+            },
           },
         },
-        pet: {
-          nome: dados.dadosPet.nomePet,
-          especie: dados.dadosPet.especie,
-          raca: dados.dadosPet.raca,
-          sexo: dados.dadosPet.sexo,
-          dataNascimento: dados.dadosPet.dataNascimento,
-          peso: dados.dadosPet.peso,
-          cor: dados.dadosPet.cor,
-          aquisicao: dados.dadosPet.aquisicao,
-          castrado: dados.dadosPet.castrado,
-          chipado: dados.dadosPet.chipado,
-          numeroChip: dados.dadosPet.numeroChip,
-        },
-        senha: dados.senha.senha,
       };
 
-      try {
-        localStorage.setItem(
-          'registroUsuario',
-          JSON.stringify(payloadSimplificado),
-        );
-        alert('✅ Registro salvo localmente com sucesso!');
-        this.router.navigate(['/login']);
-      } catch (error) {
-        console.error('Erro ao salvar no localStorage:', error);
-        alert('❌ Erro ao salvar localmente.');
-      }
+      console.log('Payload sendo enviado:', payloadSimplificado);
+
+      this.http
+        .post('https://localhost:7295/api/Pet/register', payloadSimplificado)
+        .subscribe({
+          next: (response) => {
+            console.log('Registro realizado com sucesso:', response);
+            alert('✅ Registro realizado com sucesso!');
+            this.router.navigate(['/login']);
+          },
+          error: (err) => {
+            console.error('Erro ao registrar:', err);
+            alert('❌ Erro ao registrar. Tente novamente mais tarde.');
+          },
+        });
     } else {
       console.warn('⚠️ Formulário inválido. Verifique os campos obrigatórios.');
       this.registerForm.markAllAsTouched();

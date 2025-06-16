@@ -16,12 +16,21 @@
             autocomplete="new-password"
           />
           <div class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
-              <i class="fa" [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="togglePasswordVisibility()"
+            >
+              <i
+                class="fa"
+                [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              ></i>
             </button>
           </div>
         </div>
-        <div class="text-danger small" *ngIf="senhaInvalid">A senha é obrigatória e deve ter no mínimo 6 caracteres.</div>
+        <div class="text-danger small" *ngIf="senhaInvalid">
+          A senha é obrigatória e deve ter no mínimo 6 caracteres.
+        </div>
       </div>
 
       <!-- Campo Confirmar Senha -->
@@ -37,19 +46,34 @@
             autocomplete="new-password"
           />
           <div class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary" (click)="toggleConfirmPasswordVisibility()">
-              <i class="fa" [ngClass]="hideConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              <i
+                class="fa"
+                [ngClass]="hideConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"
+              ></i>
             </button>
           </div>
         </div>
-        <div class="text-danger small" *ngIf="confirmarSenhaInvalid">A confirmação da senha é obrigatória.</div>
-        <div class="text-danger small" *ngIf="senhasNaoCoincidem">As senhas não coincidem.</div>
+        <div class="text-danger small" *ngIf="confirmarSenhaInvalid">
+          A confirmação da senha é obrigatória.
+        </div>
+        <div class="text-danger small" *ngIf="senhasNaoCoincidem">
+          As senhas não coincidem.
+        </div>
       </div>
     </div>
 
     <div class="botoes-navegacao mt-4 d-flex justify-content-between">
-      <button type="button" class="btn btn-secondary" (click)="voltar()">Anterior</button>
-      <button type="button" class="btn btn-primary" (click)="onSubmit()">Próximo</button>
+      <button type="button" class="btn btn-secondary" (click)="voltar()">
+        Anterior
+      </button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">
+        Próximo
+      </button>
     </div>
   </div>
 </form>

@@ -1,17 +1,34 @@
 <div class="register-container">
-  <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+  <form
+    [formGroup]="registerForm"
+    class="register-form"
+    (ngSubmit)="onSubmit()"
+  >
+    <app-etapa1-pessoais
+      *ngIf="etapaAtual === 1"
+      [formGroup]="dadosPessoaisForm"
+      (proximo)="irParaProximaEtapa()"
+    ></app-etapa1-pessoais>
 
-    <app-etapa1-pessoais *ngIf="etapaAtual === 1" [formGroup]="dadosPessoaisForm"
-      (proximo)="irParaProximaEtapa()"></app-etapa1-pessoais>
+    <app-etapa2-pet
+      *ngIf="etapaAtual === 2"
+      [formGroup]="dadosPetForm"
+      (proximo)="irParaProximaEtapa()"
+      (anterior)="voltarEtapa()"
+    ></app-etapa2-pet>
 
-    <app-etapa2-pet *ngIf="etapaAtual === 2" [formGroup]="dadosPetForm" (proximo)="irParaProximaEtapa()"
-      (anterior)="voltarEtapa()"></app-etapa2-pet>
+    <app-etapa3-senha
+      *ngIf="etapaAtual === 3"
+      [formGroup]="senhaForm"
+      (proximo)="irParaProximaEtapa()"
+      (anterior)="voltarEtapa()"
+    ></app-etapa3-senha>
 
-    <app-etapa3-senha *ngIf="etapaAtual === 3" [formGroup]="senhaForm" (proximo)="irParaProximaEtapa()"
-      (anterior)="voltarEtapa()"></app-etapa3-senha>
-
-    <app-etapa4-confirm *ngIf="etapaAtual === 4" [formGroup]="registerForm" (concluir)="onSubmit()"
-      (anterior)="voltarEtapa()"></app-etapa4-confirm>
-
+    <app-etapa4-confirm
+      *ngIf="etapaAtual === 4"
+      [formGroup]="registerForm"
+      (concluir)="onSubmit()"
+      (anterior)="voltarEtapa()"
+    ></app-etapa4-confirm>
   </form>
 </div>

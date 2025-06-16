@@ -1,9 +1,16 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-etapa4-confirm',
-  templateUrl: './etapa4Confirm.component.html'
+  templateUrl: './etapa4Confirm.component.html',
 })
 export class Etapa4ConfirmComponent implements OnChanges {
   @Input() formGroup!: FormGroup;

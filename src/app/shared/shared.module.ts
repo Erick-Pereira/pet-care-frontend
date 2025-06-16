@@ -23,20 +23,15 @@ export class LocalButtonComponent {}
     FooterComponent,
     ResourceCardComponent,
     HighlightCardComponent,
-
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, RouterModule, MatIconModule],
   exports: [
     ItemListComponent,
     NavbarComponent,
     FooterComponent,
     ResourceCardComponent,
     HighlightCardComponent,
-    RouterModule
-  ]
+    RouterModule,
+  ],
 })
 export class SharedModule {}

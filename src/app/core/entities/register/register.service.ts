@@ -12,7 +12,9 @@ export class PerfilService {
   constructor(private http: HttpClient) {}
 
   public register(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.defaultLink}auth/register`, { username, password });
+    return this.http.post(`${this.defaultLink}auth/register`, {
+      username,
+      password,
+    });
   }
-
 }

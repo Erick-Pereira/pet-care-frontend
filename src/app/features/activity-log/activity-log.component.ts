@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 interface DailyActivity {
   id: string;
   date: string;
@@ -12,7 +11,7 @@ interface DailyActivity {
 @Component({
   selector: 'app-activity-log',
   templateUrl: './activity-log.component.html',
-  styleUrls: ['./activity-log.component.scss']
+  styleUrls: ['./activity-log.component.scss'],
 })
 export class ActivityLogComponent implements OnInit {
   activityForm: FormGroup;
@@ -25,7 +24,7 @@ export class ActivityLogComponent implements OnInit {
     this.activityForm = this.fb.group({
       date: [this.formatDate(new Date()), Validators.required],
       type: ['Alimentação', Validators.required],
-      description: ['', [Validators.required, Validators.minLength(3)]]
+      description: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 
@@ -38,10 +37,13 @@ export class ActivityLogComponent implements OnInit {
       const formValue = this.activityForm.value;
 
       const activity: DailyActivity = {
-        id: this.editingIndex !== null ? this.activities[this.editingIndex].id : Date.now().toString(),
+        id:
+          this.editingIndex !== null
+            ? this.activities[this.editingIndex].id
+            : Date.now().toString(),
         date: formValue.date,
         type: formValue.type,
-        description: formValue.description
+        description: formValue.description,
       };
 
       if (this.editingIndex !== null) {
@@ -64,7 +66,7 @@ export class ActivityLogComponent implements OnInit {
     this.activityForm.setValue({
       date: activity.date,
       type: activity.type,
-      description: activity.description
+      description: activity.description,
     });
     this.editingIndex = index;
   }
@@ -75,7 +77,7 @@ export class ActivityLogComponent implements OnInit {
   }
 
   removeActivity(id: string): void {
-    this.activities = this.activities.filter(activity => activity.id !== id);
+    this.activities = this.activities.filter((activity) => activity.id !== id);
     this.saveActivities();
     this.showSuccessMessage('Atividade removida com sucesso!');
   }
@@ -84,7 +86,7 @@ export class ActivityLogComponent implements OnInit {
     this.activityForm.reset({
       date: this.formatDate(new Date()),
       type: 'Alimentação',
-      description: ''
+      description: '',
     });
   }
 
@@ -100,7 +102,9 @@ export class ActivityLogComponent implements OnInit {
     const stored = localStorage.getItem('dailyActivities');
     if (stored) {
       this.activities = JSON.parse(stored);
-      this.activities.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());  // Ordena as atividades pela data
+      this.activities.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      ); // Ordena as atividades pela data
     }
   }
 
@@ -110,11 +114,11 @@ export class ActivityLogComponent implements OnInit {
 
   private showSuccessMessage(message: string): void {
     this.successMessage = message;
-    setTimeout(() => this.successMessage = null, 3000);  // Mensagem desaparece após 3 segundos
+    setTimeout(() => (this.successMessage = null), 3000); // Mensagem desaparece após 3 segundos
   }
 
   private showErrorMessage(message: string): void {
     this.errorMessage = message;
-    setTimeout(() => this.errorMessage = null, 3000);  // Mensagem desaparece após 3 segundos
+    setTimeout(() => (this.errorMessage = null), 3000); // Mensagem desaparece após 3 segundos
   }
 }

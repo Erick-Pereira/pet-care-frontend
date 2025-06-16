@@ -4,5 +4,5 @@ export enum TipoProcedimento {
   Exame = 'exame',
   Medicamento = 'medicamento',
   Cirurgia = 'cirurgia',
-  Outro = 'outro'
+  Outro = 'outro',
 }
