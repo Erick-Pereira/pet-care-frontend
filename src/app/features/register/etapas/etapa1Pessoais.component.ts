@@ -21,9 +21,8 @@ export class Etapa1PessoaisComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.aplicarMascara('cpf');
     this.aplicarMascara('telefone');
-    this.aplicarMascara('cep');
+    
   }
 
   aplicarMascara(campo: string): void {
@@ -94,12 +93,19 @@ export class Etapa1PessoaisComponent implements OnInit {
         );
     }
   }
+  
+  removerMascaraAntesDeEnviar(): void {
+    ['cpf', 'cep'].forEach((campo) => {
+      const valor = this.formGroup.get(campo)?.value || '';
+      const valorSemMascara = valor.replace(/\D/g, '');
+      this.formGroup.get(campo)?.setValue(valorSemMascara);
+    })
+  }
 
   onSubmit(): void {
+    this.removerMascaraAntesDeEnviar();
 
-    this.aplicarMascara('cpf');
     this.aplicarMascara('telefone');
-    this.aplicarMascara('cep');
 
     if (this.formGroup.valid) {
       const payload = this.formGroup.value;
@@ -109,6 +115,7 @@ export class Etapa1PessoaisComponent implements OnInit {
       this.formGroup.markAllAsTouched();
     }
   }
+
 
   campoInvalido(campo: string): boolean {
     const control = this.formGroup.get(campo);

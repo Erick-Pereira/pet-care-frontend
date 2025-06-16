@@ -34,8 +34,8 @@
         <label for="sexo">Gênero</label>
         <select id="sexo" formControlName="sexo" class="form-control">
           <option value="" disabled>Escolha o Gênero</option>
-          <option value=1>Macho</option>
-          <option value=2>Fêmea</option>
+          <option value=0>Macho</option>
+          <option value=1>Fêmea</option>
         </select>
         <div class="text-danger small" *ngIf="campoInvalido('sexo')">Sexo é obrigatório.</div>
       </div>

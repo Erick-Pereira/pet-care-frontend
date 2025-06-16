@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         cpf: ['', [
           Validators.required,
-          Validators.pattern(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/) // 000.000.000-00
+          Validators.pattern(/^\d{11}$/)
         ]],
         telefone: ['', [
           Validators.required,
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
         ]],
         cep: ['', [
           Validators.required,
-          Validators.pattern(/^\d{5}-\d{3}$/) // 00000-000
+          Validators.pattern(/^\d{8}$/)
         ]],
         numero: ['', Validators.required],
         complemento: [''],
