@@ -1,57 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PerfilService } from '@app/core/entities/profile/profile.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent {
-  email = '';
-  password = '';
-  errorMessage = '';
+
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  errorMessage = '';
   label = '';
+  usuario = '';
 
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private cookieService: CookieService
+    private perfilService: PerfilService,
+    private formBuilder: FormBuilder
   ) {}
 
-  onLogin() {
-    if (!this.email || !this.password) {
-      this.errorMessage = 'Preencha email e senha.';
+  ngOnInit(): void {
+    this.loginForm = this.getFormGroup();
+  }
+
+  getFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  public onLogin(): void {
+    if (this.loginForm.invalid) {
+      this.errorMessage = '❌ Preencha todos os campos corretamente.';
       return;
     }
 
-    const loginData = {
-      username: this.email,
-      password: this.password
-    };
+    const formValues = this.loginForm.value;
 
-    this.http.post<any>('https://localhost:7295/api/Auth/login', loginData)
-      .subscribe({
-        next: (response) => {
-          const expiryDate = new Date();
-          expiryDate.setHours(expiryDate.getHours() + 1);
-
-          this.cookieService.set('auth_token', response.token, expiryDate);
-
-          console.log('✅ Login realizado com sucesso!');
-          this.router.navigate(['/perfillist']);
-        },
-        error: (error) => {
-          console.error('Erro ao fazer login', error);
-          this.errorMessage = '❌ Credenciais inválidas ou erro no servidor.';
-        }
-      });
+    // Agora que o método logar retorna um Observable, podemos usar subscribe
+    this.perfilService.logar(formValues.email, formValues.password).subscribe(
+      (response) => {
+        console.log('Login realizado com sucesso:', response);
+        this.router.navigate(['/pet-profile/1']);
+      },
+      (error) => {
+        this.errorMessage = '❌ Ocorreu um erro ao tentar fazer o login. Tente novamente!';
+        console.error('Erro de login:', error);
+      }
+    );
   }
 
-  irParaRegistro() {
+  irParaRegistro(): void {
     this.router.navigate(['/register']);
+  }
+
+  public login(): void {
+    const formValues = this.loginForm.getRawValue();
+    console.log(formValues);
   }
 }
 
