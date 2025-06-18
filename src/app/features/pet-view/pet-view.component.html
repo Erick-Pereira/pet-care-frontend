@@ -1,0 +1,18 @@
+<div class="container mt-4" *ngIf="pet">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title mb-4">{{ pet.name }}</h3>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <p><strong>Espécie ID:</strong> {{ pet.specieId }}</p>
+          <p><strong>Raça ID:</strong> {{ pet.breedId }}</p>
+          <p><strong>Cor:</strong> {{ pet.color }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Data de Nascimento:</strong> {{ pet.approximateBirthDate | date }}</p>
+          <p><strong>Castrado:</strong> {{ pet.isCastrated ? 'Sim' : 'Não' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,7 @@ import { PetDocumentComponent } from './features/pet-documents/pet-document/pet-
 import { PetPerfilComponent } from './features/pet-perfil/pet-perfil.component';
 import { PetPerfilEditComponent } from './features/pet-perfil-edit/pet-perfil-edit.component';
 import { VaccinationCardComponent } from './features/vaccination-card/vaccination-card.component';
+import { PetViewComponent } from './features/pet-view/pet-view.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { VaccinationCardComponent } from './features/vaccination-card/vaccinatio
     PetPerfilEditComponent,
     PetRgComponent,
     VaccinationCardComponent,
+    PetViewComponent,
   ],
   imports: [
     BrowserModule,
