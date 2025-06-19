@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'pet-rg', component: PetRgComponent },
+  { path: 'pet-rg/:id', component: PetRgComponent },
   { path: 'pet-perfil-edit/:id', component: PetPerfilEditComponent },
   { path: 'pet-profile/:id', component: PetPerfilComponent },
   { path: 'pet-view/:id', component: PetViewComponent }, // <- Rota adicionada

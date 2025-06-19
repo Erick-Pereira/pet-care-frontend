@@ -1,20 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PetService } from '../../services/pet.service';
+import * as html2pdf from 'html2pdf.js';
 
-declare const require: any;
-const html2pdf = require('html2pdf.js');
-
-interface Pet {
-  nome: string;
-  dataNascimento: string;
-  raca: string;
-  aquisicao: string;
-  possuiChip: boolean;
-  codigoChip: string;
-  genero: string;
-  especie: string;
-  cor: string;
-  castrado: boolean;
-}
 
 interface Tutor {
   nome: string;
@@ -30,33 +18,35 @@ interface Tutor {
   styleUrls: ['./pet-rg.component.scss'],
 })
 export class PetRgComponent implements OnInit {
-  pet!: Pet;
-  tutor!: Tutor;
+  pet: any;
   petImageUrl!: string;
 
+  tutor: Tutor = {
+    nome: '',
+    cpf: '',
+    telefone: '',
+    email: '',
+    endereco: ''
+  };
+
+  constructor(
+    private route: ActivatedRoute,
+    private petService: PetService
+  ) {}
+
   ngOnInit(): void {
-    this.pet = {
-      nome: 'Sofi',
-      dataNascimento: '2021-05-12',
-      raca: 'Poodle',
-      aquisicao: 'Adoção',
-      possuiChip: true,
-      codigoChip: '1234567890',
-      genero: 'Fêmea',
-      especie: 'Canina',
-      cor: 'Branca',
-      castrado: true,
-    };
+    const petId = this.route.snapshot.paramMap.get('id');
+    if (petId) {
+      this.petService.getPetById(petId).subscribe(response => {
+        this.pet = response.item;
 
-    this.tutor = {
-      nome: 'João Silva',
-      cpf: '123.456.789-00',
-      telefone: '(11) 98765-4321',
-      email: 'joao.silva@email.com',
-      endereco: 'Rua das Flores, 123 - São Paulo/SP',
-    };
+        // Define imagem de perfil ou uma padrão
+        this.petImageUrl = this.pet.profilePhoto || 'assets/default-pet.png';
 
-    this.petImageUrl = 'assets/Foto perfil Sofi.JPG';
+        // ⚠️ Aqui você pode futuramente carregar o tutor com base no this.pet.ownerId
+        // Por enquanto, mantemos o tutor com dados em branco
+      });
+    }
   }
 
   imprimir(): void {

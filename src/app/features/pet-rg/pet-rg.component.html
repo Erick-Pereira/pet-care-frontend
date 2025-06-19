@@ -1,51 +1,46 @@
 <div id="conteudo-pdf">
-  <div
-    class="container border rounded p-4"
-    style="max-width: 900px; margin: 2rem auto"
-  >
+  <div class="container border rounded p-4" style="max-width: 900px; margin: 2rem auto">
     <div class="row g-3 mb-4">
       <!-- Foto do Pet -->
-      <div
-        class="col-12 col-md-4 d-flex justify-content-center align-items-center"
-      >
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <img
-          [src]="petImageUrl"
+          [src]="petImageUrl || 'assets/default-pet.png'"
           alt="Foto do Pet"
           class="img-fluid rounded-circle mb-3"
           style="max-width: 180px; max-height: 180px; object-fit: cover"
         />
       </div>
 
-      <!-- Dados do Pet -->
+      <!-- Dados do Pet com base no backend -->
       <div class="col-12 col-md-8">
-        <div class="row g-3">
-          <div class="col-12">
-            <h2>Dados do Pet</h2>
-            <p><strong>Nome:</strong> {{ pet.nome }}</p>
-            <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
-            <p><strong>Raça:</strong> {{ pet.raca }}</p>
-            <p><strong>Forma de aquisição:</strong> {{ pet.aquisicao }}</p>
-            <p>
-              <strong>Possui Chip:</strong> {{ pet.possuiChip ? 'Sim' : 'Não' }}
-            </p>
-            <p *ngIf="pet.possuiChip">
-              <strong>Código do Chip:</strong> {{ pet.codigoChip }}
-            </p>
-            <p><strong>Sexo:</strong> {{ pet.genero }}</p>
-            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
-            <p><strong>Cor:</strong> {{ pet.cor }}</p>
-            <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
+        <div class="card-body">
+          <h3 class="card-title mb-4">Dados do Pet</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <p><strong>Nome:</strong> {{ pet.name }}</p>
+              <p><strong>Espécie ID:</strong> {{ pet.specieId }}</p>
+              <p><strong>Raça ID:</strong> {{ pet.breedId }}</p>
+              <p><strong>Cor:</strong> {{ pet.color }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Data de Nascimento:</strong> {{ pet.approximateBirthDate | date }}</p>
+              <p><strong>Forma de Aquisição:</strong> {{ pet.acquisition }}</p>
+              <p><strong>Possui Chip:</strong> {{ pet.isChipped ? 'Sim' : 'Não' }}</p>
+              <p *ngIf="pet.isChipped">
+                <strong>Número do Chip:</strong> {{ pet.chipNumber }}
+              </p>
+              <p><strong>Castrado:</strong> {{ pet.isCastrated ? 'Sim' : 'Não' }}</p>
+              <p><strong>Sexo:</strong> {{ pet.gender === 1 ? 'Macho' : 'Fêmea' }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Dados do Tutor com QR Code -->
+    <!-- Dados do Tutor com QR Code (sem alterações) -->
     <div class="row g-3">
       <!-- Imagem QR Code -->
-      <div
-        class="col-12 col-md-4 d-flex justify-content-center align-items-center"
-      >
+      <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <img
           src="assets/qr code.png"
           alt="QR Code"
