@@ -1,79 +1,37 @@
 <div class="login-container container py-5">
   <h1 class="text-center text-success mb-4">Login</h1>
   <form class="w-50 mx-auto" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <!-- Campo de email -->
-    <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        required
-      />
-      <!-- Mensagens de erro para o campo de email -->
-      <div
-        *ngIf="
-          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
-        "
-        class="text-danger"
-      >
-        <small *ngIf="loginForm.get('email')?.hasError('required')"
-          >E-mail é obrigatório.</small
-        >
-        <small *ngIf="loginForm.get('email')?.hasError('email')"
-          >E-mail inválido.</small
-        >
+    <ng-container *ngFor="let field of formFields">
+      <div class="mb-3" *ngIf="field.type !== 'button'">
+        <label [for]="field.name" class="form-label">{{ field.label }}</label>
+        <input
+          [type]="field.type"
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="form-control"
+          [attr.placeholder]="field.placeholder"
+          [required]="field.required"
+        />
+        <div *ngIf="field.errorMessage" class="text-danger">
+          <small>{{ field.errorMessage }}</small>
+        </div>
       </div>
-    </div>
-
-    <!-- Campo de senha -->
-    <div class="mb-4">
-      <label for="password" class="form-label">Senha:</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        required
-      />
-      <!-- Mensagens de erro para o campo de senha -->
-      <div
-        *ngIf="
-          loginForm.get('password')?.invalid &&
-          loginForm.get('password')?.touched
-        "
-        class="text-danger"
-      >
-        <small *ngIf="loginForm.get('password')?.hasError('required')"
-          >Senha é obrigatória.</small
-        >
-        <small *ngIf="loginForm.get('password')?.hasError('minlength')"
-          >Senha deve ter pelo menos 6 caracteres.</small
-        >
-      </div>
-    </div>
-
-    <!-- Botão de login -->
+    </ng-container>
     <button
       type="submit"
-      class="btn btn-success w-100"
+      class="btn btn-success w-100 mb-2"
       [disabled]="loginForm.invalid"
     >
       Entrar
     </button>
-
-    <!-- Link para registro -->
     <button
-      (click)="irParaRegistro()"
       type="button"
-      class="btn btn-link w-100 mt-2"
+      class="btn btn-outline-success w-100"
+      (click)="irParaRegistro()"
     >
-      Não tem conta? Cadastre-se
+      Criar conta
     </button>
-
-    <!-- Mensagem de erro -->
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    <div *ngIf="errorMessage" class="text-danger text-center mt-3">
       {{ errorMessage }}
     </div>
   </form>

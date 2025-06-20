@@ -1,0 +1,73 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <ng-container *ngFor="let field of formFields">
+      <div
+        class="form-group col-md-6"
+        *ngIf="
+          field.type !== 'hidden' &&
+          (field.name !== 'numeroChip' || formGroup.get('chipado')?.value)
+        "
+      >
+        <label [for]="field.name">{{ field.label }}</label>
+        <ng-container [ngSwitch]="field.type">
+          <input
+            *ngSwitchCase="'text'"
+            [id]="field.name"
+            type="text"
+            [formControlName]="field.name"
+            class="form-control"
+            [attr.placeholder]="field.placeholder"
+          />
+          <input
+            *ngSwitchCase="'date'"
+            [id]="field.name"
+            type="date"
+            [formControlName]="field.name"
+            class="form-control"
+          />
+          <input
+            *ngSwitchCase="'checkbox'"
+            [id]="field.name"
+            type="checkbox"
+            [formControlName]="field.name"
+            class="form-check-input"
+          />
+          <ng-container *ngSwitchCase="'select'">
+            <select
+              [id]="field.name"
+              [formControlName]="field.name"
+              class="form-control"
+              (change)="onSelectChange(field, $event)"
+            >
+              <option value="" disabled selected>
+                {{ field.placeholder }}
+              </option>
+              <option *ngFor="let opt of getOptions(field)" [value]="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </ng-container>
+        </ng-container>
+        <div
+          class="text-danger small"
+          *ngIf="
+            formGroup.get(field.name)?.touched &&
+            formGroup.get(field.name)?.invalid
+          "
+        >
+          <small *ngIf="formGroup.get(field.name)?.hasError('required')"
+            >{{ field.label }} é obrigatório.</small
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="botoes-navegacao mt-4 d-flex justify-content-between">
+    <button type="button" class="btn btn-secondary" (click)="anterior.emit()">
+      Anterior
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()">
+      Próximo
+    </button>
+  </div>
+</form>

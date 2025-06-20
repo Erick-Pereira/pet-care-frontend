@@ -5,7 +5,6 @@ import { ServicesComponent } from './services/services.component';
 import { AboutComponent } from './features/about/about.component';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
-import { RegisterComponent } from './features/register/register.component';
 import { AuthGuard } from './auth.guard';
 import { PerfilComponent } from './features/perfil/perfil.component';
 import { PerfilListComponent } from './features/pet-profile/perfil-list/perfil-list.component';
@@ -22,20 +21,54 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'vaccination-card', component: VaccinationCardComponent, canActivate: [AuthGuard] },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'vaccination-card',
+    component: VaccinationCardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./features/register/register-feature.module').then(
+        (m) => m.RegisterFeatureModule,
+      ),
+  },
   { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'profile-list', component: PerfilListComponent, canActivate: [AuthGuard]},
-  { path: 'animal-public', component: AnimalPublicComponent, canActivate: [AuthGuard] },
-  { path: 'vet-history', component: VetHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'animal-history', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
-  { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
-  { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile-list',
+    component: PerfilListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-public',
+    component: AnimalPublicComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'vet-history',
+    component: VetHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'animal-history',
+    component: AnimalHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'activity-log',
+    component: ActivityLogComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'pet-documents',
+    component: PetDocumentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'pet-profile/:id', component: PetPerfilComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

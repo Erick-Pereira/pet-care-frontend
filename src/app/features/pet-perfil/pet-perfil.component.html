@@ -1,47 +1,58 @@
 <div class="container">
+  <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
+    <div
+      style="
+        flex: 0 0 29.924%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <img
+        [src]="petImageUrl"
+        alt="Foto do Pet"
+        class="foto-pet"
+        style="max-width: 100%; border-radius: 8px"
+      />
+    </div>
 
-    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+    <div style="flex: 0 0 70%">
+      <div style="display: flex; justify-content: space-between; gap: 1rem">
+        <div style="flex: 0 0 50%">
+          <h2>Dados do Pet</h2>
+          <p><strong>Nome:</strong> {{ pet.nome }}</p>
+          <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
+          <p><strong>Raça:</strong> {{ pet.raca }}</p>
+          <p><strong>Forma de aquisição:</strong> {{ pet.aquisicao }}</p>
+          <p>
+            <strong>Possui Chip:</strong> {{ pet.possuiChip ? 'Sim' : 'Não' }}
+          </p>
+          <p *ngIf="pet.possuiChip">
+            <strong>Código do Chip:</strong> {{ pet.codigoChip }}
+          </p>
+          <p><strong>Sexo:</strong> {{ pet.genero }}</p>
+          <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+          <p><strong>Cor:</strong> {{ pet.cor }}</p>
+          <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
+        </div>
 
-      <div style="flex: 0 0 29.924%; display: flex; justify-content: center; align-items: center;">
-        <img [src]="petImageUrl" alt="Foto do Pet" class="foto-pet" style="max-width: 100%; border-radius: 8px;" />
-      </div>
-
-      <div style="flex: 0 0 70%;">
-        <div style="display: flex; justify-content: space-between; gap: 1rem;">
-
-          <div style="flex: 0 0 50%;">
-            <h2>Dados do Pet</h2>
-            <p><strong>Nome:</strong> {{ pet.nome }}</p>
-            <p><strong>Data de nascimento:</strong> {{ pet.dataNascimento }}</p>
-            <p><strong>Raça:</strong> {{ pet.raca }}</p>
-            <p><strong>Forma de aquisição:</strong> {{ pet.aquisicao }}</p>
-            <p><strong>Possui Chip:</strong> {{ pet.possuiChip ? 'Sim' : 'Não' }}</p>
-            <p *ngIf="pet.possuiChip"><strong>Código do Chip:</strong> {{ pet.codigoChip }}</p>
-            <p><strong>Sexo:</strong> {{ pet.genero }}</p>
-            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
-            <p><strong>Cor:</strong> {{ pet.cor }}</p>
-            <p><strong>Castrado:</strong> {{ pet.castrado ? 'Sim' : 'Não' }}</p>
-          </div>
-
-          <div style="flex: 0 0 50%;">
-            <h2>Dados do Tutor</h2>
-            <p><strong>Tutor:</strong> {{ tutor.nome }}</p>
-            <p><strong>CPF:</strong> {{ tutor.cpf }}</p>
-            <p><strong>Tel:</strong> {{ tutor.telefone }}</p>
-            <p><strong>Email:</strong> {{ tutor.email }}</p>
-            <p><strong>Endereço:</strong> {{ tutor.endereco }}</p>
-          </div>
-
+        <div style="flex: 0 0 50%">
+          <h2>Dados do Tutor</h2>
+          <p><strong>Tutor:</strong> {{ tutor.nome }}</p>
+          <p><strong>CPF:</strong> {{ tutor.cpf }}</p>
+          <p><strong>Tel:</strong> {{ tutor.telefone }}</p>
+          <p><strong>Email:</strong> {{ tutor.email }}</p>
+          <p><strong>Endereço:</strong> {{ tutor.endereco }}</p>
         </div>
       </div>
     </div>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-      <button>Editar</button>
-      <button>Visualizar QR Code</button>
-      <button>Consultar histórico médico</button>
-      <button>Documentos pets</button>
-      <button class="button-excluir">Excluir Pet</button>
-    </div>
-
   </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem">
+    <button>Editar</button>
+    <button>Visualizar QR Code</button>
+    <button>Consultar histórico médico</button>
+    <button>Documentos pets</button>
+    <button class="button-excluir">Excluir Pet</button>
+  </div>
+</div>
