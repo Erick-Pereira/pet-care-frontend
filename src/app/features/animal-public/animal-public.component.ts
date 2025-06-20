@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-animal-public',
   templateUrl: './animal-public.component.html',
-  styleUrls: ['./animal-public.component.scss']
+  styleUrls: ['./animal-public.component.scss'],
 })
 export class AnimalPublicComponent implements OnInit {
   pet = {
@@ -12,20 +12,20 @@ export class AnimalPublicComponent implements OnInit {
     especie: 'Cachorro',
     raca: 'Labrador',
     idade: 3,
-    
+
     tutor: {
       nome: 'João Silva',
-      telefone: '(11) 98765-4321'
+      telefone: '(11) 98765-4321',
     },
     historicoMedico: [
       { data: '2023-01-01', descricao: 'Vacinação contra raiva' },
-      { data: '2023-03-15', descricao: 'Consulta de rotina' }
+      { data: '2023-03-15', descricao: 'Consulta de rotina' },
     ],
 
     mostrarNome: true,
     mostrarTutor: false,
     mostrarTelefone: false,
-    mostrarHistorico: false
+    mostrarHistorico: false,
   };
 
   qrCodeUrl = 'https://petdocs.com/pet/rex';
@@ -37,7 +37,7 @@ export class AnimalPublicComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.codigoForm = this.fb.group({
-      codigo: ['', Validators.required]
+      codigo: ['', Validators.required],
     });
   }
 

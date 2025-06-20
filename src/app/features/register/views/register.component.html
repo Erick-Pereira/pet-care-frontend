@@ -1,0 +1,42 @@
+<div class="register-container">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="register-form"
+  >
+    <app-dados-pessoais
+      *ngIf="etapaAtual === 1"
+      [formGroup]="dadosPessoaisForm"
+      [formFields]="dadosPessoaisFields"
+      (proximo)="irParaProximaEtapa()"
+    ></app-dados-pessoais>
+
+    <app-dados-pet
+      *ngIf="etapaAtual === 2"
+      [formGroup]="dadosPetForm"
+      [formFields]="dadosPetFields"
+      (proximo)="irParaProximaEtapa()"
+      (anterior)="voltarEtapa()"
+    ></app-dados-pet>
+
+    <app-senha
+      *ngIf="etapaAtual === 3"
+      [formGroup]="senhaForm"
+      [formFields]="senhaFields"
+      (proximo)="irParaProximaEtapa()"
+      (anterior)="voltarEtapa()"
+    ></app-senha>
+
+    <app-confirmacao
+      *ngIf="etapaAtual === 4"
+      [formGroup]="registerForm"
+      [formFields]="dadosPetFields"
+      [dadosPessoaisFields]="dadosPessoaisFields"
+      [dadosPetFields]="dadosPetFields"
+      [speciesOptions]="speciesOptions"
+      [breedOptions]="breedOptions"
+      (anterior)="voltarEtapa()"
+      (concluir)="onSubmit()"
+    ></app-confirmacao>
+  </form>
+</div>

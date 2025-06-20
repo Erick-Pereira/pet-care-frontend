@@ -1,0 +1,62 @@
+<div class="resumo-container">
+  <div class="form-container" *ngIf="formGroup" [formGroup]="formGroup">
+    <h2>Confirme suas informações:</h2>
+
+    <!-- Dados Pessoais -->
+    <section>
+      <h3>Dados Pessoais</h3>
+      <div class="row">
+        <ng-container *ngFor="let field of dadosPessoaisFields">
+          <div class="col-md-6 mb-2">
+            <strong>{{ field.label }}:</strong>
+            <span>{{ dadosPessoaisForm.get(field.name)?.value || '-' }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+
+    <!-- Dados do Pet -->
+    <section>
+      <h3>Dados do Pet</h3>
+      <div class="row">
+        <ng-container *ngFor="let field of dadosPetFields">
+          <div class="col-md-6 mb-2">
+            <strong>{{ field.label }}:</strong>
+            <ng-container [ngSwitch]="field.name">
+              <span *ngSwitchCase="'castrado'">{{
+                dadosPetForm.get('castrado')?.value ? 'Sim' : 'Não'
+              }}</span>
+              <span *ngSwitchCase="'chipado'">{{
+                dadosPetForm.get('chipado')?.value ? 'Sim' : 'Não'
+              }}</span>
+              <span *ngSwitchCase="'sexo'">{{
+                getGeneroLabel(dadosPetForm.get('sexo')?.value)
+              }}</span>
+              <span *ngSwitchCase="'especie'">{{ getEspecieNome() }}</span>
+              <span *ngSwitchCase="'raca'">{{ getRacaNome() }}</span>
+              <span *ngSwitchCase="'dataNascimento'">{{
+                dadosPetForm.get('dataNascimento')?.value | date
+              }}</span>
+              <ng-container *ngSwitchCase="'numeroChip'">
+                <span *ngIf="dadosPetForm.get('chipado')?.value">{{
+                  dadosPetForm.get('numeroChip')?.value
+                }}</span>
+              </ng-container>
+              <span *ngSwitchDefault>{{
+                dadosPetForm.get(field.name)?.value || '-'
+              }}</span>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+    <div class="botoes-navegacao mt-4 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="voltar()">
+        Anterior
+      </button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">
+        Concluir
+      </button>
+    </div>
+  </div>
+</div>

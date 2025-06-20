@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 interface ViaCEPResponse {
@@ -11,21 +11,23 @@ interface ViaCEPResponse {
 }
 
 @Component({
-  selector: 'app-etapa1-pessoais',
-  templateUrl: './etapa1Pessoais.component.html',
+  selector: 'app-dados-pessoais',
+  templateUrl: './dados-pessoais.component.html',
 })
-export class Etapa1PessoaisComponent implements OnInit {
+export class DadosPessoaisComponent {
   @Input() formGroup!: FormGroup;
+  @Input() formFields!: any[];
   @Output() proximo = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.aplicarMascara('cpf');
-    this.aplicarMascara('telefone');
-    this.aplicarMascara('celular');
-    this.aplicarMascara('cep');
-  }
+  errorMessages: Record<string, string> = {
+    required: 'é obrigatório.',
+    cpfInvalido: 'CPF inválido. Use o formato 000.000.000-00.',
+    telefoneInvalido: 'Telefone inválido. Use o formato (11) 91234-5678.',
+    cepInvalido: 'CEP inválido. Use o formato 00000-000.',
+    pattern: 'Formato inválido.',
+  };
 
   aplicarMascara(campo: string): void {
     const valor = this.formGroup.get(campo)?.value || '';
@@ -96,17 +98,7 @@ export class Etapa1PessoaisComponent implements OnInit {
     }
   }
 
-  removerMascaraAntesDeEnviar(): void {
-    ['cpf', 'telefone', 'cep'].forEach((campo) => {
-      const valor = this.formGroup.get(campo)?.value || '';
-      const valorSemMascara = valor.replace(/\D/g, '');
-      this.formGroup.get(campo)?.setValue(valorSemMascara);
-    });
-  }
-
   onSubmit(): void {
-    this.removerMascaraAntesDeEnviar();
-
     if (this.formGroup.valid) {
       this.proximo.emit();
     } else {
@@ -139,5 +131,45 @@ export class Etapa1PessoaisComponent implements OnInit {
       return control.invalid && (control.touched || control.dirty);
     }
     return false;
+  }
+
+  getOptions(field: any) {
+    if (field && field.type === 'select' && field.options) {
+      return typeof field.options === 'function'
+        ? field.options()
+        : field.options;
+    }
+    return [];
+  }
+
+  onCepInput(): void {
+    const cep = this.formGroup.get('cep')?.value;
+    if (cep && cep.replace(/\D/g, '').length === 8) {
+      this.buscarEnderecoViaCEP();
+    }
+  }
+
+  getErrorMessage(field: any): string | null {
+    const control = this.formGroup.get(field.name);
+    if (!control || !control.errors) return null;
+    if (control.hasError('required')) {
+      return `${field.label} ${this.errorMessages['required']}`;
+    }
+    if (control.hasError('pattern') && field.maskErrorKey) {
+      return (
+        this.errorMessages[field.maskErrorKey] || this.errorMessages['pattern']
+      );
+    }
+    return null;
+  }
+
+  onInputMaskAndCep(fieldName: string): void {
+    this.aplicarMascara(fieldName);
+    if (fieldName === 'cep') {
+      const cep = this.formGroup.get('cep')?.value;
+      if (cep && cep.replace(/\D/g, '').length === 8) {
+        this.buscarEnderecoViaCEP();
+      }
+    }
   }
 }

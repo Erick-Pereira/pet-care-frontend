@@ -1,0 +1,57 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="pet-form-container">
+    <h2 class="centralizado">Senha de Acesso</h2>
+    <div class="row">
+      <ng-container *ngFor="let field of formFields">
+        <div class="form-group col-md-6">
+          <label [for]="field.name">{{ field.label }}</label>
+          <div class="input-group">
+            <input
+              [id]="field.name"
+              [type]="getInputType(field)"
+              [formControlName]="field.name"
+              class="form-control"
+              [attr.placeholder]="field.placeholder"
+              autocomplete="new-password"
+            />
+            <div class="input-group-append" *ngIf="field.type === 'password'">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="togglePasswordVisibility(field.name)"
+              >
+                <i class="fa" [ngClass]="getEyeIcon(field.name)"></i>
+              </button>
+            </div>
+          </div>
+          <div
+            class="text-danger small"
+            *ngIf="
+              formGroup.get(field.name)?.touched &&
+              formGroup.get(field.name)?.invalid
+            "
+          >
+            <small *ngIf="formGroup.get(field.name)?.hasError('required')"
+              >{{ field.label }} é obrigatório.</small
+            >
+          </div>
+          <div
+            class="text-danger small"
+            *ngIf="field.name === 'confirmarSenha' && senhasNaoCoincidem"
+          >
+            As senhas não coincidem.
+          </div>
+          <div class="text-danger small" *ngIf="senhaDiferenteMsg">
+            {{ senhaDiferenteMsg }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="botoes-navegacao mt-4 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="voltar()">
+        Anterior
+      </button>
+      <button type="submit" class="btn btn-primary">Próximo</button>
+    </div>
+  </div>
+</form>

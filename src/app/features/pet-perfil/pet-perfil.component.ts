@@ -24,17 +24,15 @@ interface Tutor {
 @Component({
   selector: 'app-pet-perfil',
   templateUrl: './pet-perfil.component.html',
-  styleUrls: ['./pet-perfil.component.scss']
+  styleUrls: ['./pet-perfil.component.scss'],
 })
 export class PetPerfilComponent implements OnInit {
-
   pet!: Pet;
   tutor!: Tutor;
   petImageUrl!: string;
   mostrarPopup!: boolean;
 
   ngOnInit(): void {
-
     this.pet = {
       nome: '',
       dataNascimento: '',
@@ -45,7 +43,7 @@ export class PetPerfilComponent implements OnInit {
       genero: '',
       especie: '',
       cor: '',
-      castrado: false
+      castrado: false,
     };
 
     this.tutor = {
@@ -53,12 +51,11 @@ export class PetPerfilComponent implements OnInit {
       cpf: '',
       telefone: '',
       email: '',
-      endereco: ''
+      endereco: '',
     };
 
     this.petImageUrl = '';
 
     this.mostrarPopup = false;
-
   }
 }
