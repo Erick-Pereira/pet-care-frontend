@@ -4,7 +4,7 @@
       <!-- Foto do Pet -->
       <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <img
-          [src]="petImageUrl || 'assets/default-pet.png'"
+          [src]="pet.profilePhoto || petImageUrl || 'assets/default-pet.png'"
           alt="Foto do Pet"
           class="img-fluid rounded-circle mb-3"
           style="max-width: 180px; max-height: 180px; object-fit: cover"
@@ -18,8 +18,8 @@
           <div class="row g-3">
             <div class="col-md-6">
               <p><strong>Nome:</strong> {{ pet.name }}</p>
-              <p><strong>Espécie ID:</strong> {{ pet.specieId }}</p>
-              <p><strong>Raça ID:</strong> {{ pet.breedId }}</p>
+              <p><strong>Espécie:</strong> {{ pet.specie?.name }}</p>
+              <p><strong>Raça:</strong> {{ pet.breed?.name }}</p>
               <p><strong>Cor:</strong> {{ pet.color }}</p>
             </div>
             <div class="col-md-6">
@@ -27,7 +27,7 @@
               <p><strong>Forma de Aquisição:</strong> {{ pet.acquisition }}</p>
               <p><strong>Possui Chip:</strong> {{ pet.isChipped ? 'Sim' : 'Não' }}</p>
               <p *ngIf="pet.isChipped">
-                <strong>Número do Chip:</strong> {{ pet.chipNumber }}
+                <strong>Número do Chip:</strong> {{ pet.chipNumber || 'Não informado' }}
               </p>
               <p><strong>Castrado:</strong> {{ pet.isCastrated ? 'Sim' : 'Não' }}</p>
               <p><strong>Sexo:</strong> {{ pet.gender === 1 ? 'Macho' : 'Fêmea' }}</p>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- Dados do Tutor com QR Code (sem alterações) -->
+    <!-- Dados do Tutor com QR Code -->
     <div class="row g-3">
       <!-- Imagem QR Code -->
       <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
@@ -49,14 +49,15 @@
         />
       </div>
 
-      <!-- Dados do Tutor -->
+      <!-- Dados do Tutor do backend -->
       <div class="col-12 col-md-8">
         <h2>Dados do Tutor</h2>
-        <p><strong>Nome:</strong> {{ tutor.nome }}</p>
-        <p><strong>CPF:</strong> {{ tutor.cpf }}</p>
-        <p><strong>Telefone:</strong> {{ tutor.telefone }}</p>
-        <p><strong>Email:</strong> {{ tutor.email }}</p>
-        <p><strong>Endereço:</strong> {{ tutor.endereco }}</p>
+        <p><strong>Nome:</strong> {{ pet.owner?.fullName }}</p>
+        <p><strong>CPF:</strong> {{ pet.owner?.cpf }}</p>
+        <p><strong>Telefone:</strong> {{ pet.owner?.phoneNumber }}</p>
+        <p><strong>Email:</strong> {{ pet.owner?.email }}</p>
+        <!-- Endereço: opcional, pois vem como `null` -->
+        <p *ngIf="pet.owner?.address"><strong>Endereço:</strong> {{ pet.owner.address }}</p>
       </div>
     </div>
   </div>
