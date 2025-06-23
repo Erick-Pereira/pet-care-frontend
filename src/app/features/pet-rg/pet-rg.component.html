@@ -4,7 +4,7 @@
       <!-- Foto do Pet -->
       <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
         <img
-          [src]="pet.profilePhoto || petImageUrl || 'assets/default-pet.png'"
+          [src]="'https://localhost:7295/api/Photo/pet/' + pet.id + '/profile'"
           alt="Foto do Pet"
           class="img-fluid rounded-circle mb-3"
           style="max-width: 180px; max-height: 180px; object-fit: cover"

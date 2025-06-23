@@ -30,14 +30,14 @@ const routes: Routes = [
   { path: 'pet-perfil-edit/:id', component: PetPerfilEditComponent },
   { path: 'pet-profile/:id', component: PetPerfilComponent },
   { path: 'pet-view/:id', component: PetViewComponent }, // <- Rota adicionada
-  // { path: 'vaccination-card', component: VaccinationCardComponent, canActivate: [AuthGuard] },
-  // { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
-  // { path: 'profile-list', component: PerfilListComponent, canActivate: [AuthGuard] },
-  // { path: 'animal-public', component: AnimalPublicComponent, canActivate: [AuthGuard] },
-  // { path: 'vet-history', component: VetHistoryComponent, canActivate: [AuthGuard] },
-  // { path: 'animal-history', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
-  // { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
-  // { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
+  { path: 'vaccination-card', component: VaccinationCardComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'profile-list', component: PerfilListComponent, canActivate: [AuthGuard] },
+  { path: 'animal-public', component: AnimalPublicComponent, canActivate: [AuthGuard] },
+  { path: 'vet-history', component: VetHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'animal-history', component: AnimalHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'activity-log', component: ActivityLogComponent, canActivate: [AuthGuard] },
+  { path: 'pet-documents', component: PetDocumentComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 
