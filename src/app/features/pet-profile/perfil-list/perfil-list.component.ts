@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http'; // Import HTTP client
 import { Perfil } from '@app/core/entities/profile/profile.model';
 
 @Component({
@@ -18,10 +19,15 @@ export class PerfilListComponent implements OnInit {
   hoverMap: Record<string, boolean> = {};
   profileForm!: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private http: HttpClient // Inject HTTP client
+  ) {}
 
   ngOnInit(): void {
     this.profileForm = this.getFormGroup();
+    this.carregarPerfis(); // Carrega os perfis ao iniciar o componente
   }
 
   getFormGroup(): FormGroup {
@@ -38,6 +44,50 @@ export class PerfilListComponent implements OnInit {
       isChipped: [false, [Validators.required]],
       chipNumber: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  carregarPerfis(): void {
+    const userId = this.obterIdUsuarioDoCookie();
+    console.log('ID do usuário:', userId);
+
+    this.http.get<any>('https://localhost:7296/api/Pet').subscribe(
+      (response) => {
+        if (response.success) {
+          this.profiles = response.data.filter((pet: any) => pet.ownerId === userId);
+          console.log('Perfis carregados:', this.profiles);
+        } else {
+          console.error('Erro ao carregar os perfis:', response.message);
+        }
+      },
+      (error) => {
+        console.error('Erro na requisição:', error);
+      }
+    );
+  }
+
+  obterIdUsuarioDoCookie(): string {
+    const cookies = document.cookie.split(';');
+    const tokenCookie = cookies.find((cookie) => cookie.trim().startsWith('auth_token='));
+    if (!tokenCookie) {
+      console.error('Token não encontrado nos cookies.');
+      return '';
+    }
+
+    const token = tokenCookie.split('=')[1];
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Payload decodificado:', payload);
+
+      if (!payload.nameid) {
+        console.error('Token inválido: nameid não encontrado no payload.');
+        return '';
+      }
+
+      return payload.nameid; // Retorna o ID do usuário
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      return '';
+    }
   }
 
   // 🔹 Métodos de Evento

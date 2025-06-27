@@ -14,16 +14,9 @@
       <div
         class="card h-100 rounded-3"
         (click)="onSelecionar(perfil.id)"
-        (keydown.enter)="onSelecionar(perfil.id)"
         tabindex="0"
         role="button"
         aria-pressed="false"
-        (mouseenter)="hoverMap[perfil.id] = true"
-        (mouseleave)="hoverMap[perfil.id] = false"
-        [ngStyle]="{
-          transform: hoverMap[perfil.id] ? 'scale(1.02)' : ''
-        }"
-        style="width: 100%; transition: transform 0.3s ease"
       >
         <img
           [src]="perfil.imageUrl || './assets/pet profile pic.png'"
@@ -31,8 +24,8 @@
           alt="Imagem do perfil"
           style="max-height: 250px; object-fit: cover; width: 100%"
         />
+        <div class="text-center fw-bold mt-1">{{ perfil.name }}</div>
       </div>
-      <div class="text-center fw-bold mt-1">{{ perfil.name }}</div>
     </div>
   </div>
 </div>

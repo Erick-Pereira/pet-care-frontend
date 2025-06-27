@@ -36,8 +36,7 @@ const routes: Routes = [
   { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard] },
   {
     path: 'profile-list',
-    component: PerfilListComponent,
-    canActivate: [AuthGuard],
+    component: PerfilListComponent
   },
   {
     path: 'animal-public',
